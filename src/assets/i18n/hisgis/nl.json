@@ -1,9 +1,9 @@
 {
   "general": {
-    "site-holder-full": "Regionaal Archief Zuid-Utrecht",
-    "site-holder-short": "RAZU",
-    "title": "E-depot RAZU",
-    "page-title": "HISGIS",
+    "site-holder-full": "Digitaal Archief",
+    "site-holder-short": "Archief",
+    "title": "HisGIS",
+    "page-title": "Home",
     "colofon-title": "Colofon",
     "and": "en",
     "back": "Terug",
@@ -11,11 +11,11 @@
     "example": "Voorbeeld"
   },
   "homescreen": {
-    "flavour-text-part-1": "Hier kunt u zoeken in de gecombineerde archieven van de gemeenten van",
-    "flavour-text-part-2-emphasis": "Bunnik, Houten, Rhenen, Utrechtse Heuvelrug, Vijfheerenlanden en Wijk bij Duurstede",
+    "flavour-text-part-1": "Hier kunt u zoeken in de gecombineerde archieven",
+    "flavour-text-part-2-emphasis": "van diverse instellingen",
     "flavour-text-part-3": ".",
-    "hero-text-part-1": "Welkom bij het digitale archief van",
-    "hero-text-part-2-emphasis": "Zuid-Utrecht",
+    "hero-text-part-1": "Welkom bij HisGIS",
+    "hero-text-part-2-emphasis": "De historische GIS zoekmachine",
     "go-to-search": "Ga naar zoeken",
     "go-to-colofon": "Ga naar colofon",
     "go-to-homepage": "Ga naar startpagina",
@@ -24,10 +24,10 @@
   },
   "search-interface": {
     "search": "Zoek",
-    "search-e-depot-razu": "Zoek in E-depot RAZU",
+    "search-e-depot": "Zoek in het digitale archief",
     "searching": "Zoeken",
-    "search-placeholder-full": "Zoek in E-depot RAZU, bijv. 'weekmarkt'",
-    "search-placeholder-short": "Bijv. 'weekmarkt'",
+    "search-placeholder-full": "Zoek in het digitale archief, bijv. 'perceel'",
+    "search-placeholder-short": "Bijv. 'perceel'",
     "no-results-found": "Geen resultaten",
     "results": "resultaten",
     "show-details": "Toon details",
