@@ -76,7 +76,7 @@
         "url": "Click here to learn more"
       }
     },
-  "date_range": {
+    "date_range": {
       "from": "From",
       "from-sr-label": "From (earliest date)",
       "to": "To",

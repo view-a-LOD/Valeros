@@ -1,9 +1,9 @@
 {
   "general": {
-    "site-holder-full": "Regionaal Archief Zuid-Utrecht",
-    "site-holder-short": "RAZU",
-    "title": "E-depot RAZU",
-    "page-title": "Digital archive of South-Utrecht",
+    "site-holder-full": "Digital Archive",
+    "site-holder-short": "Archive",
+    "title": "E-depot",
+    "page-title": "Digital archive",
     "colofon-title": "Colofon",
     "and": "and",
     "back": "Back",
@@ -11,11 +11,11 @@
     "example": "Example"
   },
   "homescreen": {
-    "flavour-text-part-1": "Here you can search trough the combined archives of the municipalities of",
-    "flavour-text-part-2-emphasis": "Bunnik, Houten, Rhenen, Utrechtse Heuvelrug, Vijfheerenlanden en Wijk bij Duurstede",
+    "flavour-text-part-1": "Here you can search through the combined archives",
+    "flavour-text-part-2-emphasis": "of various institutions",
     "flavour-text-part-3": ".",
-    "hero-text-part-1": "Welcome to the digital archive of",
-    "hero-text-part-2-emphasis": "South-Utrecht",
+    "hero-text-part-1": "Welcome to Valeros",
+    "hero-text-part-2-emphasis": "the flexible Linked Data search engine",
     "go-to-search": "Go to search",
     "go-to-colofon": "Go to colofon",
     "go-to-homepage": "Go to homepage",
@@ -24,10 +24,10 @@
   },
   "search-interface": {
     "search": "Search",
-    "search-e-depot-razu": "Search in E-depot RAZU",
+    "search-e-depot": "Search in the digital archive",
     "searching": "Searching",
-    "search-placeholder-full": "Search in E-depot RAZU, e.g. 'weekmarkt'",
-    "search-placeholder-short": "E.g. 'weekmarkt'",
+    "search-placeholder-full": "Search in the digital archive, e.g. 'search term'",
+    "search-placeholder-short": "E.g. 'search term'",
     "no-results-found": "No results found",
     "results": "results",
     "show-details": "Show details",
@@ -76,7 +76,7 @@
         "url": "Click here to learn more"
       }
     },
-  "date_range": {
+    "date_range": {
       "from": "From",
       "from-sr-label": "From (earliest date)",
       "to": "To",

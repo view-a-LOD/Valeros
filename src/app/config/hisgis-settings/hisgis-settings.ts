@@ -23,7 +23,7 @@ export const hisgisSettings: SettingsModel = {
       logoPath: '/assets/img/home-logo.svg',
     },
     translations: {
-      basePath: './assets/i18n/hisgis/',
+      basePath: './assets/i18n/',
       fileExtension: '.json',
     },
   },
