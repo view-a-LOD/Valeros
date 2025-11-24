@@ -105,5 +105,6 @@ export class PageTitleService {
         console.log('Updating node details title', nodeId, labels[nodeId]);
         this.setTitleWithPrefix(labels[nodeId]);
       });
+    // TODO: Handle case where no label is found (set a default/fallback title)
   }
 }
