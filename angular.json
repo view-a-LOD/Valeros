@@ -32,7 +32,11 @@
                 "output": "/assets/pdfjs"
               }
             ],
-            "styles": ["src/styles.scss", "src/theme.scss"],
+            "styles": [
+              "src/styles.scss",
+              "src/theme.scss",
+              "node_modules/leaflet/dist/leaflet.css"
+            ],
             "scripts": []
           },
           "configurations": {
@@ -163,7 +167,11 @@
                 "output": "/assets/pdfjs"
               }
             ],
-            "styles": ["src/styles.scss", "src/theme.scss"],
+            "styles": [
+              "src/styles.scss",
+              "src/theme.scss",
+              "node_modules/leaflet/dist/leaflet.css"
+            ],
             "scripts": []
           }
         }
