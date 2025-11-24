@@ -69,6 +69,11 @@
       "ocr": {
         "title": "OCR tekstherkenning",
         "description": "De krantentekst is verwerkt met OCR (Optical Character Recognition). Dit stelde ons in staat om een grote collectie doorzoekbaar te maken, maar de tekst kan soms herkenningsfouten bevatten."
+      },
+      "referral": {
+        "title": "Deze site",
+        "description": "Hieronder staan een aantal concrete tips om te helpen bij het zoeken. Wilt u meer weten over hoe deze website werkt? Op onze website vindt u een uitleg van de nieuwe zoekomgeving.",
+        "url": "Klik hier om meer te lezen."
       }
     },
     "date_range": {

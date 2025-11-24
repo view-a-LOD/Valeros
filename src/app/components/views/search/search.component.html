@@ -12,7 +12,7 @@
         class="bg-primary py-2 lg:py-3 px-4 lg:px-6 inline-flex items-center shadow-md hover:shadow-lg transition-shadow duration-600 rounded-md"
         [attr.aria-label]="'homescreen.go-to-homepage' | translate"
       >
-        <img src="assets/img/logo.svg" alt="Logo" class="h-8" />
+        <img [src]="Settings.ui.header.logoPath" alt="Logo" class="h-8" />
       </button>
 
       <!-- <button (click)="onHomeClicked()">

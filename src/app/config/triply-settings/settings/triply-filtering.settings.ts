@@ -11,5 +11,5 @@ export const triplyFilteringSettings: FilteringSettings = {
       hideValueIds: [],
     },
   },
-  minNumOfValuesForFilterOptionToAppear: 2,
+  // minNumOfValuesForFilterOptionToAppear: 2,
 };

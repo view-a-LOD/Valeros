@@ -26,7 +26,19 @@
     <h3 id="search-tips-title" class="text-lg font-bold mb-4" tabindex="-1">
       {{ "search-interface.search-tips" | translate }}
     </h3>
-
+    <app-search-tip [title]="'search-interface.tips.referral.title' | translate"
+    [description]="'search-interface.tips.referral.description' | translate">
+    <p class="text-sm">
+        <a
+          href="https://www.razu.nl/kranten-nieuwe-zoekomgeving/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="link link-primary"
+        >
+          {{ "search-interface.tips.referral.url" | translate }}
+        </a>
+      </p>
+    </app-search-tip>
     <app-search-tip
       [title]="'search-interface.tips.exact-match.title' | translate"
       [description]="

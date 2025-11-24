@@ -9,7 +9,7 @@ export const razuUiSettings: UiSettings = {
     showLogo: true,
     showTitle: true,
     showColofonButton: false,
-    logoPath: '/assets/img/logo.svg',
+    logoPath: '/assets/img/razu/logo.svg',
     position: HeaderPosition.Center,
   },
 };

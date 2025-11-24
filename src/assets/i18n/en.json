@@ -69,6 +69,11 @@
       "ocr": {
         "title": "OCR Text Recognition",
         "description": "Newspaper text was processed with OCR (optical character recognition). This allowed us to make a large collection searchable, but the text may at times contain recognition errors."
+      },
+      "referral": {
+        "title": "This site",
+        "description": "Here you can find a number of concrete search tips. Do you want to know more about how this website works? On our main site you can find a detailed explanation of the new search interface. ",
+        "url": "Click here to learn more"
       }
     },
   "date_range": {
