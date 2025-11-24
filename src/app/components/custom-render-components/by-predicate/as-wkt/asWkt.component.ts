@@ -24,6 +24,7 @@ export class AsWktComponent
 {
   @ViewChild('mapContainer', { static: true }) mapContainer!: ElementRef;
   private map: L.Map | null = null;
+  private polygonLayer: L.Polygon | null = null;
 
   constructor(private ngZone: NgZone) {
     super();
@@ -44,7 +45,7 @@ export class AsWktComponent
     }
 
     this.map = L.map(this.mapContainer.nativeElement).setView(
-      [51.505, -0.09],
+      [51.995, 5.167],
       13,
     );
 
@@ -57,5 +58,47 @@ export class AsWktComponent
           '&copy; <a href="https://www.stadiamaps.com/" target="_blank">Stadia Maps</a> &copy; <a href="https://openmaptiles.org/" target="_blank">OpenMapTiles</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
       },
     ).addTo(this.map);
+
+    this.addPolygonFromData();
+  }
+
+  private addPolygonFromData(): void {
+    if (!this.data?.value || !this.map) {
+      return;
+    }
+
+    try {
+      const coordinates = this.parseWKT(this.data.value);
+      if (coordinates.length > 0) {
+        this.polygonLayer = L.polygon(coordinates, {
+          color: '#3388ff',
+          weight: 2,
+          opacity: 1,
+          fillOpacity: 0.3,
+        }).addTo(this.map);
+
+        this.map.fitBounds(this.polygonLayer.getBounds());
+      }
+    } catch (error) {
+      console.error('Error parsing polygon data:', error);
+    }
+  }
+
+  private parseWKT(wktString: string): L.LatLngExpression[] {
+    const polygonMatch = wktString.match(/POLYGON\s*\(\((.*?)\)\)/i);
+    if (!polygonMatch) {
+      throw new Error('Invalid POLYGON format');
+    }
+
+    const coordinatesText = polygonMatch[1];
+    const coordinatePairs = coordinatesText.split(',');
+
+    return coordinatePairs.map((pair) => {
+      const [lng, lat] = pair.trim().split(/\s+/).map(Number);
+      if (isNaN(lat) || isNaN(lng)) {
+        throw new Error('Invalid coordinate values');
+      }
+      return [lat, lng] as L.LatLngExpression;
+    });
   }
 }
