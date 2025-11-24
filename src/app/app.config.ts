@@ -11,7 +11,12 @@ import { Settings } from './config/settings';
 
 const httpLoaderFactory: (http: HttpClient) => TranslateHttpLoader = (
   http: HttpClient,
-) => new TranslateHttpLoader(http, './assets/i18n/', '.json');
+) =>
+  new TranslateHttpLoader(
+    http,
+    Settings.ui.translations.basePath,
+    Settings.ui.translations.fileExtension,
+  );
 
 const providers = [
   provideRouter(routes, withRouterConfig({ onSameUrlNavigation: 'reload' })),

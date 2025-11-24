@@ -13,14 +13,18 @@ export const hisgisSettings: SettingsModel = {
   endpoints: hisgisEndpointSettings,
   filtering: hisgisFilteringSettings,
   namespacePrefixes: hisgisNamespacePrefixes,
+  nodeVisibility: hisgisNodeVisibilitySettings,
   renderComponents: hisgisRenderComponentSettings,
   predicateVisibility: hisgisPredicateVisibilitySettings,
-  nodeVisibility: hisgisNodeVisibilitySettings,
   ui: {
     ...uiSettings,
     header: {
       ...uiSettings.header,
       logoPath: '/assets/img/home-logo.svg',
+    },
+    translations: {
+      basePath: './assets/i18n/hisgis/',
+      fileExtension: '.json',
     },
   },
 };
