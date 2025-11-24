@@ -40,6 +40,7 @@ export class DetailsService {
     return this.router.url.startsWith(`/${Settings.url.urls.details}`);
   }
 
+  // TODO: Better naming to clarify difference between "Link" and "URL"
   getLink(node: NodeModel): string {
     const nodeId = this.nodes.getId(node);
     return this.getLinkFromUrl(nodeId);
@@ -54,5 +55,15 @@ export class DetailsService {
     }
 
     return `/${Settings.url.urls.details}/` + encodeURIComponent(url);
+  }
+
+  getUrl(node: NodeModel): string {
+    return this.getUrlFromLink(this.getLink(node));
+  }
+
+  getUrlFromLink(link: string): string {
+    return decodeURIComponent(
+      link.replace(`/${Settings.url.urls.details}/`, ''),
+    );
   }
 }

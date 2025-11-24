@@ -116,11 +116,7 @@
       >
         @if (showTitle) {
           <div class="text-lg mr-6 font-bold">
-            <app-node-link
-              [url]="details.getLink(node)"
-              [label]="title"
-              [tag]="'h1'"
-            />
+            <app-node-link [url]="details.getUrl(node)" [tag]="'h1'" />
           </div>
         }
         <div class="w-full sm:px-4 sm:pr-32">
