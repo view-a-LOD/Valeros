@@ -28,4 +28,8 @@ export interface UiSettings {
    * This setting controls the interval between checks.
    */
   labelFetchIntervalMs: number;
+  /**
+   * Site title prefix used in page titles and browser tabs
+   */
+  siteTitlePrefix?: string;
 }

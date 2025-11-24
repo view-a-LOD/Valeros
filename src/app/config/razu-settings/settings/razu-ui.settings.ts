@@ -12,4 +12,5 @@ export const razuUiSettings: UiSettings = {
     logoPath: '/assets/img/razu/logo.svg',
     position: HeaderPosition.Center,
   },
+  siteTitlePrefix: 'RAZU',
 };

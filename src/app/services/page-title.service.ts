@@ -3,6 +3,7 @@ import { Title } from '@angular/platform-browser';
 import { NavigationEnd, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { debounceTime, filter, firstValueFrom, take } from 'rxjs';
+import { Settings } from '../config/settings';
 import { NodeModel } from '../models/node.model';
 import { LabelsCacheService } from './cache/labels-cache.service';
 import { DetailsService } from './details.service';
@@ -13,6 +14,10 @@ import { SearchService } from './search/search.service';
   providedIn: 'root',
 })
 export class PageTitleService {
+  private get siteTitlePrefix(): string {
+    return Settings.ui.siteTitlePrefix || '';
+  }
+
   constructor(
     private titleService: Title,
     private router: Router,
@@ -22,6 +27,13 @@ export class PageTitleService {
     private labelsCache: LabelsCacheService,
     private nodeService: NodeService,
   ) {}
+
+  private setTitleWithPrefix(title: string): void {
+    const fullTitle = this.siteTitlePrefix
+      ? `${this.siteTitlePrefix} - ${title}`
+      : title;
+    this.titleService.setTitle(fullTitle);
+  }
 
   initPageTitleUpdates() {
     this.router.events.subscribe((event) => {
@@ -50,7 +62,7 @@ export class PageTitleService {
         this.setSearchPageTitle();
       });
     } else if (url.startsWith('/details')) {
-      this.titleService.setTitle('RAZU - Details pagina laden...');
+      this.setTitleWithPrefix('Details pagina laden...');
     } else {
       this.setHomePageTitle();
     }
@@ -60,19 +72,19 @@ export class PageTitleService {
     const homeTitle = await firstValueFrom(
       this.translate.get('general.page-title'),
     );
-    this.titleService.setTitle(homeTitle);
+    this.setTitleWithPrefix(homeTitle);
   }
 
   async setColofonPageTitle() {
     const colofonTitle = await firstValueFrom(
       this.translate.get('general.colofon-title'),
     );
-    this.titleService.setTitle(colofonTitle);
+    this.setTitleWithPrefix(colofonTitle);
   }
 
   setSearchPageTitle() {
-    this.titleService.setTitle(
-      `RAZU - Zoekresultaten "${this.search.queryStr?.toString() || ''}"`,
+    this.setTitleWithPrefix(
+      `Zoekresultaten "${this.search.queryStr?.toString() || ''}"`,
     );
   }
 
@@ -91,7 +103,7 @@ export class PageTitleService {
       )
       .subscribe((labels) => {
         console.log('Updating node details title', nodeId, labels[nodeId]);
-        this.titleService.setTitle(`RAZU - ${labels[nodeId]}`);
+        this.setTitleWithPrefix(labels[nodeId]);
       });
   }
 }
