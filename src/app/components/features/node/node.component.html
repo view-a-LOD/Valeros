@@ -62,8 +62,13 @@
         >
           @if (showTitle) {
             <div class="text-lg mr-6 font-bold" aria-hidden="true">
-              <app-node-label [label]="title" [tag]="'h3'" />
-              <!-- <app-node-link [url]="details.getLink(node)" [label]="title" [] /> -->
+              <!-- <app-node-label [label]="title" [tag]="'h3'" /> -->
+              <app-node-link
+                [url]="details.getUrl(node)"
+                [label]="title"
+                [tag]="'h3'"
+                [disabled]="true"
+              />
             </div>
           }
           <div class="w-full sm:px-4 sm:pr-32">
