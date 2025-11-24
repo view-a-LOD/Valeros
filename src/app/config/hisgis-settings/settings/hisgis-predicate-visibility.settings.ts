@@ -12,7 +12,7 @@ export const hisgisPredicateVisibilitySettings: PredicateVisibilitySettings = {
     [ViewMode.List]: {
       [PredicateVisibility.Show]: [
         {
-          predicates: [],
+          predicates: ['http://www.opengis.net/ont/geosparql#asWKT'],
         },
       ],
       [PredicateVisibility.Details]: [
@@ -23,7 +23,17 @@ export const hisgisPredicateVisibilitySettings: PredicateVisibilitySettings = {
       [PredicateVisibility.Hide]: [],
     },
     [ViewMode.Grid]: {
-      ...predicateVisibilitySettings.byViewMode[ViewMode.Grid],
+      [PredicateVisibility.Show]: [
+        {
+          predicates: ['http://www.opengis.net/ont/geosparql#asWKT'],
+        },
+      ],
+      [PredicateVisibility.Details]: [
+        {
+          predicates: ['*'],
+        },
+      ],
+      [PredicateVisibility.Hide]: [],
     },
   },
   alwaysHide: [...predicateVisibilitySettings.alwaysHide, ...labelPredicates],
