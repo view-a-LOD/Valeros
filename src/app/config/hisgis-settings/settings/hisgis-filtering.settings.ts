@@ -10,5 +10,11 @@ export const hisgisFilteringSettings: FilteringSettings = {
       values: [],
       hideValueIds: [],
     },
+    bezitter: {
+      label: 'Bezitter',
+      fieldIds: ['https://hisgis.hualab.nl/def/bezitter.keyword'],
+      values: [],
+      hideValueIds: [],
+    },
   },
 };
