@@ -1,12 +1,21 @@
+import { shrink } from '@zazuko/prefixes';
 import { Settings } from '../config/settings';
 
 export const replacePrefixes = (s: string): string => {
+  const original = s;
+
   for (const [namespace, prefix] of Object.entries(
     Settings.namespacePrefixes,
   )) {
     s = s.replaceAll(namespace, prefix);
   }
-  return s;
+
+  if (s !== original) {
+    return s;
+  }
+
+  const shrunk = shrink(s);
+  return shrunk || s;
 };
 
 export const wrapWithAngleBrackets = (s: string): string => {
