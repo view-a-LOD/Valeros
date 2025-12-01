@@ -1,0 +1,58 @@
+<app-search-tip
+  [title]="'search-interface.tips.referral.title' | translate"
+  [description]="'search-interface.tips.referral.description' | translate"
+>
+  <p class="text-sm">
+    <a
+      href="https://www.razu.nl/kranten-nieuwe-zoekomgeving/"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="link link-primary"
+    >
+      {{ "search-interface.tips.referral.url" | translate }}
+    </a>
+  </p>
+</app-search-tip>
+<app-search-tip
+  [title]="'search-interface.tips.exact-match.title' | translate"
+  [description]="'search-interface.tips.exact-match.description' | translate"
+>
+  <app-search-tip-input content='"exact voorbeeld"' />
+</app-search-tip>
+
+<app-search-tip
+  [title]="'search-interface.tips.boolean.title' | translate"
+  [description]="'search-interface.tips.boolean.description' | translate"
+>
+  <div class="gap-2 flex flex-col">
+    <app-search-tip-input content="term1 AND term2" />
+    <app-search-tip-input content="term1 OR term2" />
+    <app-search-tip-input content="term1 NOT term2" />
+  </div>
+</app-search-tip>
+
+<app-search-tip
+  [title]="'search-interface.tips.relevance.title' | translate"
+  [description]="'search-interface.tips.relevance.description' | translate"
+>
+  <p class="text-sm">
+    <a
+      href="https://www.elastic.co/docs/get-started/"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="link link-primary"
+    >
+      {{ "search-interface.learn-more" | translate }}
+    </a>
+  </p>
+</app-search-tip>
+
+<app-search-tip
+  [title]="'search-interface.tips.ocr.title' | translate"
+  [description]="'search-interface.tips.ocr.description' | translate"
+/>
+
+<app-search-tip
+  [title]="'search-interface.tips.filters.title' | translate"
+  [description]="'search-interface.tips.filters.description' | translate"
+/>

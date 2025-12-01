@@ -1,14 +1,21 @@
-import { Component, ElementRef, Renderer2, ViewChild } from '@angular/core';
+import { NgComponentOutlet } from '@angular/common';
+import {
+  Component,
+  ElementRef,
+  Renderer2,
+  Type,
+  ViewChild,
+} from '@angular/core';
 import { NgIcon } from '@ng-icons/core';
 import { featherInfo } from '@ng-icons/feather-icons';
 import { TranslatePipe } from '@ngx-translate/core';
-import { SearchTipInputComponent } from './search-tip-input/search-tip-input.component';
-import { SearchTipComponent } from './search-tip/search-tip.component';
+import { Settings } from '../../../../config/settings';
+import { CustomSearchTipsComponent } from './custom-search-tips/custom-search-tips.directive';
 
 @Component({
   selector: 'app-search-tips',
   standalone: true,
-  imports: [TranslatePipe, NgIcon, SearchTipInputComponent, SearchTipComponent],
+  imports: [NgComponentOutlet, TranslatePipe, NgIcon],
   templateUrl: './search-tips.component.html',
   styleUrls: ['./search-tips.component.scss'],
 })
@@ -20,6 +27,9 @@ export class SearchTipsComponent {
 
   protected readonly featherInfo = featherInfo;
 
+  searchTipsComponent?: Type<CustomSearchTipsComponent> =
+    Settings.content.searchTipsComponent;
+
   constructor(private renderer: Renderer2) {}
 
   focusOnModalTitle() {
@@ -27,6 +37,7 @@ export class SearchTipsComponent {
       this.modal?.nativeElement.querySelector('#search-tips-title');
     (titleElement as HTMLElement).focus();
   }
+
   openModal() {
     if (this.modal && this.triggerButton) {
       this.renderer.setAttribute(

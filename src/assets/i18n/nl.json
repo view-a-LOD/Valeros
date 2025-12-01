@@ -47,6 +47,7 @@
     "clear_filters": "Filters wissen",
     "toggle-filter-panel": "Filterpaneel openen/sluiten",
     "search-tips": "Zoektips",
+    "no-search-tips": "Er zijn momenteel geen zoektips beschikbaar.",
     "learn-more": "Meer informatie",
     "tips": {
       "exact-match": {

@@ -8,9 +8,6 @@
   aria-expanded="false"
 >
   <ng-icon [svg]="featherInfo" aria-hidden="true" />
-  <!-- <span class="hidden md:inline-block relative bottom-[0.05rem]">{{
-    "search-interface.search-tips" | translate
-  }}</span> -->
 </button>
 
 <dialog
@@ -26,75 +23,14 @@
     <h3 id="search-tips-title" class="text-lg font-bold mb-4" tabindex="-1">
       {{ "search-interface.search-tips" | translate }}
     </h3>
-    <app-search-tip [title]="'search-interface.tips.referral.title' | translate"
-    [description]="'search-interface.tips.referral.description' | translate">
-    <p class="text-sm">
-        <a
-          href="https://www.razu.nl/kranten-nieuwe-zoekomgeving/"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="link link-primary"
-        >
-          {{ "search-interface.tips.referral.url" | translate }}
-        </a>
+
+    @if (searchTipsComponent) {
+      <ng-container *ngComponentOutlet="searchTipsComponent"></ng-container>
+    } @else {
+      <p class="text-sm text-base-content/70">
+        {{ "search-interface.no-search-tips" | translate }}
       </p>
-    </app-search-tip>
-    <app-search-tip
-      [title]="'search-interface.tips.exact-match.title' | translate"
-      [description]="
-        'search-interface.tips.exact-match.description' | translate
-      "
-    >
-      <app-search-tip-input content='"exact voorbeeld"' />
-    </app-search-tip>
-
-    <!-- <app-search-tip
-      [title]="'search-interface.tips.wildcard.title' | translate"
-      [description]="'search-interface.tips.wildcard.description' | translate"
-    >
-      <div class="gap-2 flex flex-col">
-        <app-search-tip-input content="archief*" />
-        <app-search-tip-input content="*archief" />
-        <app-search-tip-input content="arch*ef" />
-      </div>
-    </app-search-tip> -->
-
-    <app-search-tip
-      [title]="'search-interface.tips.boolean.title' | translate"
-      [description]="'search-interface.tips.boolean.description' | translate"
-    >
-      <div class="gap-2 flex flex-col">
-        <app-search-tip-input content="term1 AND term2" />
-        <app-search-tip-input content="term1 OR term2" />
-        <app-search-tip-input content="term1 NOT term2" />
-      </div>
-    </app-search-tip>
-
-    <app-search-tip
-      [title]="'search-interface.tips.relevance.title' | translate"
-      [description]="'search-interface.tips.relevance.description' | translate"
-    >
-      <p class="text-sm">
-        <a
-          href="https://www.elastic.co/docs/get-started/"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="link link-primary"
-        >
-          {{ "search-interface.learn-more" | translate }}
-        </a>
-      </p>
-    </app-search-tip>
-
-    <app-search-tip
-      [title]="'search-interface.tips.ocr.title' | translate"
-      [description]="'search-interface.tips.ocr.description' | translate"
-    />
-
-    <app-search-tip
-      [title]="'search-interface.tips.filters.title' | translate"
-      [description]="'search-interface.tips.filters.description' | translate"
-    />
+    }
 
     <div class="modal-action">
       <form method="dialog">

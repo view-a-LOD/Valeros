@@ -47,6 +47,7 @@
     "clear_filters": "Clear filters",
     "toggle-filter-panel": "Toggle filter panel",
     "search-tips": "Search tips",
+    "no-search-tips": "There are currently no search tips available.",
     "learn-more": "Learn more",
     "tips": {
       "exact-match": {
