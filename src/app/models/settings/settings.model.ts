@@ -34,6 +34,10 @@ export interface SettingsModel {
   content: ContentSettings;
   search: SearchSettings;
   iiif: IIIFSettings;
+  /**
+   * Override or extend default vocabulary prefixes.
+   * If empty, standard prefixes from the vocabularies library (@zazuko/vocabularies) are used.
+   */
   namespacePrefixes: Record<string, string>;
   fileRendering: FileRenderingSettings;
   /**
