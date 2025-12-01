@@ -364,13 +364,22 @@ OPTIONAL { ?beperkingGebruikType <http://www.w3.org/2004/02/skos/core#prefLabel>
 
   // TODO: Make non-RAZU specific
   async getIIIFItemsData(id: string): Promise<IIIFItem[]> {
-    const altoFormats = Settings.iiif.fileFormats.alto
-      .map((f: string) => `<${f}>`)
-      .join(', ');
+    const altoFormats = Settings.iiif.fileFormats.alto.map(
+      (f: string) => `<${f}>`,
+    );
+    const altoFilter =
+      altoFormats.length > 0
+        ? `\n            FILTER(?altoFormat IN (${altoFormats.join(', ')}))`
+        : '';
+
     const imageFormats = [
       ...Settings.iiif.fileFormats.jpg.map((f: string) => `<${f}>`),
       ...Settings.iiif.fileFormats.tif.map((f: string) => `<${f}>`),
-    ].join(', ');
+    ];
+    const imageFilter =
+      imageFormats.length > 0
+        ? `FILTER(?format IN (${imageFormats.join(', ')})) # JPG, TIF`
+        : '';
 
     const iiifDataQueryTemplate = `
 ?fileURI a ldto:Bestand ;
@@ -382,18 +391,15 @@ OPTIONAL { ?beperkingGebruikType <http://www.w3.org/2004/02/skos/core#prefLabel>
           schema:width ?width ;
           schema:height ?height ;
           schema:position ?position .
-
 OPTIONAL {
     ?altoURI ldto:URLBestand ?altoUrl ;
             ldto:isRepresentatieVan <${id}> ;
             schema:position ?position ;
             ldto:naam ?altoName ;
             ldto:bestandsformaat ?altoFormat .
-
-            FILTER(?altoFormat IN (${altoFormats}))
+            ${altoFilter}
 }
-
-FILTER(?format IN (${imageFormats})) # JPG, TIF`;
+${imageFilter}`;
 
     const query = `
 PREFIX ldto: <https://data.razu.nl/def/ldto/>
