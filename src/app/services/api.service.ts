@@ -1,5 +1,5 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { catchError, lastValueFrom, throwError } from 'rxjs';
 import { PostCacheService } from './cache/post-cache.service';
 import { Settings } from '../config/settings';
@@ -16,9 +16,16 @@ export class ApiService {
     private postCache: PostCacheService,
   ) {}
 
-  async postData<T>(url: string, data: any): Promise<T> {
+  async postData<T>(
+    url: string,
+    data: any,
+    options?: {
+      headers?: HttpHeaders | { [header: string]: string | string[] };
+    },
+  ): Promise<T> {
     const dataStr = JSON.stringify(data);
-    const requestKey = `${url}|||${dataStr}`;
+    const headersStr = JSON.stringify(options?.headers ?? null);
+    const requestKey = `${url}|||${dataStr}|||${headersStr}`;
     const requestIsCached = requestKey in this.postCache.cache;
 
     if (requestIsCached) {
@@ -30,7 +37,7 @@ export class ApiService {
       const request = async () => {
         try {
           const response = await lastValueFrom(
-            this.http.post<T>(url, data).pipe(
+            this.http.post<T>(url, data, options).pipe(
               catchError((error) => {
                 console.error(
                   'There was a problem with the API request:',
