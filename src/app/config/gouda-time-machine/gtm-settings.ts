@@ -1,5 +1,9 @@
+import { FileRendererComponent } from '../../components/features/node/node-render-components/predicate-render-components/file-renderer/file-renderer.component';
+import { HopLinkComponent } from '../../components/features/node/node-render-components/predicate-render-components/hop-components/hop-link/hop-link.component';
+import { RenderMode } from '../../models/settings/render-component-settings.type';
 import { SettingsModel } from '../../models/settings/settings.model';
 import { defaultSettings } from '../default-settings/default-settings';
+import { renderComponentSettings } from '../default-settings/settings/render-component.settings';
 
 export const gtmSettings: SettingsModel = {
   ...defaultSettings,
@@ -26,5 +30,42 @@ export const gtmSettings: SettingsModel = {
   namespacePrefixes: {
     ...defaultSettings.namespacePrefixes,
     'https://schema.org/': 'schema:',
+  },
+  renderComponents: {
+    [RenderMode.ByType]: [...renderComponentSettings[RenderMode.ByType]],
+    [RenderMode.ByPredicate]: [
+      ...renderComponentSettings[RenderMode.ByPredicate],
+      {
+        component: FileRendererComponent,
+        predicates: [
+          'https://schema.org/image',
+          'https://schema.org/thumbnailUrl',
+        ],
+        requiresExplicitRendering: true,
+      },
+      {
+        component: HopLinkComponent,
+        predicates: [
+          'https://www.ica.org/standards/RiC/ontology#isAssociatedWithDate',
+        ],
+        hopLinkSettings: {
+          preds: ['https://www.ica.org/standards/RiC/ontology#expressedDate'],
+          showHops: true,
+        },
+      },
+      {
+        component: HopLinkComponent,
+        predicates: [
+          'https://www.ica.org/standards/RiC/ontology#hasBeginningDate',
+          'https://www.ica.org/standards/RiC/ontology#hasEndDate',
+        ],
+        hopLinkSettings: {
+          preds: [
+            'https://www.ica.org/standards/RiC/ontology#normalizedDateValue',
+          ],
+          showHops: false,
+        },
+      },
+    ],
   },
 };
