@@ -23,4 +23,8 @@ export const triplySettings: SettingsModel = {
       logoPath: '/assets/img/home-logo.svg',
     },
   },
+  content: {
+    ...defaultSettings.content,
+    sparqlLanguageFilterForLiterals: ['en', 'en-us'],
+  },
 };

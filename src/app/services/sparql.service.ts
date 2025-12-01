@@ -248,8 +248,18 @@ LIMIT 10000`;
   }
 
   private _buildLanguageFilter(variableName: string = '?obj'): string {
-    // TODO: Make language priority configurable
-    return `FILTER(LANG(${variableName}) = 'en' || LANG(${variableName}) = 'en-us' || !isLiteral(${variableName}) || !LANG(${variableName}))`;
+    const literalLanguages: string[] | undefined =
+      Settings.content.sparqlLanguageFilterForLiterals;
+
+    if (!literalLanguages || literalLanguages.length === 0) {
+      return '';
+    }
+
+    const langConditions: string = literalLanguages
+      .map((lang) => `LANG(${variableName}) = '${lang}'`)
+      .join(' || ');
+
+    return `FILTER(${langConditions} || !isLiteral(${variableName}) || !LANG(${variableName}))`;
   }
 
   async getNode(id: string): Promise<NodeModel> {

@@ -9,4 +9,5 @@ export const razuContentSettings: ContentSettings = {
   },
   searchTipsComponent: RazuSearchTipsComponent,
   colophonComponent: RazuColophonComponent,
+  sparqlLanguageFilterForLiterals: ['nl', 'nl-nl', 'en', 'en-us'],
 };

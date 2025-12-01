@@ -6,6 +6,13 @@ export interface ContentSettings {
   colophonComponent?: Type<CustomColophonComponent>;
   searchTipsComponent?: Type<CustomSearchTipsComponent>;
 
+  /**
+   * Preferred literal languages (e.g. ['nl', 'en', 'en-us']).
+   * Used for SPARQL literal language filtering.
+   * If not provided, no language filtering will be applied.
+   */
+  sparqlLanguageFilterForLiterals?: string[];
+
   translations: {
     /**
      * Base path for translation files, relative to assets folder
