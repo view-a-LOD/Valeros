@@ -13,8 +13,4 @@ export const razuUiSettings: UiSettings = {
     position: HeaderPosition.Center,
   },
   siteTitlePrefix: 'RAZU',
-  translations: {
-    basePath: './assets/i18n/razu/',
-    fileExtension: '.json',
-  },
 };

@@ -2,6 +2,7 @@ import { SettingsModel } from '../../models/settings/settings.model';
 import { razuEndpointSettings } from './settings/endpoints/razu-endpoint.settings';
 import { razuMatomoSettings } from './settings/matomo/razu-matomo.settings';
 import { razuClusteringSettings } from './settings/razu-clustering.settings';
+import { razuContentSettings } from './settings/razu-content.settings';
 import { razuFileRenderingSettings } from './settings/razu-file-rendering.settings';
 import { razuFilteringSettings } from './settings/razu-filtering.settings';
 import { razuIIIFSettings } from './settings/razu-iiif.settings';
@@ -26,6 +27,7 @@ export const razuSettings: SettingsModel = {
   renderComponents: razuRenderComponentSettings,
   viewModes: razuViewModeSettings,
   ui: razuUiSettings,
+  content: razuContentSettings,
   search: razuSearchSettings,
   iiif: razuIIIFSettings,
   namespacePrefixes: razuNamespacePrefixes,
