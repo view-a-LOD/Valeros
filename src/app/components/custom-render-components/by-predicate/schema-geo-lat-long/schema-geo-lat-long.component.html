@@ -1,0 +1,21 @@
+@if (data?.value) {
+  <app-hop-link
+    [data]="{
+      value: data!.value!,
+      hopLinkSettings: {
+        preds: ['https://schema.org/geo', 'https://schema.org/latitude'],
+        showHops: true,
+      },
+    }"
+  />
+  <br />
+  <app-hop-link
+    [data]="{
+      value: data!.value!,
+      hopLinkSettings: {
+        preds: ['https://schema.org/geo', 'https://schema.org/longitude'],
+        showHops: true,
+      },
+    }"
+  />
+}
