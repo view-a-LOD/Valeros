@@ -12,7 +12,7 @@ import {
 import { UrlService } from '../../../services/url.service';
 
 export enum HeaderView {
-  ShowingColofon,
+  ShowingColophon,
   ShowingSearch,
 }
 
@@ -33,7 +33,7 @@ export class HeaderComponent {
   ) {}
 
   get buttonUrl() {
-    return this.view === HeaderView.ShowingSearch ? 'colofon' : '';
+    return this.view === HeaderView.ShowingSearch ? 'colophon' : '';
   }
 
   async onButtonClicked(url: string) {

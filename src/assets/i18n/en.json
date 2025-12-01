@@ -4,7 +4,7 @@
     "site-holder-short": "Archive",
     "title": "E-depot",
     "page-title": "Digital archive",
-    "colofon-title": "Colofon",
+    "colophon-title": "Colophon",
     "and": "and",
     "back": "Back",
     "close": "Close",
@@ -17,10 +17,13 @@
     "hero-text-part-1": "Welcome to Valeros",
     "hero-text-part-2-emphasis": "the flexible Linked Data search engine",
     "go-to-search": "Go to search",
-    "go-to-colofon": "Go to colofon",
+    "go-to-colophon": "Go to colophon",
     "go-to-homepage": "Go to homepage",
     "more-info": "More information",
     "sitemap": "Sitemap"
+  },
+  "colophon": {
+    "no-custom-colophon": "No colophon is available for this application yet."
   },
   "search-interface": {
     "search": "Search",

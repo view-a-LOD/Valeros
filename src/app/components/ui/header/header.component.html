@@ -11,7 +11,7 @@
   >
     <button
       class="text-left inline-flex items-center"
-      [class.mr-3]="settings.showTitle || settings.showColofonButton"
+      [class.mr-3]="settings.showTitle || settings.showColophonButton"
       (click)="onButtonClicked('')"
       [attr.aria-label]="'homescreen.go-to-homepage' | translate"
     >
@@ -35,21 +35,21 @@
       }
     </button>
 
-    @if (settings.showColofonButton) {
+    @if (settings.showColophonButton) {
       <div>
         <!--class="flex-grow"-->
         <button
           class="btn btn-primary btn-xs rounded-full text-center inline-block float-right p-0 w-9 sm:w-10 h-9 sm:h-10"
           (click)="onButtonClicked(buttonUrl)"
           [attr.aria-label]="
-            view === HeaderView.ShowingColofon
+            view === HeaderView.ShowingColophon
               ? 'homescreen.go-to-search'
-              : ('homescreen.go-to-colofon' | translate)
+              : ('homescreen.go-to-colophon' | translate)
           "
           role="navigation"
         >
           <span class="text-lg sm:text-2xl font-light">
-            @if (view === HeaderView.ShowingColofon) {
+            @if (view === HeaderView.ShowingColophon) {
               <ng-icon [svg]="featherX" class="relative top-[0.1rem]" />
             }
             @if (view === HeaderView.ShowingSearch) {

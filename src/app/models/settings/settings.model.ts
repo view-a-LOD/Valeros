@@ -1,4 +1,5 @@
 import { ClusteringSettings } from './clustering-settings.model';
+import { ContentSettings } from './content-settings.model';
 import { EndpointSettings } from './endpoint-settings.model';
 import { FileRenderingSettings } from './file-rendering.settings.model';
 import { FilteringSettings } from './filtering-settings.model';
@@ -30,6 +31,7 @@ export interface SettingsModel {
    */
   viewModes: ViewModeSettings;
   ui: UiSettings;
+  content: ContentSettings;
   search: SearchSettings;
   iiif: IIIFSettings;
   namespacePrefixes: Record<string, string>;

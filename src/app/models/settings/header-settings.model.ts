@@ -7,7 +7,7 @@ export enum HeaderPosition {
 export interface HeaderSettings {
   showLogo: boolean;
   showTitle: boolean;
-  showColofonButton: boolean;
+  showColophonButton: boolean;
   logoPath: string;
   position: HeaderPosition;
 }

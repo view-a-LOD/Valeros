@@ -55,8 +55,8 @@ export class PageTitleService {
 
   updatePageTitle() {
     const url = this.router.url;
-    if (url.startsWith('/colofon')) {
-      this.setColofonPageTitle();
+    if (url.startsWith('/colophon')) {
+      this.setColophonPageTitle();
     } else if (url.startsWith('/search')) {
       setTimeout(() => {
         this.setSearchPageTitle();
@@ -75,11 +75,11 @@ export class PageTitleService {
     this.setTitleWithPrefix(homeTitle);
   }
 
-  async setColofonPageTitle() {
-    const colofonTitle = await firstValueFrom(
-      this.translate.get('general.colofon-title'),
+  async setColophonPageTitle() {
+    const colophonTitle = await firstValueFrom(
+      this.translate.get('general.colophon-title'),
     );
-    this.setTitleWithPrefix(colofonTitle);
+    this.setTitleWithPrefix(colophonTitle);
   }
 
   setSearchPageTitle() {

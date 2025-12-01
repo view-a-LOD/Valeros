@@ -8,7 +8,7 @@ export const razuUiSettings: UiSettings = {
     ...uiSettings.header,
     showLogo: true,
     showTitle: true,
-    showColofonButton: false,
+    showColophonButton: false,
     logoPath: '/assets/img/razu/logo.svg',
     position: HeaderPosition.Center,
   },

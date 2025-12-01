@@ -1,5 +1,6 @@
 import { SettingsModel } from '../../models/settings/settings.model';
 import { clusteringSettings } from './settings/clustering.settings';
+import { contentSettings } from './settings/content.settings';
 import { endpointSettings } from './settings/endpoint.settings';
 import { fileRenderingSettings } from './settings/file-rendering.settings';
 import { filteringSettings } from './settings/filtering.settings';
@@ -26,6 +27,7 @@ export const defaultSettings: SettingsModel = {
   renderComponents: renderComponentSettings,
   viewModes: viewModeSettings,
   ui: uiSettings,
+  content: contentSettings,
   search: searchSettings,
   iiif: iiifSettings,
   namespacePrefixes: namespacePrefixes,

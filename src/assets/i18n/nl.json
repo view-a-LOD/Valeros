@@ -4,7 +4,7 @@
     "site-holder-short": "Archief",
     "title": "Valeros",
     "page-title": "Valeros",
-    "colofon-title": "Colofon",
+    "colophon-title": "Colofon",
     "and": "en",
     "back": "Terug",
     "close": "Sluiten",
@@ -17,10 +17,13 @@
     "hero-text-part-1": "Welkom bij Valeros",
     "hero-text-part-2-emphasis": "De flexibele Linked Data zoekmachine",
     "go-to-search": "Ga naar zoeken",
-    "go-to-colofon": "Ga naar colofon",
+    "go-to-colophon": "Ga naar colofon",
     "go-to-homepage": "Ga naar startpagina",
     "more-info": "Meer informatie",
     "sitemap": "Sitemap"
+  },
+  "colophon": {
+    "no-custom-colophon": "Er is nog geen colofon beschikbaar voor deze applicatie."
   },
   "search-interface": {
     "search": "Zoek",
