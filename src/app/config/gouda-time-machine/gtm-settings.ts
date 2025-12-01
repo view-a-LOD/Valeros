@@ -1,4 +1,5 @@
 import { SchemaGeoLatLongComponent } from '../../components/custom-render-components/by-predicate/schema-geo-lat-long/schema-geo-lat-long.component';
+import { ExternalLinkComponent } from '../../components/features/node/node-render-components/predicate-render-components/external-link/external-link.component';
 import { FileRendererComponent } from '../../components/features/node/node-render-components/predicate-render-components/file-renderer/file-renderer.component';
 import { HopLinkComponent } from '../../components/features/node/node-render-components/predicate-render-components/hop-components/hop-link/hop-link.component';
 import { RenderMode } from '../../models/settings/render-component-settings.type';
@@ -70,6 +71,10 @@ export const gtmSettings: SettingsModel = {
       {
         component: SchemaGeoLatLongComponent,
         predicates: ['https://schema.org/locationCreated'],
+      },
+      {
+        component: ExternalLinkComponent,
+        predicates: ['https://schema.org/mainEntityOfPage'],
       },
     ],
   },
