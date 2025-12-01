@@ -32,17 +32,4 @@ export interface UiSettings {
    * Site title prefix used in page titles and browser tabs
    */
   siteTitlePrefix?: string;
-  /**
-   * Translation settings for i18n
-   */
-  translations: {
-    /**
-     * Base path for translation files, relative to assets folder
-     */
-    basePath: string;
-    /**
-     * File extension for translation files
-     */
-    fileExtension: string;
-  };
 }

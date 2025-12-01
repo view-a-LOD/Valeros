@@ -23,7 +23,8 @@ import { RazuColophonComponent } from './custom-colophons/razu-colophon/razu-col
   templateUrl: './colophon.component.html',
 })
 export class ColophonComponent implements OnInit {
-  colophonComponent?: Type<CustomColophonComponent> = Settings.content.colophon;
+  colophonComponent?: Type<CustomColophonComponent> =
+    Settings.content.colophonComponent;
 
   constructor(
     public router: Router,

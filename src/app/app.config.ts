@@ -14,8 +14,8 @@ const httpLoaderFactory: (http: HttpClient) => TranslateHttpLoader = (
 ) =>
   new TranslateHttpLoader(
     http,
-    Settings.ui.translations.basePath,
-    Settings.ui.translations.fileExtension,
+    Settings.content.translations.basePath,
+    Settings.content.translations.fileExtension,
   );
 
 const providers = [

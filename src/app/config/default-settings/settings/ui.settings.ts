@@ -25,8 +25,4 @@ export const uiSettings: UiSettings = {
     logoPath: '/assets/img/logo.svg',
     position: HeaderPosition.Center,
   },
-  translations: {
-    basePath: './assets/i18n/',
-    fileExtension: '.json',
-  },
 };
