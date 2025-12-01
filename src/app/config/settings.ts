@@ -1,4 +1,4 @@
 import { SettingsModel } from '../models/settings/settings.model';
-import { hisgisSettings } from './hisgis-settings/hisgis-settings';
+import { triplySettings } from './triply-settings/triply-settings';
 
-export const Settings: SettingsModel = hisgisSettings;
+export const Settings: SettingsModel = triplySettings;
