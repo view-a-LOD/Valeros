@@ -5,10 +5,11 @@ import { TranslatePipe } from '@ngx-translate/core';
 import { UrlService } from '../../../services/url.service';
 import { HeaderComponent, HeaderView } from '../../ui/header/header.component';
 import { ViewContainerComponent } from '../view-container/view-container.component';
+import { RazuColofonComponent } from "./custom-colofons/razu-colofon/razu-colofon.component";
 
 @Component({
   selector: 'app-colofon',
-  imports: [HeaderComponent, ViewContainerComponent, TranslatePipe, RouterLink],
+  imports: [HeaderComponent, ViewContainerComponent, TranslatePipe, RouterLink, RazuColofonComponent],
   templateUrl: './colofon.component.html',
   styleUrl: './colofon.component.scss',
 })
