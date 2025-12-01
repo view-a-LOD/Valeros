@@ -22,7 +22,7 @@ export const uiSettings: UiSettings = {
     showLogo: true,
     showTitle: true,
     showColophonButton: false,
-    logoPath: '/assets/img/logo.svg',
+    logoPath: '/assets/img/home-logo.svg',
     position: HeaderPosition.Center,
   },
 };

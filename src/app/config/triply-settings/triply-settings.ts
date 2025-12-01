@@ -1,6 +1,5 @@
 import { SettingsModel } from '../../models/settings/settings.model';
 import { defaultSettings } from '../default-settings/default-settings';
-import { uiSettings } from '../default-settings/settings/ui.settings';
 import { triplyEndpointSettings } from './settings/triply-endpoint.settings';
 import { triplyFilteringSettings } from './settings/triply-filtering.settings';
 import { triplyNamespacePrefixes } from './settings/triply-namespace-prefixes.settings';
@@ -16,13 +15,6 @@ export const triplySettings: SettingsModel = {
   renderComponents: triplyRenderComponentSettings,
   predicateVisibility: triplyPredicateVisibilitySettings,
   nodeVisibility: triplyNodeVisibilitySettings,
-  ui: {
-    ...uiSettings,
-    header: {
-      ...uiSettings.header,
-      logoPath: '/assets/img/home-logo.svg',
-    },
-  },
   content: {
     ...defaultSettings.content,
     sparqlLanguageFilterForLiterals: ['en', 'en-us'],
