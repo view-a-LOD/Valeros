@@ -1,4 +1,3 @@
-import { JsonPipe } from '@angular/common';
 import {
   AfterViewInit,
   Component,
@@ -8,13 +7,12 @@ import {
   ViewChild,
 } from '@angular/core';
 import * as L from 'leaflet';
-import { NodeLinkComponent } from '../../../../components/features/node/node-link/node-link.component';
 import { PredicateRenderComponent } from '../predicate-render-component.directive';
 
 @Component({
   selector: 'app-as-wkt',
   standalone: true,
-  imports: [NodeLinkComponent, JsonPipe],
+  imports: [],
   templateUrl: './asWkt.component.html',
   styleUrl: './asWkt.component.scss',
 })

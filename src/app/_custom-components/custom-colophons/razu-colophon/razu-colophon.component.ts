@@ -1,13 +1,10 @@
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { TranslatePipe } from '@ngx-translate/core';
-import { HeaderComponent } from '../../../components/ui/header/header.component';
-import { ViewContainerComponent } from '../../../components/views/view-container/view-container.component';
 import { CustomColophonComponent } from '../custom-colophon.directive';
 
 @Component({
   selector: 'app-razu-colophon',
-  imports: [HeaderComponent, ViewContainerComponent, TranslatePipe, RouterLink],
+  imports: [RouterLink],
   templateUrl: './razu-colophon.component.html',
   styleUrl: './razu-colophon.component.scss',
 })
