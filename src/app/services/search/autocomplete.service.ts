@@ -11,7 +11,7 @@ import { FilterOptionsIdsModel } from '../../models/filters/filter-option.model'
 import { FilterModel } from '../../models/filters/filter.model';
 import { DataService } from '../data.service';
 import { FilterService } from './filter.service';
-import { ElasticService } from './search-providers/elastic/elastic.service';
+import { ElasticService } from './search-providers/elastic-search-provider/elastic.service';
 
 @Injectable({
   providedIn: 'root',

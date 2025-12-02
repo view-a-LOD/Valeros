@@ -19,7 +19,7 @@ import { FilterQueryParams } from '../../models/filters/filter-query-params.mode
 import { FilterModel, FilterType } from '../../models/filters/filter.model';
 import { ClusterService } from '../cluster.service';
 import { DataService } from '../data.service';
-import { ElasticService } from './search-providers/elastic/elastic.service';
+import { ElasticService } from './search-providers/elastic-search-provider/elastic.service';
 
 interface SearchTriggerModel {
   clearFilters: boolean;

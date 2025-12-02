@@ -7,9 +7,9 @@ import { DateRangeQueryParams } from '../../../models/filters/custom-filters/dat
 import { FilterModel } from '../../../models/filters/filter.model';
 import { DataService } from '../../../services/data.service';
 import { FilterService } from '../../../services/search/filter.service';
+import { ElasticService } from '../../../services/search/search-providers/elastic-search-provider/elastic.service';
 import { SearchService } from '../../../services/search/search.service';
 import { CustomFilterService } from '../custom-filter.service';
-import { ElasticService } from '../../../services/search/search-providers/elastic/elastic.service';
 
 @Injectable({
   providedIn: 'root',
