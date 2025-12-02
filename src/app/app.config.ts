@@ -10,8 +10,8 @@ import { routes } from './app.routes';
 import { Settings } from './config/settings';
 import { AutocompleteProvider } from './services/search/autocomplete-providers/autocomplete-provider.interface';
 import { ElasticAutocompleteProvider } from './services/search/autocomplete-providers/elastic-autocomplete.provider';
-import { ElasticSearchProvider } from './services/search/search-providers/elastic-search-provider/elastic-search.provider';
 import { SearchProvider } from './services/search/search-providers/search-provider.interface';
+import { SPARQLSearchProvider } from './services/search/search-providers/sparql-search-provider/sparql-search.provider';
 
 const httpLoaderFactory: (http: HttpClient) => TranslateHttpLoader = (
   http: HttpClient,
@@ -35,7 +35,10 @@ const providers = [
       },
     }),
   ]),
-  { provide: SearchProvider, useExisting: ElasticSearchProvider },
+  {
+    provide: SearchProvider,
+    useExisting: Settings.endpoints.searchProvider ?? SPARQLSearchProvider,
+  },
   { provide: AutocompleteProvider, useExisting: ElasticAutocompleteProvider },
 ];
 
