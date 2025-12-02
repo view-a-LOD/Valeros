@@ -89,6 +89,11 @@ UNION {
     return flatBindings as T;
   }
 
+  async executeRawQuery<T>(query: string, endpointUrl?: string): Promise<T> {
+    const url = endpointUrl ?? this.endpoints.getFirstUrls().sparql;
+    return await this._post<T>(url, query);
+  }
+
   private _ensureNodeHasId(node: NodeModel): void {
     const isValidNode =
       node !== undefined &&
