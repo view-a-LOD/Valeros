@@ -8,7 +8,9 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { provideMatomo } from 'ngx-matomo-client';
 import { routes } from './app.routes';
 import { Settings } from './config/settings';
-import { ElasticSearchProvider } from './services/search/search-providers/elastic/elastic-search.provider';
+import { AutocompleteProvider } from './services/search/autocomplete-providers/autocomplete-provider.interface';
+import { ElasticAutocompleteProvider } from './services/search/autocomplete-providers/elastic-autocomplete.provider';
+import { ElasticSearchProvider } from './services/search/search-providers/elastic-search-provider/elastic-search.provider';
 import { SearchProvider } from './services/search/search-providers/search-provider.interface';
 
 const httpLoaderFactory: (http: HttpClient) => TranslateHttpLoader = (
@@ -34,6 +36,7 @@ const providers = [
     }),
   ]),
   { provide: SearchProvider, useExisting: ElasticSearchProvider },
+  { provide: AutocompleteProvider, useExisting: ElasticAutocompleteProvider },
 ];
 
 if (Settings.matomo && Settings.matomo.siteId && Settings.matomo.trackerUrl) {
