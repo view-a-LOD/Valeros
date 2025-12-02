@@ -10,8 +10,8 @@ import { routes } from './app.routes';
 import { Settings } from './config/settings';
 import { AutocompleteProvider } from './services/search/autocomplete-providers/autocomplete-provider.interface';
 import { ElasticAutocompleteProvider } from './services/search/autocomplete-providers/elastic-autocomplete.provider';
-import { ElasticFilterOptionsProvider } from './services/search/filter-options-providers/elastic-filter-options.provider';
 import { FilterOptionsProvider } from './services/search/filter-options-providers/filter-options-provider.interface';
+import { SPARQLFilterOptionsProvider } from './services/search/filter-options-providers/sparql-filter-options.provider';
 import { SearchProvider } from './services/search/search-providers/search-provider.interface';
 import { SPARQLSearchProvider } from './services/search/search-providers/sparql-search-provider/sparql-search.provider';
 
@@ -43,7 +43,8 @@ const providers = [
   },
   {
     provide: FilterOptionsProvider,
-    useExisting: ElasticFilterOptionsProvider,
+    useExisting:
+      Settings.filtering.filterOptionsProvider ?? SPARQLFilterOptionsProvider,
   },
   { provide: AutocompleteProvider, useExisting: ElasticAutocompleteProvider },
 ];

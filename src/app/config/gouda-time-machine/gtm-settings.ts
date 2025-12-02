@@ -22,6 +22,17 @@ export const gtmSettings: SettingsModel = {
       },
     },
   },
+  filtering: {
+    ...defaultSettings.filtering,
+    filterOptions: {
+      type: {
+        label: 'Type',
+        fieldIds: ['http://www.w3.org/1999/02/22-rdf-syntax-ns#type'],
+        values: [],
+        hideValueIds: [],
+      },
+    },
+  },
   predicates: {
     ...defaultSettings.predicates,
     label: [
