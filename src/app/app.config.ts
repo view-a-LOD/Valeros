@@ -8,6 +8,8 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { provideMatomo } from 'ngx-matomo-client';
 import { routes } from './app.routes';
 import { Settings } from './config/settings';
+import { ElasticSearchProvider } from './services/search/search-providers/elastic/elastic-search.provider';
+import { SearchProvider } from './services/search/search-providers/search-provider.interface';
 
 const httpLoaderFactory: (http: HttpClient) => TranslateHttpLoader = (
   http: HttpClient,
@@ -31,6 +33,7 @@ const providers = [
       },
     }),
   ]),
+  { provide: SearchProvider, useExisting: ElasticSearchProvider },
 ];
 
 if (Settings.matomo && Settings.matomo.siteId && Settings.matomo.trackerUrl) {

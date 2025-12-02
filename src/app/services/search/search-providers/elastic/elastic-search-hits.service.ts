@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import type { estypes } from '@elastic/elasticsearch';
-import { ElasticEndpointSearchResponse } from '../../models/elastic/elastic-endpoint-search-response.type';
-import { ElasticNodeModel } from '../../models/elastic/elastic-node.model';
-import { Direction, NodeModel } from '../../models/node.model';
-import { DataService } from '../data.service';
+import { ElasticEndpointSearchResponse } from '../../../../models/elastic/elastic-endpoint-search-response.type';
+import { ElasticNodeModel } from '../../../../models/elastic/elastic-node.model';
+import { Direction, NodeModel } from '../../../../models/node.model';
+import { DataService } from '../../../data.service';
 
 @Injectable({
   providedIn: 'root',
 })
-export class SearchHitsService {
+export class ElasticSearchHitsService {
   constructor(private data: DataService) {}
 
   parseToNodes(hits: estypes.SearchHit<ElasticNodeModel>[]): NodeModel[] {

@@ -6,10 +6,10 @@ import { ElasticShouldQueries } from '../../../models/elastic/elastic-should-que
 import { DateRangeQueryParams } from '../../../models/filters/custom-filters/date-range-query-params.model';
 import { FilterModel } from '../../../models/filters/filter.model';
 import { DataService } from '../../../services/data.service';
-import { ElasticService } from '../../../services/search/elastic.service';
 import { FilterService } from '../../../services/search/filter.service';
 import { SearchService } from '../../../services/search/search.service';
 import { CustomFilterService } from '../custom-filter.service';
+import { ElasticService } from '../../../services/search/search-providers/elastic/elastic.service';
 
 @Injectable({
   providedIn: 'root',

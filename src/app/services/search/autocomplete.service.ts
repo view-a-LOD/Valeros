@@ -10,8 +10,8 @@ import { ElasticShouldQueries } from '../../models/elastic/elastic-should-querie
 import { FilterOptionsIdsModel } from '../../models/filters/filter-option.model';
 import { FilterModel } from '../../models/filters/filter.model';
 import { DataService } from '../data.service';
-import { ElasticService } from './elastic.service';
 import { FilterService } from './filter.service';
+import { ElasticService } from './search-providers/elastic/elastic.service';
 
 @Injectable({
   providedIn: 'root',

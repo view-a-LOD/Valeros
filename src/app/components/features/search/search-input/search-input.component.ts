@@ -12,7 +12,6 @@ import {
 } from '../../../../models/autocomplete-option.model';
 import { DetailsService } from '../../../../services/details.service';
 import { AutocompleteService } from '../../../../services/search/autocomplete.service';
-import { ElasticService } from '../../../../services/search/elastic.service';
 import { SearchService } from '../../../../services/search/search.service';
 import { SettingsService } from '../../../../services/settings.service';
 import { FilterDrawerService } from '../../../../services/ui/filter-drawer.service';
@@ -42,7 +41,6 @@ export class SearchInputComponent implements OnInit, AfterViewInit, OnDestroy {
     public search: SearchService,
     public router: Router,
     private route: ActivatedRoute,
-    public elastic: ElasticService,
     public details: DetailsService,
     public autocomplete: AutocompleteService,
     public url: UrlService,

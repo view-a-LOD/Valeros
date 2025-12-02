@@ -1,11 +1,8 @@
 import { Injectable } from '@angular/core';
 
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import type { estypes } from '@elastic/elasticsearch';
 import { BehaviorSubject, filter, skip, take } from 'rxjs';
 import { Settings } from '../../config/settings';
-import { ElasticEndpointSearchResponse } from '../../models/elastic/elastic-endpoint-search-response.type';
-import { ElasticNodeModel } from '../../models/elastic/elastic-node.model';
 import { SearchResultsModel } from '../../models/elastic/search-results.model';
 import { NodeModel } from '../../models/node.model';
 import { SortOptionModel } from '../../models/settings/sort-option.model';
@@ -18,9 +15,12 @@ import { SettingsService } from '../settings.service';
 import { SortService } from '../sort.service';
 import { UiService } from '../ui/ui.service';
 import { UrlService } from '../url.service';
-import { ElasticService } from './elastic.service';
 import { FilterService } from './filter.service';
-import { SearchHitsService } from './search-hits.service';
+import {
+  SearchProvider,
+  SearchRequest,
+  SearchResponse,
+} from './search-providers/search-provider.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -41,14 +41,13 @@ export class SearchService {
 
   constructor(
     private url: UrlService,
-    private elastic: ElasticService,
-    private hits: SearchHitsService,
-    private nodes: NodeService,
+    private nodeSearch: SearchProvider,
     private filters: FilterService,
     private data: DataService,
     private endpoints: EndpointService,
     private route: ActivatedRoute,
     private details: DetailsService,
+    private nodes: NodeService,
     private sort: SortService,
     private router: Router,
     private ui: UiService,
@@ -78,39 +77,6 @@ export class SearchService {
       }
     });
     return nodes;
-  }
-
-  private async _updateResultsFromSearchResponses(
-    responses: ElasticEndpointSearchResponse<ElasticNodeModel>[],
-  ) {
-    const hits: estypes.SearchHit<ElasticNodeModel>[] =
-      this.hits.getFromSearchResponses(responses);
-
-    const hitNodes: NodeModel[] = this.hits.parseToNodes(hits);
-    // TODO: Run async, show initial hits in the meanwhile
-    let enrichedNodes = hitNodes;
-    const shouldEnrichWithIncomingRelations = this.settings.hasViewModeSetting(
-      ViewModeSetting.EnrichWithIncomingRelations,
-    );
-    if (shouldEnrichWithIncomingRelations) {
-      enrichedNodes = await this.nodes.enrichWithIncomingRelations(hitNodes);
-    }
-
-    if (!enrichedNodes || enrichedNodes.length === 0) {
-      this.results.next({
-        nodes: [],
-      });
-      return;
-    }
-
-    const mergedNodes = this._mergeNodesById(
-      this.results.value.nodes ?? [],
-      enrichedNodes,
-    );
-
-    this.results.next({
-      nodes: mergedNodes,
-    });
   }
 
   initSearchOnFilterChange() {
@@ -188,35 +154,14 @@ export class SearchService {
   }
 
   async checkHasMoreResultsToLoad() {
-    const responses: ElasticEndpointSearchResponse<ElasticNodeModel>[] =
-      await this.elastic.searchNodes(
-        this.queryStr ?? '',
-        this.page * Settings.search.resultsPerPagePerEndpoint,
-        Settings.search.resultsPerPagePerEndpoint,
-        this.filters.enabled.value,
-      );
-    const hits: estypes.SearchHit<ElasticNodeModel>[] =
-      this.hits.getFromSearchResponses(responses);
-    this.hasMoreResultsToLoad = hits && hits.length > 0;
-  }
+    const response = await this.nodeSearch.searchNodes({
+      query: this.queryStr ?? '',
+      page: this.page,
+      pageSize: Settings.search.resultsPerPagePerEndpoint,
+      filters: this.filters.enabled.value,
+    });
 
-  private _calculateTotalHits(
-    responses: ElasticEndpointSearchResponse<ElasticNodeModel>[],
-  ): { total: number; isCapped: boolean } {
-    let isCapped = false;
-    const total = responses.reduce((total, response) => {
-      const hitTotal = response.hits.total;
-      if (typeof hitTotal === 'number') {
-        return total + hitTotal;
-      } else if (typeof hitTotal === 'object' && hitTotal !== null) {
-        if (hitTotal.relation !== 'eq') {
-          isCapped = true;
-        }
-        return total + hitTotal.value;
-      }
-      return total;
-    }, 0);
-    return { total, isCapped };
+    this.hasMoreResultsToLoad = !!response.nodes && response.nodes.length > 0;
   }
 
   async execute(clearResults = false, clearFilters = true) {
@@ -244,17 +189,15 @@ export class SearchService {
     try {
       const searchQueryIdOfRequest = this._searchQueryId;
 
-      // Get paginated results for display
-      const displayResponses = await this.elastic.searchNodes(
-        this.queryStr ?? '',
-        this.page * Settings.search.resultsPerPagePerEndpoint,
-        Settings.search.resultsPerPagePerEndpoint,
-        this.filters.enabled.value,
-      );
+      const request: SearchRequest = {
+        query: this.queryStr ?? '',
+        page: this.page,
+        pageSize: Settings.search.resultsPerPagePerEndpoint,
+        filters: this.filters.enabled.value,
+      };
 
-      const { total, isCapped } = this._calculateTotalHits(displayResponses);
-      this.numberOfHits = total;
-      this.numberOfHitsIsCappedByElastic = isCapped;
+      const response: SearchResponse =
+        await this.nodeSearch.searchNodes(request);
 
       // TODO: Cancel requests if we know there's a new request already (note: cancelling promises not easily supported at the moment)
       const responsesAreOutdated =
@@ -263,12 +206,38 @@ export class SearchService {
         return;
       }
 
-      // Update displayed results from the paginated response
-      await this._updateResultsFromSearchResponses(displayResponses);
+      this.numberOfHits = response.total;
+      this.numberOfHitsIsCappedByElastic = response.isCapped;
 
-      // Increment page if we got results
-      const displayHits = this.hits.getFromSearchResponses(displayResponses);
-      if (displayHits && displayHits.length > 0) {
+      let nodes = response.nodes ?? [];
+
+      const shouldEnrichWithIncomingRelations =
+        this.settings.hasViewModeSetting(
+          ViewModeSetting.EnrichWithIncomingRelations,
+        );
+
+      if (shouldEnrichWithIncomingRelations && nodes.length > 0) {
+        // TODO: Run async, show initial hits in the meanwhile
+        nodes = await this.nodes.enrichWithIncomingRelations(nodes);
+      }
+
+      if (!nodes || nodes.length === 0) {
+        this.results.next({
+          nodes: [],
+        });
+      } else {
+        const mergedNodes = this._mergeNodesById(
+          this.results.value.nodes ?? [],
+          nodes,
+        );
+
+        this.results.next({
+          nodes: mergedNodes,
+        });
+      }
+
+      // Increment page if we there are results
+      if (response.nodes && response.nodes.length > 0) {
         this.page++;
       }
 
