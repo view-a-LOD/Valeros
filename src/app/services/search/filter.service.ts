@@ -2,6 +2,7 @@ import { EventEmitter, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import type { estypes } from '@elastic/elasticsearch';
 import { BehaviorSubject } from 'rxjs';
+import { CustomFiltersRegistry } from '../../components/custom-components/custom-filters/custom-filters.registry';
 import { Settings } from '../../config/settings';
 import {
   DocCountModel,
@@ -18,7 +19,6 @@ import { FilterQueryParams } from '../../models/filters/filter-query-params.mode
 import { FilterModel, FilterType } from '../../models/filters/filter.model';
 import { ClusterService } from '../cluster.service';
 import { DataService } from '../data.service';
-import { CustomFiltersRegistry } from './custom-filters/custom-filters.registry';
 import { ElasticService } from './elastic.service';
 
 interface SearchTriggerModel {

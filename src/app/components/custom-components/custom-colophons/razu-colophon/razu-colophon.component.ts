@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
-import { HeaderComponent } from '../../../../ui/header/header.component';
-import { ViewContainerComponent } from '../../../view-container/view-container.component';
+import { HeaderComponent } from '../../../ui/header/header.component';
+import { ViewContainerComponent } from '../../../views/view-container/view-container.component';
 import { CustomColophonComponent } from '../custom-colophon.directive';
 
 @Component({

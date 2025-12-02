@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { humanFileSize } from '../../../../helpers/util.helper';
+import { humanFileSize } from '../../../../../helpers/util.helper';
 import { PredicateRenderComponent } from '../predicate-render-component.directive';
 
 @Component({

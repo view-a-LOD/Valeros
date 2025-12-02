@@ -2,12 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import {
   intersects,
   wrapWithAngleBrackets,
-} from '../../../../helpers/util.helper';
-import { ApiService } from '../../../../services/api.service';
-import { EndpointService } from '../../../../services/endpoint.service';
-import { SparqlService } from '../../../../services/sparql.service';
-import { NodeImagesComponent } from '../../../features/node/node-images/node-images.component';
-import { NodeLinkComponent } from '../../../features/node/node-link/node-link.component';
+} from '../../../../../helpers/util.helper';
+import { ApiService } from '../../../../../services/api.service';
+import { EndpointService } from '../../../../../services/endpoint.service';
+import { SparqlService } from '../../../../../services/sparql.service';
+import { NodeImagesComponent } from '../../../../features/node/node-images/node-images.component';
+import { NodeLinkComponent } from '../../../../features/node/node-link/node-link.component';
 import { PredicateRenderComponent } from '../predicate-render-component.directive';
 
 @Component({

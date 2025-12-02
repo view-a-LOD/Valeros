@@ -5,10 +5,10 @@ import { featherX } from '@ng-icons/feather-icons';
 import { TranslatePipe } from '@ngx-translate/core';
 import { Settings } from '../../../config/settings';
 import { UrlService } from '../../../services/url.service';
+import { CustomColophonComponent } from '../../custom-components/custom-colophons/custom-colophon.directive';
+import { RazuColophonComponent } from '../../custom-components/custom-colophons/razu-colophon/razu-colophon.component';
 import { HeaderComponent, HeaderView } from '../../ui/header/header.component';
 import { ViewContainerComponent } from '../view-container/view-container.component';
-import { CustomColophonComponent } from './custom-colophons/custom-colophon.directive';
-import { RazuColophonComponent } from './custom-colophons/razu-colophon/razu-colophon.component';
 
 @Component({
   selector: 'app-colophon',

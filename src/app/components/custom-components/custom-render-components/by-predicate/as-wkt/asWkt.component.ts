@@ -8,7 +8,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import * as L from 'leaflet';
-import { NodeLinkComponent } from '../../../features/node/node-link/node-link.component';
+import { NodeLinkComponent } from '../../../../features/node/node-link/node-link.component';
 import { PredicateRenderComponent } from '../predicate-render-component.directive';
 
 @Component({

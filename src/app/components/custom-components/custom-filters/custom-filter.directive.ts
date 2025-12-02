@@ -1,6 +1,6 @@
 import { Directive, inject, Input, OnInit } from '@angular/core';
-import { CustomFilterService } from '../../../../services/search/custom-filters/custom-filter.service';
-import { CustomFiltersRegistry } from '../../../../services/search/custom-filters/custom-filters.registry';
+import { CustomFilterService } from './custom-filter.service';
+import { CustomFiltersRegistry } from './custom-filters.registry';
 
 @Directive()
 export abstract class CustomFilterComponent implements OnInit {

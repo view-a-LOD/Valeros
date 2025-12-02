@@ -3,16 +3,16 @@ import localeNl from '@angular/common/locales/nl';
 import { Component, inject, Input, OnInit } from '@angular/core';
 import { NgIcon } from '@ng-icons/core';
 import { featherHelpCircle } from '@ng-icons/feather-icons';
-import { Direction, NodeObj } from '../../../../models/node.model';
-import { HopLinkSettings } from '../../../../models/settings/hop-link-settings.model';
-import { PredicateVisibility } from '../../../../models/settings/predicate-visibility-settings.model';
-import { TypeRenderComponentInput } from '../../../../models/type-render-component-input.model';
-import { IIIFService } from '../../../../services/iiif.service';
-import { NodeService } from '../../../../services/node/node.service';
-import { SparqlService } from '../../../../services/sparql.service';
-import { UrlService } from '../../../../services/url.service';
-import { HopLinkComponent } from '../../../features/node/node-render-components/predicate-render-components/hop-components/hop-link/hop-link.component';
-import { SnippetComponent } from '../../../features/snippet/snippet.component';
+import { Direction, NodeObj } from '../../../../../models/node.model';
+import { HopLinkSettings } from '../../../../../models/settings/hop-link-settings.model';
+import { PredicateVisibility } from '../../../../../models/settings/predicate-visibility-settings.model';
+import { TypeRenderComponentInput } from '../../../../../models/type-render-component-input.model';
+import { IIIFService } from '../../../../../services/iiif.service';
+import { NodeService } from '../../../../../services/node/node.service';
+import { SparqlService } from '../../../../../services/sparql.service';
+import { UrlService } from '../../../../../services/url.service';
+import { HopLinkComponent } from '../../../../features/node/node-render-components/predicate-render-components/hop-components/hop-link/hop-link.component';
+import { SnippetComponent } from '../../../../features/snippet/snippet.component';
 import { TypeRenderComponent } from '../type-render-component.component';
 
 // Register Dutch locale

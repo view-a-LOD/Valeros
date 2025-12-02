@@ -5,10 +5,10 @@ import { ElasticEndpointSearchResponse } from '../../../../models/elastic/elasti
 import { ElasticShouldQueries } from '../../../../models/elastic/elastic-should-queries.type';
 import { DateRangeQueryParams } from '../../../../models/filters/custom-filters/date-range-query-params.model';
 import { FilterModel } from '../../../../models/filters/filter.model';
-import { DataService } from '../../../data.service';
-import { ElasticService } from '../../elastic.service';
-import { FilterService } from '../../filter.service';
-import { SearchService } from '../../search.service';
+import { DataService } from '../../../../services/data.service';
+import { ElasticService } from '../../../../services/search/elastic.service';
+import { FilterService } from '../../../../services/search/filter.service';
+import { SearchService } from '../../../../services/search/search.service';
 import { CustomFilterService } from '../custom-filter.service';
 
 @Injectable({

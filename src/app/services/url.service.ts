@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { skip } from 'rxjs';
+import { CustomFiltersRegistry } from '../components/custom-components/custom-filters/custom-filters.registry';
 import { Settings } from '../config/settings';
 import { FilterOptionsIdsModel } from '../models/filters/filter-option.model';
 import { FilterQueryParams } from '../models/filters/filter-query-params.model';
@@ -10,7 +11,6 @@ import { ApiService } from './api.service';
 import { DataService } from './data.service';
 import { DetailsService } from './details.service';
 import { EndpointService } from './endpoint.service';
-import { CustomFiltersRegistry } from './search/custom-filters/custom-filters.registry';
 import { FilterService } from './search/filter.service';
 
 @Injectable({

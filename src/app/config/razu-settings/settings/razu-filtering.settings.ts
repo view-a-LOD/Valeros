@@ -1,6 +1,6 @@
-import { DateRangeFilterComponent } from '../../../components/features/filters/custom-filters/date-range-filter/date-range-filter.component';
+import { DateRangeFilterComponent } from '../../../components/custom-components/custom-filters/date-range-filter/date-range-filter.component';
+import { DateRangeFilterService } from '../../../components/custom-components/custom-filters/date-range-filter/date-range-filter.service';
 import { FilteringSettings } from '../../../models/settings/filtering-settings.model';
-import { DateRangeFilterService } from '../../../services/search/custom-filters/razu/date-range-filter.service';
 import { filteringSettings } from '../../default-settings/settings/filtering.settings';
 
 const hideFilterOptionValueIds: string[] = [

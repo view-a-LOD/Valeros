@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { HopLinkSettings } from '../../../../../../models/settings/hop-link-settings.model';
 import { SparqlService } from '../../../../../../services/sparql.service';
-import { PredicateRenderComponent } from '../../../../../custom-render-components/by-predicate/predicate-render-component.directive';
+import { PredicateRenderComponent } from '../../../../../custom-components/custom-render-components/by-predicate/predicate-render-component.directive';
 
 @Component({
   selector: 'app-hop-component',

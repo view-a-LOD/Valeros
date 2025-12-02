@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { TypeRenderComponentInput } from '../../../models/type-render-component-input.model';
+import { TypeRenderComponentInput } from '../../../../models/type-render-component-input.model';
 
 @Component({
   selector: 'app-type-render-component',
