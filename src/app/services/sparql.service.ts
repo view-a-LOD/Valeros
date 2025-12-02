@@ -378,7 +378,7 @@ OPTIONAL { ?beperkingGebruikType <http://www.w3.org/2004/02/skos/core#prefLabel>
     ];
     const imageFilter =
       imageFormats.length > 0
-        ? `FILTER(?format IN (${imageFormats.join(', ')})) # JPG, TIF`
+        ? `FILTER(?format IN (${imageFormats.join(', ')}))`
         : '';
 
     const iiifDataQueryTemplate = `
