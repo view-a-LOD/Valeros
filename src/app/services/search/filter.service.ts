@@ -2,7 +2,7 @@ import { EventEmitter, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import type { estypes } from '@elastic/elasticsearch';
 import { BehaviorSubject } from 'rxjs';
-import { CustomFiltersRegistry } from '../../components/custom-components/custom-filters/custom-filters.registry';
+import { CustomFiltersRegistry } from '../../_custom-components/custom-filters/custom-filters.registry';
 import { Settings } from '../../config/settings';
 import {
   DocCountModel,

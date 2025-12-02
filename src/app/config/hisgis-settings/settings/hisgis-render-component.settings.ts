@@ -1,4 +1,4 @@
-import { AsWktComponent } from '../../../components/custom-components/custom-render-components/by-predicate/as-wkt/asWkt.component';
+import { AsWktComponent } from '../../../_custom-components/custom-render-components/by-predicate/as-wkt/asWkt.component';
 import {
   RenderComponentsSettings,
   RenderMode,

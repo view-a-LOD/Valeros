@@ -9,8 +9,8 @@ import {
 import { NgIcon } from '@ng-icons/core';
 import { featherInfo } from '@ng-icons/feather-icons';
 import { TranslatePipe } from '@ngx-translate/core';
+import { CustomSearchTipsComponent } from '../../../../_custom-components/custom-search-tips/custom-search-tips.directive';
 import { Settings } from '../../../../config/settings';
-import { CustomSearchTipsComponent } from '../../../custom-components/custom-search-tips/custom-search-tips.directive';
 
 @Component({
   selector: 'app-search-tips',

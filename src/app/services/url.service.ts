@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { skip } from 'rxjs';
-import { CustomFiltersRegistry } from '../components/custom-components/custom-filters/custom-filters.registry';
+import { CustomFiltersRegistry } from '../_custom-components/custom-filters/custom-filters.registry';
 import { Settings } from '../config/settings';
 import { FilterOptionsIdsModel } from '../models/filters/filter-option.model';
 import { FilterQueryParams } from '../models/filters/filter-query-params.model';

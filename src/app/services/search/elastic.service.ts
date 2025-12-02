@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import type { estypes } from '@elastic/elasticsearch';
-import { CustomFiltersRegistry } from '../../components/custom-components/custom-filters/custom-filters.registry';
+import { CustomFiltersRegistry } from '../../_custom-components/custom-filters/custom-filters.registry';
 import { Settings } from '../../config/settings';
 import { ElasticEndpointSearchResponse } from '../../models/elastic/elastic-endpoint-search-response.type';
 import { ElasticFieldExistsQuery } from '../../models/elastic/elastic-field-exists-query.type';

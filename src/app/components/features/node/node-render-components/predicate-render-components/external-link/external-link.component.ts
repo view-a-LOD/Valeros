@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { PredicateRenderComponent } from '../../../../../custom-components/custom-render-components/by-predicate/predicate-render-component.directive';
+import { PredicateRenderComponent } from '../../../../../../_custom-components/custom-render-components/by-predicate/predicate-render-component.directive';
 
 @Component({
   selector: 'app-external-link',

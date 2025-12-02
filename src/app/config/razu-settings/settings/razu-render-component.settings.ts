@@ -1,8 +1,8 @@
-import { LdtoDekkingInTijdComponent } from '../../../components/custom-components/custom-render-components/by-predicate/ldto-dekking-in-tijd/ldto-dekking-in-tijd.component';
-import { LdtoEventComponent } from '../../../components/custom-components/custom-render-components/by-predicate/ldto-event/ldto-event.component';
-import { LdtoOmvangComponent } from '../../../components/custom-components/custom-render-components/by-predicate/ldto-omvang/ldto-omvang.component';
-import { LdtoUrlBestandComponent } from '../../../components/custom-components/custom-render-components/by-predicate/ldto-url-bestand/ldto-url-bestand.component';
-import { RazuAfleveringComponent } from '../../../components/custom-components/custom-render-components/by-type/razu-aflevering/razu-aflevering.component';
+import { LdtoDekkingInTijdComponent } from '../../../_custom-components/custom-render-components/by-predicate/ldto-dekking-in-tijd/ldto-dekking-in-tijd.component';
+import { LdtoEventComponent } from '../../../_custom-components/custom-render-components/by-predicate/ldto-event/ldto-event.component';
+import { LdtoOmvangComponent } from '../../../_custom-components/custom-render-components/by-predicate/ldto-omvang/ldto-omvang.component';
+import { LdtoUrlBestandComponent } from '../../../_custom-components/custom-render-components/by-predicate/ldto-url-bestand/ldto-url-bestand.component';
+import { RazuAfleveringComponent } from '../../../_custom-components/custom-render-components/by-type/razu-aflevering/razu-aflevering.component';
 import { FileRendererComponent } from '../../../components/features/node/node-render-components/predicate-render-components/file-renderer/file-renderer.component';
 import { HopLinkComponent } from '../../../components/features/node/node-render-components/predicate-render-components/hop-components/hop-link/hop-link.component';
 import {

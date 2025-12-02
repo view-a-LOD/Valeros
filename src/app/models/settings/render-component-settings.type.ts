@@ -1,6 +1,6 @@
 import { Type } from '@angular/core';
-import { PredicateRenderComponent } from '../../components/custom-components/custom-render-components/by-predicate/predicate-render-component.directive';
-import { TypeRenderComponent } from '../../components/custom-components/custom-render-components/by-type/type-render-component.component';
+import { PredicateRenderComponent } from '../../_custom-components/custom-render-components/by-predicate/predicate-render-component.directive';
+import { TypeRenderComponent } from '../../_custom-components/custom-render-components/by-type/type-render-component.component';
 import { FileRendererComponent } from '../../components/features/node/node-render-components/predicate-render-components/file-renderer/file-renderer.component';
 import { NodeTypeComponent } from '../../components/features/node/node-types/node-type/node-type.component';
 import { Direction } from '../node.model';

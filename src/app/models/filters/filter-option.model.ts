@@ -1,6 +1,6 @@
 import { Type } from '@angular/core';
-import { CustomFilterComponent } from '../../components/custom-components/custom-filters/custom-filter.directive';
-import { CustomFilterService } from '../../components/custom-components/custom-filters/custom-filter.service';
+import { CustomFilterComponent } from '../../_custom-components/custom-filters/custom-filter.directive';
+import { CustomFilterService } from '../../_custom-components/custom-filters/custom-filter.service';
 import { ElasticSortOrder } from '../elastic/elastic-sort.model';
 import { FilterType } from './filter.model';
 

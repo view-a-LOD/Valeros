@@ -1,6 +1,6 @@
 import { Type } from '@angular/core';
-import { CustomColophonComponent } from '../../components/custom-components/custom-colophons/custom-colophon.directive';
-import { CustomSearchTipsComponent } from '../../components/custom-components/custom-search-tips/custom-search-tips.directive';
+import { CustomColophonComponent } from '../../_custom-components/custom-colophons/custom-colophon.directive';
+import { CustomSearchTipsComponent } from '../../_custom-components/custom-search-tips/custom-search-tips.directive';
 
 export interface ContentSettings {
   colophonComponent?: Type<CustomColophonComponent>;

@@ -1,5 +1,5 @@
-import { DateRangeFilterComponent } from '../../../components/custom-components/custom-filters/date-range-filter/date-range-filter.component';
-import { DateRangeFilterService } from '../../../components/custom-components/custom-filters/date-range-filter/date-range-filter.service';
+import { DateRangeFilterComponent } from '../../../_custom-components/custom-filters/date-range-filter/date-range-filter.component';
+import { DateRangeFilterService } from '../../../_custom-components/custom-filters/date-range-filter/date-range-filter.service';
 import { FilteringSettings } from '../../../models/settings/filtering-settings.model';
 import { filteringSettings } from '../../default-settings/settings/filtering.settings';
 
