@@ -10,6 +10,8 @@ import { routes } from './app.routes';
 import { Settings } from './config/settings';
 import { AutocompleteProvider } from './services/search/autocomplete-providers/autocomplete-provider.interface';
 import { ElasticAutocompleteProvider } from './services/search/autocomplete-providers/elastic-autocomplete.provider';
+import { ElasticFilterOptionsProvider } from './services/search/filter-options-providers/elastic-filter-options.provider';
+import { FilterOptionsProvider } from './services/search/filter-options-providers/filter-options-provider.interface';
 import { SearchProvider } from './services/search/search-providers/search-provider.interface';
 import { SPARQLSearchProvider } from './services/search/search-providers/sparql-search-provider/sparql-search.provider';
 
@@ -38,6 +40,10 @@ const providers = [
   {
     provide: SearchProvider,
     useExisting: Settings.endpoints.searchProvider ?? SPARQLSearchProvider,
+  },
+  {
+    provide: FilterOptionsProvider,
+    useExisting: ElasticFilterOptionsProvider,
   },
   { provide: AutocompleteProvider, useExisting: ElasticAutocompleteProvider },
 ];
