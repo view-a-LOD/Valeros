@@ -1,12 +1,20 @@
 <!-- TODO: Prevent (repeated) container styling as for filter options -->
-<div class="collapse collapse-arrow join-item bg-primary text-white border">
+<div
+  class="collapse collapse-arrow bg-base-200 text-black join-item border"
+  aria-label="Filter op: organisaties"
+>
   <input
     type="checkbox"
+    role="button"
     name="filter-accordion"
     [(ngModel)]="ui.accordionExpandedStates['endpoints']"
+    id="Filter by organizations"
+    [attr.aria-expanded]="ui.accordionExpandedStates['endpoints']"
   />
-  <div class="collapse-title">
-    <span>{{ "search-interface.organizations" | translate }}</span>
+  <h3 class="collapse-title">
+    <label for="Filter by organizations" class="font-bold underline">
+      {{ "search-interface.organizations" | translate }}
+    </label>
     <app-filter-enabled-count
       [count]="
         +(
@@ -16,9 +24,11 @@
         )
       "
     />
-  </div>
+  </h3>
 
-  <div class="collapse-content max-h-48 overflow-y-scroll overflow-x-hidden">
+  <div
+    class="collapse-content max-h-48 overflow-y-scroll overflow-x-hidden w-full"
+  >
     @for (
       endpointId of Object.keys(Settings.endpoints.data);
       track endpointId
