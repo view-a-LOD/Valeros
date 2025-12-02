@@ -27,28 +27,118 @@ export class SPARQLSearchProvider extends SearchProvider {
     if (!term) {
       return { nodes: [], total: 0, isCapped: false };
     }
-
     const endpoint: EndpointUrlsModel = this.endpoints.getFirstUrls();
 
+    const federatedLabelQuery: string = this._getFederatedLabelQuery(term);
+
+    const totalSubjectsCount: number = await this._getTotalSubjectsCount(
+      federatedLabelQuery,
+      endpoint,
+    );
+
+    if (totalSubjectsCount === 0) {
+      return { nodes: [], total: 0, isCapped: false };
+    }
+
+    const subjectIds: string[] = await this._getPaginatedSubjectIds(
+      federatedLabelQuery,
+      endpoint,
+      request,
+    );
+
+    if (!subjectIds || subjectIds.length === 0) {
+      return { nodes: [], total: totalSubjectsCount, isCapped: false };
+    }
+
+    const nodes: NodeModel[] = await this._getNodesFromSubjectIds(
+      subjectIds,
+      endpoint,
+    );
+
+    return {
+      nodes,
+      total: totalSubjectsCount,
+      isCapped: false,
+    };
+  }
+
+  private _getFederatedLabelQuery(term: string): string {
     const labelPredicates = Settings.predicates.label
       .map((iri) => `<${iri}>`)
       .join(' ');
 
-    const sparqlQuery = `
-SELECT ?s ?p ?o
-WHERE {
-  {
-    SELECT DISTINCT ?s
-    WHERE {
+    const labelQueryTemplate = `
       VALUES ?labelPred { ${labelPredicates} }
       ?s ?labelPred ?label .
-      FILTER(CONTAINS(STR(?label), "${term}"))
-    }
-    LIMIT ${request.pageSize}
-    OFFSET ${request.page * request.pageSize}
+      FILTER(CONTAINS(LCASE(STR(?label)), LCASE("${term}")))`;
+
+    return this.sparql.getFederatedQuery(labelQueryTemplate);
   }
 
-  ?s ?p ?o .
+  private async _getTotalSubjectsCount(
+    federatedLabelQuery: string,
+    endpoint: EndpointUrlsModel,
+  ): Promise<number> {
+    const countQuery = `
+SELECT (COUNT(DISTINCT ?s) AS ?total)
+WHERE {
+  ${federatedLabelQuery}
+}`;
+
+    type CountRow = { total: string };
+
+    const countRows: CountRow[] = await this.sparql.executeRawQuery<CountRow[]>(
+      countQuery,
+      endpoint.sparql,
+    );
+
+    return countRows.length > 0 ? Number(countRows[0].total) : 0;
+  }
+
+  private async _getPaginatedSubjectIds(
+    federatedLabelQuery: string,
+    endpoint: EndpointUrlsModel,
+    request: SearchRequest,
+  ): Promise<string[]> {
+    const subjectsQuery = `
+SELECT DISTINCT ?s
+WHERE {
+  ${federatedLabelQuery}
+}
+ORDER BY ?s
+LIMIT ${request.pageSize}
+OFFSET ${request.page * request.pageSize}`;
+
+    type SubjectRow = { s: string };
+
+    const subjectRows: SubjectRow[] = await this.sparql.executeRawQuery<
+      SubjectRow[]
+    >(subjectsQuery, endpoint.sparql);
+
+    if (!subjectRows || subjectRows.length === 0) {
+      return [];
+    }
+
+    return subjectRows.map((row) => row.s);
+  }
+
+  private async _getNodesFromSubjectIds(
+    subjects: string[],
+    endpoint: EndpointUrlsModel,
+  ): Promise<NodeModel[]> {
+    const subjectValues = subjects.map((s) => `<${s}>`).join(' ');
+
+    const triplesTemplate = `
+      VALUES ?s { ${subjectValues} }
+      ?s ?p ?o .`;
+
+    const federatedTriplesQuery =
+      this.sparql.getFederatedQuery(triplesTemplate);
+
+    const triplesQuery = `
+SELECT ?s ?p ?o
+WHERE {
+  ${federatedTriplesQuery}
 }`;
 
     type SPARQLRow = {
@@ -58,7 +148,7 @@ WHERE {
     };
 
     const rows: SPARQLRow[] = await this.sparql.executeRawQuery<SPARQLRow[]>(
-      sparqlQuery,
+      triplesQuery,
       endpoint.sparql,
     );
 
@@ -86,11 +176,6 @@ WHERE {
       });
     }
 
-    const nodes: NodeModel[] = Array.from(nodeMap.values());
-    return {
-      nodes,
-      total: nodes.length,
-      isCapped: false,
-    };
+    return Array.from(nodeMap.values());
   }
 }
