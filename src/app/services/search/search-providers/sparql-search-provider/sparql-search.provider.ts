@@ -24,9 +24,9 @@ export class SPARQLSearchProvider extends SearchProvider {
   async searchNodes(request: SearchRequest): Promise<SearchResponse> {
     const term = request.query?.trim();
 
-    if (!term) {
-      return { nodes: [], total: 0, isCapped: false };
-    }
+    // if (!term) {
+    //   return { nodes: [], total: 0, isCapped: false };
+    // }
     const endpoint: EndpointUrlsModel = this.endpoints.getFirstUrls();
 
     const federatedLabelQuery: string = this._getFederatedLabelQuery(term);
