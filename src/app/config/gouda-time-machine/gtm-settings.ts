@@ -93,6 +93,10 @@ export const gtmSettings: SettingsModel = {
     ...defaultSettings.namespacePrefixes,
     'https://schema.org/': 'sdo:',
   },
+  ui: {
+    ...defaultSettings.ui,
+    labelMaxChars: 400,
+  },
   renderComponents: {
     [RenderMode.ByType]: [...renderComponentSettings[RenderMode.ByType]],
     [RenderMode.ByPredicate]: [
