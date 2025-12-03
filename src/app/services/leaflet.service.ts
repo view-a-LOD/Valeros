@@ -1,0 +1,63 @@
+import { ElementRef, Injectable } from '@angular/core';
+import * as L from 'leaflet';
+
+@Injectable({
+  providedIn: 'root',
+})
+export class LeafletService {
+  initMap(
+    container: ElementRef,
+    center: L.LatLngExpression,
+    zoom: number,
+  ): L.Map {
+    const map = L.map(container.nativeElement).setView(center, zoom);
+
+    L.tileLayer(
+      'https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}.png',
+      {
+        minZoom: 0,
+        maxZoom: 20,
+        attribution:
+          '&copy; <a href="https://www.stadiamaps.com/" target="_blank">Stadia Maps</a> &copy; <a href="https://openmaptiles.org/" target="_blank">OpenMapTiles</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+      },
+    ).addTo(map);
+
+    return map;
+  }
+
+  addPolygonFromWkt(map: L.Map, wktString: string): L.Polygon | null {
+    const coordinates = this.parseWKT(wktString);
+    if (coordinates.length === 0) {
+      return null;
+    }
+
+    const polygon = L.polygon(coordinates, {
+      color: '#3388ff',
+      weight: 2,
+      opacity: 1,
+      fillOpacity: 0.3,
+    }).addTo(map);
+
+    map.fitBounds(polygon.getBounds());
+
+    return polygon;
+  }
+
+  private parseWKT(wktString: string): L.LatLngExpression[] {
+    const polygonMatch = wktString.match(/POLYGON\s*\(\((.*?)\)\)/i);
+    if (!polygonMatch) {
+      throw new Error('Invalid POLYGON format');
+    }
+
+    const coordinatesText = polygonMatch[1];
+    const coordinatePairs = coordinatesText.split(',');
+
+    return coordinatePairs.map((pair) => {
+      const [lng, lat] = pair.trim().split(/\s+/).map(Number);
+      if (isNaN(lat) || isNaN(lng)) {
+        throw new Error('Invalid coordinate values');
+      }
+      return [lat, lng] as L.LatLngExpression;
+    });
+  }
+}
