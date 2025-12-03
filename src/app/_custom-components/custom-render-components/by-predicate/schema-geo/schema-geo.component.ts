@@ -1,17 +1,20 @@
 import { Component, OnInit } from '@angular/core';
-import { NodeLinkComponent } from '../../../../components/features/node/node-link/node-link.component';
 import { HopLinkComponent } from '../../../../components/features/node/node-render-components/predicate-render-components/hop-components/hop-link/hop-link.component';
 import { PredicateRenderComponent } from '../predicate-render-component.directive';
 
 @Component({
-  selector: 'app-schema-geo-lat-long',
+  selector: 'app-schema-geo',
   standalone: true,
-  imports: [NodeLinkComponent, HopLinkComponent],
-  templateUrl: './schema-geo-lat-long.component.html',
+  imports: [HopLinkComponent],
+  templateUrl: './schema-geo.component.html',
 })
-export class SchemaGeoLatLongComponent
+export class SchemaGeoComponent
   extends PredicateRenderComponent
   implements OnInit
 {
+  latitude: string[] = [];
+  longitude: string[] = [];
+  polygon: string[] = [];
+
   ngOnInit(): void {}
 }

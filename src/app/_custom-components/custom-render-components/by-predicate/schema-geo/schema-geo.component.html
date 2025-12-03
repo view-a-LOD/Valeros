@@ -7,8 +7,9 @@
         showHops: true,
       },
     }"
+    (hopObjIdsRetrieved)="latitude = $event"
+    class="hidden"
   />
-  <br />
   <app-hop-link
     [data]="{
       value: data!.value!,
@@ -17,5 +18,20 @@
         showHops: true,
       },
     }"
+    (hopObjIdsRetrieved)="longitude = $event"
+    class="hidden"
+  />
+  <app-hop-link
+    [data]="{
+      value: data!.value!,
+      hopLinkSettings: {
+        preds: ['https://schema.org/geo', 'https://schema.org/polygon'],
+        showHops: true,
+      },
+    }"
+    (hopObjIdsRetrieved)="polygon = $event"
+    class="hidden"
   />
 }
+
+{{ polygon }}
