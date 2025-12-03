@@ -23,6 +23,7 @@ export class SPARQLFilterOptionsProvider extends FilterOptionsProvider {
     super();
   }
 
+  // TODO: Take into account search query + other activated filters
   async getFilterOptions(
     request: FilterOptionsRequest,
   ): Promise<FilterOptionsProviderResponse> {
