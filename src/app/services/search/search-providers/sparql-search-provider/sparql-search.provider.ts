@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Settings } from '../../../../config/settings';
 import { EndpointUrlsModel } from '../../../../models/endpoint.model';
-import { Direction, NodeModel } from '../../../../models/node.model';
+import { Direction, NodeModel, NodeObj } from '../../../../models/node.model';
 import { EndpointService } from '../../../endpoint.service';
 import { SparqlService } from '../../../sparql.service';
 import {
@@ -136,7 +136,7 @@ OFFSET ${request.page * request.pageSize}`;
       this.sparql.getFederatedQuery(triplesTemplate);
 
     const triplesQuery = `
-SELECT ?s ?p ?o
+SELECT ?s ?p ?o ?endpointUrl
 WHERE {
   ${federatedTriplesQuery}
 }`;
@@ -145,14 +145,13 @@ WHERE {
       s: string;
       p: string;
       o: string;
+      endpointUrl?: string;
     };
 
     const rows: SPARQLRow[] = await this.sparql.executeRawQuery<SPARQLRow[]>(
       triplesQuery,
       endpoint.sparql,
     );
-
-    const endpointId: string = this.endpoints.getIdBySparqlUrl(endpoint.sparql);
 
     const nodeMap = new Map<string, NodeModel>();
 
@@ -162,9 +161,7 @@ WHERE {
       if (!node) {
         node = {
           '@id': [{ value: row.s, direction: Direction.Outgoing }],
-          endpointId: endpointId
-            ? [{ value: endpointId, direction: Direction.Outgoing }]
-            : [],
+          endpointId: [],
         };
 
         nodeMap.set(row.s, node);
@@ -174,6 +171,23 @@ WHERE {
         value: row.o,
         direction: Direction.Outgoing,
       });
+
+      if (row.endpointUrl) {
+        const endpointIdStr = this.endpoints.getIdBySparqlUrl(row.endpointUrl);
+        if (endpointIdStr) {
+          const endpointIds: NodeObj[] = node.endpointId ?? [];
+          const exists = endpointIds.some(
+            (e: NodeObj) => e.value === endpointIdStr,
+          );
+          if (!exists) {
+            endpointIds.push({
+              value: endpointIdStr,
+              direction: Direction.Outgoing,
+            });
+            node.endpointId = endpointIds;
+          }
+        }
+      }
     }
 
     return Array.from(nodeMap.values());
