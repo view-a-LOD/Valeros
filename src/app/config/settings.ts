@@ -1,4 +1,4 @@
 import { SettingsModel } from '../models/settings/settings.model';
-import { gtmSettings } from './gouda-time-machine/gtm-settings';
+import { naddSettings } from './nadd/nadd-settings';
 
-export const Settings: SettingsModel = gtmSettings;
+export const Settings: SettingsModel = naddSettings;
