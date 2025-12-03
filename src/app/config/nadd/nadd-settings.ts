@@ -104,7 +104,7 @@ export const naddSettings: SettingsModel = {
             predicates: [
               'https://schema.org/description',
               'https://schema.org/material',
-              '*',
+              // '*',
             ],
           },
         ],
