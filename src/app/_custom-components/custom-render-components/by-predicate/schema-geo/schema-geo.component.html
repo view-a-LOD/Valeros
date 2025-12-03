@@ -7,7 +7,7 @@
         showHops: true,
       },
     }"
-    (hopObjIdsRetrieved)="latitude = $event"
+    (hopObjIdsRetrieved)="onLatitude($event)"
     class="hidden"
   />
   <app-hop-link
@@ -18,7 +18,7 @@
         showHops: true,
       },
     }"
-    (hopObjIdsRetrieved)="longitude = $event"
+    (hopObjIdsRetrieved)="onLongitude($event)"
     class="hidden"
   />
   <app-hop-link
@@ -29,9 +29,9 @@
         showHops: true,
       },
     }"
-    (hopObjIdsRetrieved)="polygon = $event"
+    (hopObjIdsRetrieved)="onPolygon($event)"
     class="hidden"
   />
 }
 
-{{ polygon }}
+<div #mapContainer class="h-64 w-full"></div>
