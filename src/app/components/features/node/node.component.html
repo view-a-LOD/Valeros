@@ -87,6 +87,14 @@
                 <app-node-types [types]="types" />
               </app-node-table-row>
             }
+
+            @if (showOrganization) {
+              <app-node-table-row
+                [label]="'records-interface.organization' | translate"
+              >
+                <app-node-endpoint [endpointId]="nodes.getEndpointId(node)" />
+              </app-node-table-row>
+            }
           </div>
           <div class="sm:pr-32">
             <app-node-renderer [node]="node" />
