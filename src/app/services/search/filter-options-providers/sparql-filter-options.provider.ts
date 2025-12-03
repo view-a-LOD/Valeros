@@ -55,7 +55,7 @@ LIMIT ${size}`;
         type Row = { value: string; count: string };
         let rows: Row[] = [];
         try {
-          console.log(query);
+          // console.log(query);
           rows = await this.sparql.executeRawQuery<Row[]>(query);
         } catch (error) {
           console.warn('SPARQLFilterOptionsProvider.getFilterOptions error', {
@@ -92,7 +92,7 @@ LIMIT ${size}`;
       aggregations: aggregations as any,
     };
 
-    console.log('SPARQLFilterOptionsProvider.getFilterOptions', response);
+    // console.log('SPARQLFilterOptionsProvider.getFilterOptions', response);
     return { responses: [response] };
   }
 }
