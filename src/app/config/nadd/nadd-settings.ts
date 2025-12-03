@@ -141,7 +141,10 @@ export const naddSettings: SettingsModel = {
   },
   predicates: {
     ...defaultSettings.predicates,
-    files: ['https://schema.org/associatedMedia'],
+    files: [
+      'https://schema.org/associatedMedia',
+      'https://schema.org/contentUrl',
+    ],
     hopFiles: [
       ['https://schema.org/associatedMedia', 'https://schema.org/contentUrl'],
     ],
