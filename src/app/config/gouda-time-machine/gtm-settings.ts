@@ -1,3 +1,4 @@
+import { RicoDateComponent } from '../../_custom-components/custom-render-components/by-predicate/rico-date/rico-date.component';
 import { SchemaGeoComponent } from '../../_custom-components/custom-render-components/by-predicate/schema-geo/schema-geo.component';
 import { ExternalLinkComponent } from '../../components/features/node/node-render-components/predicate-render-components/external-link/external-link.component';
 import { FileRendererComponent } from '../../components/features/node/node-render-components/predicate-render-components/file-renderer/file-renderer.component';
@@ -105,14 +106,10 @@ export const gtmSettings: SettingsModel = {
         requiresExplicitRendering: true,
       },
       {
-        component: HopLinkComponent,
+        component: RicoDateComponent,
         predicates: [
           'https://www.ica.org/standards/RiC/ontology#isAssociatedWithDate',
         ],
-        hopLinkSettings: {
-          preds: ['https://www.ica.org/standards/RiC/ontology#expressedDate'],
-          showHops: true,
-        },
       },
       {
         component: HopLinkComponent,

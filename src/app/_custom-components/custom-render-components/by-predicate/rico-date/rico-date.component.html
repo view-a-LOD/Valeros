@@ -1,0 +1,49 @@
+@if (data?.value) {
+  <app-hop-link
+    [data]="{
+      value: data!.value!,
+      hopLinkSettings: {
+        preds: ['https://www.ica.org/standards/RiC/ontology#expressedDate'],
+        showHops: false,
+      },
+    }"
+  />
+
+  <div class="opacity-25 hover:opacity-70 transition-opacity">
+    <app-hop-link
+      [data]="{
+        value: data!.value!,
+        hopLinkSettings: {
+          preds: ['https://www.ica.org/standards/RiC/ontology#expressedDate'],
+          showHops: true,
+        },
+      }"
+    />
+    <br />
+    <app-hop-link
+      [data]="{
+        value: data!.value!,
+        hopLinkSettings: {
+          preds: [
+            'https://www.ica.org/standards/RiC/ontology#hasBeginningDate',
+            'https://www.ica.org/standards/RiC/ontology#normalizedDateValue',
+          ],
+          showHops: true,
+        },
+      }"
+    />
+    <br />
+    <app-hop-link
+      [data]="{
+        value: data!.value!,
+        hopLinkSettings: {
+          preds: [
+            'https://www.ica.org/standards/RiC/ontology#hasEndDate',
+            'https://www.ica.org/standards/RiC/ontology#normalizedDateValue',
+          ],
+          showHops: true,
+        },
+      }"
+    />
+  </div>
+}
