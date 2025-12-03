@@ -1,8 +1,10 @@
 import { EndpointSettings } from '../../../models/settings/endpoint-settings.model';
+import { ElasticSearchProvider } from '../../../services/search/search-providers/elastic-search-provider/elastic-search.provider';
 import { endpointSettings } from '../../default-settings/settings/endpoint.settings';
 
 export const hisgisEndpointSettings: EndpointSettings = {
   ...endpointSettings,
+  searchProvider: ElasticSearchProvider,
   data: {
     hisgis: {
       label: 'HISGIS',

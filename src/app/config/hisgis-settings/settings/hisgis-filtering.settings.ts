@@ -1,8 +1,10 @@
 import { FilteringSettings } from '../../../models/settings/filtering-settings.model';
+import { ElasticFilterOptionsProvider } from '../../../services/search/filter-options-providers/elastic-filter-options.provider';
 import { defaultSettings } from '../../default-settings/default-settings';
 
 export const hisgisFilteringSettings: FilteringSettings = {
   ...defaultSettings.filtering,
+  filterOptionsProvider: ElasticFilterOptionsProvider,
   filterOptions: {
     type: {
       label: 'Type',
