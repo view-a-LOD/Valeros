@@ -2,8 +2,11 @@ import { SchemaGeoComponent } from '../../_custom-components/custom-render-compo
 import { ExternalLinkComponent } from '../../components/features/node/node-render-components/predicate-render-components/external-link/external-link.component';
 import { FileRendererComponent } from '../../components/features/node/node-render-components/predicate-render-components/file-renderer/file-renderer.component';
 import { HopLinkComponent } from '../../components/features/node/node-render-components/predicate-render-components/hop-components/hop-link/hop-link.component';
+import { PredicateVisibility } from '../../models/settings/predicate-visibility-settings.model';
 import { RenderMode } from '../../models/settings/render-component-settings.type';
 import { SettingsModel } from '../../models/settings/settings.model';
+import { ViewModeSetting } from '../../models/settings/view-mode-setting.enum';
+import { ViewMode } from '../../models/view-mode.enum';
 import { defaultSettings } from '../default-settings/default-settings';
 import { renderComponentSettings } from '../default-settings/settings/render-component.settings';
 
@@ -20,6 +23,16 @@ export const gtmSettings: SettingsModel = {
           },
         ],
       },
+    },
+  },
+  viewModes: {
+    [ViewMode.List]: {
+      ...defaultSettings.viewModes[ViewMode.List],
+      [ViewModeSetting.ShowTypes]: false,
+    },
+    [ViewMode.Grid]: {
+      ...defaultSettings.viewModes[ViewMode.Grid],
+      [ViewModeSetting.ShowTypes]: false,
     },
   },
   filtering: {
@@ -44,9 +57,40 @@ export const gtmSettings: SettingsModel = {
       'https://schema.org/description',
     ],
   },
+  predicateVisibility: {
+    byViewMode: {
+      [ViewMode.List]: {
+        [PredicateVisibility.Show]: [
+          {
+            predicates: [
+              'https://schema.org/creator',
+              'https://schema.org/locationCreated',
+            ],
+          },
+        ],
+        [PredicateVisibility.Details]: [
+          {
+            predicates: ['*'],
+          },
+        ],
+        [PredicateVisibility.Hide]: [
+          {
+            predicates: [],
+          },
+        ],
+      },
+      [ViewMode.Grid]: {
+        [PredicateVisibility.Show]: [],
+        [PredicateVisibility.Details]: [{ predicates: ['*'] }],
+        [PredicateVisibility.Hide]: [],
+      },
+    },
+    alwaysHide: [...defaultSettings.predicateVisibility.alwaysHide],
+    hideTypeBadges: [],
+  },
   namespacePrefixes: {
     ...defaultSettings.namespacePrefixes,
-    'https://schema.org/': 'schema:',
+    'https://schema.org/': 'sdo:',
   },
   renderComponents: {
     [RenderMode.ByType]: [...renderComponentSettings[RenderMode.ByType]],
