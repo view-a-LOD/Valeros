@@ -8,6 +8,12 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { provideMatomo } from 'ngx-matomo-client';
 import { routes } from './app.routes';
 import { Settings } from './config/settings';
+import { AutocompleteProvider } from './services/search/autocomplete-providers/autocomplete-provider.interface';
+import { ElasticAutocompleteProvider } from './services/search/autocomplete-providers/elastic-autocomplete.provider';
+import { FilterOptionsProvider } from './services/search/filter-options-providers/filter-options-provider.interface';
+import { SPARQLFilterOptionsProvider } from './services/search/filter-options-providers/sparql-filter-options.provider';
+import { SearchProvider } from './services/search/search-providers/search-provider.interface';
+import { SPARQLSearchProvider } from './services/search/search-providers/sparql-search-provider/sparql-search.provider';
 
 const httpLoaderFactory: (http: HttpClient) => TranslateHttpLoader = (
   http: HttpClient,
@@ -31,6 +37,16 @@ const providers = [
       },
     }),
   ]),
+  {
+    provide: SearchProvider,
+    useExisting: Settings.endpoints.searchProvider ?? SPARQLSearchProvider,
+  },
+  {
+    provide: FilterOptionsProvider,
+    useExisting:
+      Settings.filtering.filterOptionsProvider ?? SPARQLFilterOptionsProvider,
+  },
+  { provide: AutocompleteProvider, useExisting: ElasticAutocompleteProvider },
 ];
 
 if (Settings.matomo && Settings.matomo.siteId && Settings.matomo.trackerUrl) {

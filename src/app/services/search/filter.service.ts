@@ -19,7 +19,10 @@ import { FilterQueryParams } from '../../models/filters/filter-query-params.mode
 import { FilterModel, FilterType } from '../../models/filters/filter.model';
 import { ClusterService } from '../cluster.service';
 import { DataService } from '../data.service';
-import { ElasticService } from './elastic.service';
+import {
+  FilterOptionsProvider,
+  FilterOptionsRequest,
+} from './filter-options-providers/filter-options-provider.interface';
 
 interface SearchTriggerModel {
   clearFilters: boolean;
@@ -43,7 +46,7 @@ export class FilterService {
 
   constructor(
     public customFiltersRegistry: CustomFiltersRegistry,
-    public elastic: ElasticService,
+    private filterOptionsProvider: FilterOptionsProvider,
     public data: DataService,
     public clusters: ClusterService,
     public router: Router,
@@ -207,11 +210,16 @@ export class FilterService {
         );
 
         const groupFilterOptions = [this.options.value[filterGroupId]];
-        return await this.elastic.getFilterOptions(
+        const request: FilterOptionsRequest = {
           query,
-          groupFilterOptions,
-          filtersWithoutThisGroup,
-        );
+          options: groupFilterOptions,
+          activeFilters: filtersWithoutThisGroup,
+        };
+
+        const { responses } =
+          await this.filterOptionsProvider.getFilterOptions(request);
+
+        return responses;
       });
 
       const additionalResponses: estypes.SearchResponse<any>[] =

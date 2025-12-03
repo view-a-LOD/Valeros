@@ -1,5 +1,5 @@
 import { RazuColophonComponent } from '../../../_custom-components/custom-colophons/razu-colophon/razu-colophon.component';
-import { RazuSearchTipsComponent } from '../../../components/features/search/search-tips/custom-search-tips/razu-search-tips/razu-search-tips.component';
+import { RazuSearchTipsComponent } from '../../../_custom-components/custom-search-tips/razu-search-tips/razu-search-tips.component';
 import { ContentSettings } from '../../../models/settings/content-settings.model';
 
 export const razuContentSettings: ContentSettings = {

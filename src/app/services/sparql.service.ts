@@ -89,6 +89,11 @@ UNION {
     return flatBindings as T;
   }
 
+  async executeRawQuery<T>(query: string, endpointUrl?: string): Promise<T> {
+    const url = endpointUrl ?? this.endpoints.getFirstUrls().sparql;
+    return await this._post<T>(url, query);
+  }
+
   private _ensureNodeHasId(node: NodeModel): void {
     const isValidNode =
       node !== undefined &&
@@ -378,7 +383,7 @@ OPTIONAL { ?beperkingGebruikType <http://www.w3.org/2004/02/skos/core#prefLabel>
     ];
     const imageFilter =
       imageFormats.length > 0
-        ? `FILTER(?format IN (${imageFormats.join(', ')})) # JPG, TIF`
+        ? `FILTER(?format IN (${imageFormats.join(', ')}))`
         : '';
 
     const iiifDataQueryTemplate = `

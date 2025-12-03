@@ -1,27 +1,30 @@
 import { Injectable } from '@angular/core';
 import type { estypes } from '@elastic/elasticsearch';
-import { CustomFiltersRegistry } from '../../_custom-components/custom-filters/custom-filters.registry';
-import { Settings } from '../../config/settings';
-import { ElasticEndpointSearchResponse } from '../../models/elastic/elastic-endpoint-search-response.type';
-import { ElasticFieldExistsQuery } from '../../models/elastic/elastic-field-exists-query.type';
-import { ElasticFullTextMatchQuery } from '../../models/elastic/elastic-full-text-match-query.type';
-import { ElasticMatchAllQuery } from '../../models/elastic/elastic-match-all-query.type';
-import { ElasticMatchQueries } from '../../models/elastic/elastic-match-queries.type';
-import { ElasticNodeModel } from '../../models/elastic/elastic-node.model';
-import { ElasticQuery } from '../../models/elastic/elastic-query.type';
-import { ElasticShouldQueries } from '../../models/elastic/elastic-should-queries.type';
-import { ElasticSortEntryModel } from '../../models/elastic/elastic-sort.model';
+import { CustomFiltersRegistry } from '../../../../_custom-components/custom-filters/custom-filters.registry';
+import { Settings } from '../../../../config/settings';
+import { ElasticEndpointSearchResponse } from '../../../../models/elastic/elastic-endpoint-search-response.type';
+import { ElasticFieldExistsQuery } from '../../../../models/elastic/elastic-field-exists-query.type';
+import { ElasticFullTextMatchQuery } from '../../../../models/elastic/elastic-full-text-match-query.type';
+import { ElasticMatchAllQuery } from '../../../../models/elastic/elastic-match-all-query.type';
+import { ElasticMatchQueries } from '../../../../models/elastic/elastic-match-queries.type';
+import { ElasticNodeModel } from '../../../../models/elastic/elastic-node.model';
+import { ElasticQuery } from '../../../../models/elastic/elastic-query.type';
+import { ElasticShouldQueries } from '../../../../models/elastic/elastic-should-queries.type';
+import { ElasticSortEntryModel } from '../../../../models/elastic/elastic-sort.model';
 import {
   FilterOptionModel,
   FilterOptionsIdsModel,
-} from '../../models/filters/filter-option.model';
-import { FilterModel, FilterType } from '../../models/filters/filter.model';
-import { SortOrder } from '../../models/settings/sort-order.enum';
-import { ApiService } from '../api.service';
-import { DataService } from '../data.service';
-import { EndpointService } from '../endpoint.service';
-import { SettingsService } from '../settings.service';
-import { SortService } from '../sort.service';
+} from '../../../../models/filters/filter-option.model';
+import {
+  FilterModel,
+  FilterType,
+} from '../../../../models/filters/filter.model';
+import { SortOrder } from '../../../../models/settings/sort-order.enum';
+import { ApiService } from '../../../api.service';
+import { DataService } from '../../../data.service';
+import { EndpointService } from '../../../endpoint.service';
+import { SettingsService } from '../../../settings.service';
+import { SortService } from '../../../sort.service';
 
 @Injectable({
   providedIn: 'root',
