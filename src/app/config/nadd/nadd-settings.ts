@@ -91,6 +91,13 @@ export const naddSettings: SettingsModel = {
   filtering: {
     ...defaultSettings.filtering,
     showOrganizationsFilter: true,
+    filterOptions: {
+      type: {
+        label: 'Type',
+        fieldIds: ['http://www.w3.org/1999/02/22-rdf-syntax-ns#type'],
+        values: [],
+      },
+    },
   },
   predicates: {
     ...defaultSettings.predicates,
