@@ -10,6 +10,46 @@ export const naddSettings: SettingsModel = {
   endpoints: {
     ...defaultSettings.endpoints,
     data: {
+      haagsHistorischMuseum: {
+        label: 'Haags Historisch Museum/Rijksmuseum De Gevangenpoort',
+        endpointUrls: [
+          {
+            sparql: 'https://sparql.ldmax.nl/q11722011',
+          },
+        ],
+      },
+      stichtingVanDerWyckDeKempenaer: {
+        label: 'Stichting Van der Wyck-de Kempenaer',
+        endpointUrls: [
+          {
+            sparql: 'https://sparql.ldmax.nl/q20829167',
+          },
+        ],
+      },
+      museumMohlmann: {
+        label: 'Museum Møhlmann',
+        endpointUrls: [
+          {
+            sparql: 'https://sparql.ldmax.nl/q2168069',
+          },
+        ],
+      },
+      mowMuseumWesterwolde: {
+        label: 'MOW Museum Westerwolde',
+        endpointUrls: [
+          {
+            sparql: 'https://sparql.ldmax.nl/q13612139',
+          },
+        ],
+      },
+      museumAanDeA: {
+        label: 'Museum aan de A',
+        endpointUrls: [
+          {
+            sparql: 'https://sparql.ldmax.nl/q2004350',
+          },
+        ],
+      },
       keramiekMuseum: {
         label: 'Keramiekmuseum Tiendschuur',
         endpointUrls: [
