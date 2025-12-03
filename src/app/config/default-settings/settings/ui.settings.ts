@@ -3,7 +3,7 @@ import { UiSettings } from '../../../models/settings/ui-settings.model';
 
 export const uiSettings: UiSettings = {
   showLanguageToggle: false,
-  labelMaxChars: 100,
+  labelMaxChars: 400,
   sectionNextToTableWidth: { search: '30%', details: '40%' },
   imageForWhenLoadingFails: '/assets/img/image-load-fail.png',
   imageForWhenImageIsInaccessible: '/assets/img/image-inaccessible.png',
