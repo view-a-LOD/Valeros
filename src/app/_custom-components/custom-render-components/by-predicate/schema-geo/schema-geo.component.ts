@@ -101,7 +101,7 @@ export class SchemaGeoComponent
 
   private ensureMapInitialized(center: L.LatLngExpression): void {
     if (!this.map) {
-      this.map = this.leafletService.initMap(this.mapContainer, center, 13);
+      this.map = this.leafletService.initMap(this.mapContainer, center, 16);
     }
   }
 
@@ -150,7 +150,7 @@ export class SchemaGeoComponent
     if (this.marker) {
       this.marker.setLatLng([lat, lng]);
     } else if (this.map) {
-      this.marker = L.marker([lat, lng]).addTo(this.map);
+      this.marker = this.leafletService.addMarker(this.map, [lat, lng]);
     }
   }
 }

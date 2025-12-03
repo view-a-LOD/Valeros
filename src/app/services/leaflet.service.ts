@@ -5,6 +5,17 @@ import * as L from 'leaflet';
   providedIn: 'root',
 })
 export class LeafletService {
+  private defaultMarkerIcon: L.Icon;
+
+  constructor() {
+    this.defaultMarkerIcon = L.icon({
+      iconUrl: 'assets/leaflet/marker-icon.png',
+      shadowUrl: 'assets/leaflet/marker-shadow.png',
+      iconSize: [25, 41],
+      iconAnchor: [12, 41],
+    });
+  }
+
   initMap(
     container: ElementRef,
     center: L.LatLngExpression,
@@ -41,6 +52,10 @@ export class LeafletService {
     map.fitBounds(polygon.getBounds());
 
     return polygon;
+  }
+
+  addMarker(map: L.Map, position: L.LatLngExpression): L.Marker {
+    return L.marker(position, { icon: this.defaultMarkerIcon }).addTo(map);
   }
 
   private parseWKT(wktString: string): L.LatLngExpression[] {
