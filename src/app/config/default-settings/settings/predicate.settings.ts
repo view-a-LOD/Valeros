@@ -9,6 +9,7 @@ export const labelPredicates: string[] = [
   'http://www.w3.org/2000/01/rdf-schema#label',
   'http://www.w3.org/2004/02/skos/core#prefLabel',
   'http://schema.org/name',
+  'https://schema.org/name',
 ];
 
 export const parentPredicates: string[] = ['https://schema.org/isPartOf'];
