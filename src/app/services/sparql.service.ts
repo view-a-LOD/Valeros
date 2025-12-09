@@ -58,7 +58,7 @@ UNION {
     return `${firstServiceQuery}\n${unionServiceQueries.join('\n')}`;
   }
 
-  async _post<T>(url: string, query: string): Promise<T> {
+  async post<T>(url: string, query: string): Promise<T> {
     const normalizedQuery: string = query.replace(/\s*\n+\s*/g, ' ').trim();
     const body: string = `query=${encodeURIComponent(normalizedQuery)}`;
 
@@ -118,7 +118,7 @@ SELECT DISTINCT ?sub ?pred WHERE {
 limit 500`;
 
     try {
-      return await this._post<SparqlIncomingRelationModel[]>(
+      return await this.post<SparqlIncomingRelationModel[]>(
         this.endpoints.getFirstUrls().sparql,
         query,
       );
@@ -152,7 +152,7 @@ SELECT DISTINCT ?id ?title ?parent WHERE {
 limit 500`;
 
     try {
-      return await this._post<SparqlNodeParentModel[]>(
+      return await this.post<SparqlNodeParentModel[]>(
         this.endpoints.getFirstUrls().sparql,
         query,
       );
@@ -225,7 +225,7 @@ SELECT DISTINCT ?s ?label WHERE {
 LIMIT 10000`;
 
     try {
-      const response: { s: string; label: string }[] = await this._post<
+      const response: { s: string; label: string }[] = await this.post<
         { s: string; label: string }[]
       >(this.endpoints.getFirstUrls().sparql, query);
       const labels: ThingWithLabelModel[] = response.map(({ s, label }) => {
@@ -259,7 +259,7 @@ SELECT DISTINCT ?o WHERE {
 }
 LIMIT 10000`;
     try {
-      const response: { o: string }[] = await this._post<{ o: string }[]>(
+      const response: { o: string }[] = await this.post<{ o: string }[]>(
         this.endpoints.getFirstUrls().sparql,
         query,
       );
@@ -282,9 +282,10 @@ LIMIT 10000`;
         ${this.getFederatedQuery(queryTemplate)}
     }`;
 
-    const results: SparqlPredObjModel[] = await this._post<
-      SparqlPredObjModel[]
-    >(this.endpoints.getFirstUrls().sparql, query);
+    const results: SparqlPredObjModel[] = await this.post<SparqlPredObjModel[]>(
+      this.endpoints.getFirstUrls().sparql,
+      query,
+    );
     const nodeData: { [pred: string]: NodeObj[] } = {};
     const endpointIds: Set<string> = new Set();
 

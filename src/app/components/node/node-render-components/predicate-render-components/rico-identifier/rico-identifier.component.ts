@@ -44,7 +44,7 @@ SELECT distinct ?typeLabel ?value WHERE {
 ${this.sparql.getFederatedQuery(queryTemplate, Settings.endpoints.hua.endpointUrls)}
 } LIMIT 1`;
 
-    const response = await this.sparql._post<
+    const response = await this.sparql.post<
       { typeLabel: string; value: string }[]
     >(Settings.endpoints.hua.endpointUrls[0].sparql, query);
     if (!response || response.length === 0) {

@@ -42,7 +42,7 @@ WHERE {
   ?subject ${labelPredicates.map((p) => wrapWithAngleBrackets(p)).join('|')} ?subjectLabel .
 }`;
 
-    const response = await this.sparql._post<
+    const response = await this.sparql.post<
       { subject: string; subjectLabel: string }[]
     >(Settings.endpoints.hua.endpointUrls[0].sparql, query);
 

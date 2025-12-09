@@ -44,7 +44,7 @@ SELECT ?bestandsformaat WHERE {
   ${this.sparql.getFederatedQuery(queryTemplate, [...Settings.endpoints.razu.endpointUrls, ...Settings.endpoints.kasteelAmerongen.endpointUrls])}
 } LIMIT 100`;
 
-    const response = await this.sparql._post<{ bestandsformaat: string }[]>(
+    const response = await this.sparql.post<{ bestandsformaat: string }[]>(
       Settings.endpoints.razu.endpointUrls[0].sparql,
       query,
     );
