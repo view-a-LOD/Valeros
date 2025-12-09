@@ -4,7 +4,6 @@ import {
   intersects,
   wrapWithAngleBrackets,
 } from '../../../../../helpers/util.helper';
-import { ApiService } from '../../../../../services/api.service';
 import { Settings } from '../../../../../config/settings';
 import { NodeLinkComponent } from '../../../node-link/node-link.component';
 import { NodeImagesComponent } from '../../../node-images/node-images.component';
@@ -25,10 +24,7 @@ export class MdtoUrlBestandComponent implements OnInit {
   // TODO: Add complete list here
   imgFileFormats: string[] = ['fmt/44', 'jpeg'];
 
-  constructor(
-    public api: ApiService,
-    public sparql: SparqlService,
-  ) {}
+  constructor(public sparql: SparqlService) {}
 
   ngOnInit() {
     void this.initFileFormat();
@@ -48,11 +44,9 @@ SELECT ?bestandsformaat WHERE {
   ${this.sparql.getFederatedQuery(queryTemplate, [...Settings.endpoints.razu.endpointUrls, ...Settings.endpoints.kasteelAmerongen.endpointUrls])}
 } LIMIT 100`;
 
-    const response = await this.api.postData<{ bestandsformaat: string }[]>(
+    const response = await this.sparql._post<{ bestandsformaat: string }[]>(
       Settings.endpoints.razu.endpointUrls[0].sparql,
-      {
-        query: query,
-      },
+      query,
     );
     if (!response) {
       return;

@@ -4,7 +4,6 @@ import {
   intersects,
   wrapWithAngleBrackets,
 } from '../../../../../helpers/util.helper';
-import { ApiService } from '../../../../../services/api.service';
 import { Settings } from '../../../../../config/settings';
 import { NodeLinkComponent } from '../../../node-link/node-link.component';
 import { NodeImagesComponent } from '../../../node-images/node-images.component';
@@ -22,10 +21,7 @@ export class RicoIdentifierComponent implements OnInit {
 
   label?: string;
 
-  constructor(
-    public api: ApiService,
-    public sparql: SparqlService,
-  ) {}
+  constructor(public sparql: SparqlService) {}
 
   ngOnInit(): void {
     void this.initLabel();
@@ -48,11 +44,9 @@ SELECT distinct ?typeLabel ?value WHERE {
 ${this.sparql.getFederatedQuery(queryTemplate, Settings.endpoints.hua.endpointUrls)}
 } LIMIT 1`;
 
-    const response = await this.api.postData<
+    const response = await this.sparql._post<
       { typeLabel: string; value: string }[]
-    >(Settings.endpoints.hua.endpointUrls[0].sparql, {
-      query: query,
-    });
+    >(Settings.endpoints.hua.endpointUrls[0].sparql, query);
     if (!response || response.length === 0) {
       return;
     }

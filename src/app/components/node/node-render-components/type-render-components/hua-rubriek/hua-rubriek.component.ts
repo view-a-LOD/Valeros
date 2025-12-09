@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { NodeRenderComponent } from '../../node-render.component';
 import { JsonPipe, NgForOf } from '@angular/common';
-import { ApiService } from '../../../../../services/api.service';
 import { SparqlService } from '../../../../../services/sparql.service';
 import { NodeService } from '../../../../../services/node.service';
 import { labelPredicates, Settings } from '../../../../../config/settings';
@@ -19,7 +18,6 @@ export class HuaRubriekComponent extends NodeRenderComponent {
   children: { subject: string; subjectLabel: string }[] = [];
 
   constructor(
-    public api: ApiService,
     public sparql: SparqlService,
     public override nodes: NodeService,
   ) {
@@ -44,11 +42,9 @@ WHERE {
   ?subject ${labelPredicates.map((p) => wrapWithAngleBrackets(p)).join('|')} ?subjectLabel .
 }`;
 
-    const response = await this.api.postData<
+    const response = await this.sparql._post<
       { subject: string; subjectLabel: string }[]
-    >(Settings.endpoints.hua.endpointUrls[0].sparql, {
-      query: query,
-    });
+    >(Settings.endpoints.hua.endpointUrls[0].sparql, query);
 
     if (!response || response.length === 0) {
       return;
