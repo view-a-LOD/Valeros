@@ -18,8 +18,8 @@ export const gtmSettings: SettingsModel = {
   endpoints: {
     ...defaultSettings.endpoints,
     data: {
-      goudaTimeMachine: {
-        label: 'Gouda Time Machine',
+      goudaTijdmachine: {
+        label: 'Gouda Tijdmachine',
         endpointUrls: [
           { sparql: 'https://qlever.coret.org/gtm-geo-beeldbank' },
           { sparql: 'https://api.triplydb.com/datasets/none/sdo/sparql' },
