@@ -31,10 +31,11 @@ export const gtmSettings: SettingsModel = {
     },
     searchProvider: SPARQLSearchProvider,
   },
-  // content: {
-  //   ...defaultSettings.content,
-  //   sparqlLanguageFilterForLiterals: ['nl', 'nl-nl'],
-  // },
+  content: {
+    ...defaultSettings.content,
+    translations: { basePath: './assets/i18n/gtm/', fileExtension: '.json' },
+    // sparqlLanguageFilterForLiterals: ['nl', 'nl-nl'],
+  },
   viewModes: {
     [ViewMode.List]: {
       ...defaultSettings.viewModes[ViewMode.List],
@@ -108,7 +109,14 @@ export const gtmSettings: SettingsModel = {
     ...defaultSettings.namespacePrefixes,
     'https://schema.org/': 'sdo:',
   },
-  ui: { ...defaultSettings.ui, labelMaxChars: 400 },
+  ui: {
+    ...defaultSettings.ui,
+    labelMaxChars: 400,
+    header: {
+      ...defaultSettings.ui.header,
+      logoPath: '/assets/img/gtm/logo.svg',
+    },
+  },
   renderComponents: {
     [RenderMode.ByType]: [...renderComponentSettings[RenderMode.ByType]],
     [RenderMode.ByPredicate]: [

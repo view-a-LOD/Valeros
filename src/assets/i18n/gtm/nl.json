@@ -1,0 +1,122 @@
+{
+  "general": {
+    "site-holder-full": "Digitaal Archief",
+    "site-holder-short": "Archief",
+    "title": "Gouda Tijdmachine",
+    "page-title": "Gouda Tijdmachine",
+    "colophon-title": "Colofon",
+    "and": "en",
+    "back": "Terug",
+    "close": "Sluiten",
+    "example": "Voorbeeld"
+  },
+  "homescreen": {
+    "flavour-text-part-1": "Hier kunt u zoeken door de",
+    "flavour-text-part-2-emphasis": "Gouda Tijdmachine beeldbank",
+    "flavour-text-part-3": ".",
+    "hero-text-part-1": "Gouda Tijdmachine",
+    "hero-text-part-2-emphasis": "Beeldbank Dataset Demo",
+    "go-to-search": "Ga naar zoeken",
+    "go-to-colophon": "Ga naar colofon",
+    "go-to-homepage": "Ga naar startpagina",
+    "more-info": "Meer informatie",
+    "sitemap": "Sitemap"
+  },
+  "colophon": {
+    "no-custom-colophon": "Er is nog geen colofon beschikbaar voor deze applicatie."
+  },
+  "search-interface": {
+    "search": "Zoek",
+    "search-e-depot": "Zoek in het digitale archief",
+    "searching": "Zoeken",
+    "search-placeholder-full": "Zoek in het digitale archief, bijv. 'kade'",
+    "search-placeholder-short": "Bijv. 'kade'",
+    "no-results-found": "Geen resultaten",
+    "results": "resultaten",
+    "show-details": "Toon details",
+    "load-more-results": "Toon meer resultaten",
+    "1-result": "1 resultaat",
+    "organizations": "Organisaties",
+    "only-show-results-with-images": "Toon alleen resultaten met afbeeldingen",
+    "only-results-with-images": "Alleen afbeeldingen",
+    "search-terms": "Zoektermen",
+    "search-results": "Zoekresultaten",
+    "filters_title": "Filters",
+    "filters_active_singular": "actieve filter",
+    "filters_active_plural": "actieve filters",
+    "clear_filters": "Filters wissen",
+    "toggle-filter-panel": "Filterpaneel openen/sluiten",
+    "search-tips": "Zoektips",
+    "no-search-tips": "Er zijn momenteel geen zoektips beschikbaar.",
+    "learn-more": "Meer informatie",
+    "tips": {
+      "exact-match": {
+        "title": "Exacte zoekopdracht",
+        "description": "Gebruik aanhalingstekens (\") om een exact zinsdeel te zoeken."
+      },
+      "wildcard": {
+        "title": "Zoeken met jokertekens",
+        "description": "Gebruik een sterretje (*) als jokerteken om één of meer willekeurige tekens in een woord te vervangen."
+      },
+      "boolean": {
+        "title": "Zoekvraag inperken",
+        "description": "Toevoegen van zoektermen geeft meer resultaten (als \"OR\"). Plaats \"AND\" tussen twee termen voor resultaten waarin beiden moeten voorkomen. Sluit een term uit door er \"NOT\" voor te zetten."
+      },
+      "filters": {
+        "title": "Filters gebruiken",
+        "description": "Gebruik de filters aan de zijkant om je resultaten te verfijnen."
+      },
+      "relevance": {
+        "title": "Relevantie sortering",
+        "description": "Zoekresultaten worden automatisch gesorteerd op relevantie met behulp van Elasticsearch. De meest relevante resultaten worden bovenaan getoond."
+      },
+      "ocr": {
+        "title": "OCR tekstherkenning",
+        "description": "De krantentekst is verwerkt met OCR (Optical Character Recognition). Dit stelde ons in staat om een grote collectie doorzoekbaar te maken, maar de tekst kan soms herkenningsfouten bevatten."
+      },
+      "referral": {
+        "title": "Deze site",
+        "description": "Hieronder staan een aantal concrete tips om te helpen bij het zoeken. Wilt u meer weten over hoe deze website werkt? Op onze website vindt u een uitleg van de nieuwe zoekomgeving.",
+        "url": "Klik hier om meer te lezen."
+      }
+    },
+    "date_range": {
+      "from": "Van",
+      "from-sr-label": "Van (vroegste datum)",
+      "to": "Tot",
+      "to-sr-label": "Tot (laatste datum)",
+      "clear": "Datumfilter wissen"
+    }
+  },
+  "records-interface": {
+    "pointer-to": "Verwijzing naar",
+    "points-to": "verwijst naar",
+    "is-part-of": "is onderdeel van",
+    "organization": "Organisatie",
+    "part-of": "Onderdeel van",
+    "type": "Type",
+    "show-details": "Toon details",
+    "open-link": "Open link",
+    "search": "Zoeken",
+    "open": "Openen",
+    "external-link-with-domain": "Externe link ({{domain}})",
+    "permalink-text": "Bekijk op de website van ",
+    "objects-that-point-to": "Objecten die verwijzen naar ",
+    "comment": "Opmerking",
+    "period": "Periode",
+    "maker": "Maker",
+    "title": "Titel"
+  },
+  "accessibility": {
+    "skip-to-search": "Spring naar zoekveld",
+    "skip-to-filters": "Spring naar filters",
+    "skip-to-results": "Spring naar zoekresultaten",
+    "skip-to-result": "Spring naar zoekresultaat details",
+    "skip-to-image-viewer": "Spring naar afbeelding viewer",
+    "search-results-region": "Zoekresultaten",
+    "results-list": "Lijst met zoekresultaten",
+    "filter-panel": "Filter opties",
+    "loading": "Laden..."
+  },
+  "view-mode": { "list-view": "Lijstweergave", "grid-view": "Rasterweergave" }
+}
