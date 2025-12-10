@@ -47,7 +47,11 @@ export class LeafletService {
       fillOpacity: 0.3,
     }).addTo(map);
 
-    map.fitBounds(polygon.getBounds());
+    // map.fitBounds(polygon.getBounds());
+
+    const bounds = polygon.getBounds();
+    const center = bounds.getCenter();
+    map.setView(center, 17);
 
     return polygon;
   }

@@ -110,7 +110,7 @@ export class SchemaGeoComponent
 
   private ensureMapInitialized(center: L.LatLngExpression): void {
     if (!this.map) {
-      this.map = this.leafletService.initMap(this.mapContainer, center, 16);
+      this.map = this.leafletService.initMap(this.mapContainer, center, 14);
     }
   }
 
