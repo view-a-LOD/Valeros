@@ -8,7 +8,7 @@ import { RenderMode } from '../../models/settings/render-component-settings.type
 import { SettingsModel } from '../../models/settings/settings.model';
 import { ViewModeSetting } from '../../models/settings/view-mode-setting.enum';
 import { ViewMode } from '../../models/view-mode.enum';
-import { ElasticFilterOptionsProvider } from '../../services/search/filter-options-providers/elastic-filter-options.provider';
+import { SPARQLFilterOptionsProvider } from '../../services/search/filter-options-providers/sparql-filter-options.provider';
 import { SPARQLSearchProvider } from '../../services/search/search-providers/sparql-search-provider/sparql-search.provider';
 import { defaultSettings } from '../default-settings/default-settings';
 import { renderComponentSettings } from '../default-settings/settings/render-component.settings';
@@ -53,7 +53,7 @@ export const gtmSettings: SettingsModel = {
         values: [],
       },
     },
-    filterOptionsProvider: ElasticFilterOptionsProvider,
+    filterOptionsProvider: SPARQLFilterOptionsProvider,
   },
   predicates: {
     ...defaultSettings.predicates,
