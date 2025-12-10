@@ -3,6 +3,7 @@ import {
   Component,
   ElementRef,
   NgZone,
+  OnDestroy,
   OnInit,
   ViewChild,
 } from '@angular/core';
@@ -19,7 +20,7 @@ import { PredicateRenderComponent } from '../predicate-render-component.directiv
 })
 export class SchemaGeoComponent
   extends PredicateRenderComponent
-  implements OnInit, AfterViewInit
+  implements OnInit, AfterViewInit, OnDestroy
 {
   @ViewChild('mapContainer', { static: true }) mapContainer!: ElementRef;
   latitude: string[] = [];
@@ -29,6 +30,9 @@ export class SchemaGeoComponent
   private map: L.Map | null = null;
   private polygonLayer: L.Polygon | null = null;
   private marker: L.Marker | null = null;
+
+  private resizeObserver?: ResizeObserver;
+  private resizeDebounceHandle: number | null = null;
 
   constructor(
     private ngZone: NgZone,
@@ -42,7 +46,13 @@ export class SchemaGeoComponent
   ngAfterViewInit(): void {
     this.ngZone.runOutsideAngular(() => {
       this.tryInitOrUpdateMap();
+
+      this.initResizeObserver();
     });
+  }
+
+  ngOnDestroy(): void {
+    this.resizeObserver?.disconnect();
   }
 
   onLatitude(values: string[]): void {
@@ -64,6 +74,23 @@ export class SchemaGeoComponent
 
     this.polygon = [formatted];
     this.tryInitOrUpdateMap();
+  }
+
+  private initResizeObserver(): void {
+    this.resizeObserver = new ResizeObserver(() => {
+      if (this.resizeDebounceHandle !== null) {
+        clearTimeout(this.resizeDebounceHandle);
+      }
+
+      this.resizeDebounceHandle = window.setTimeout(() => {
+        this.resizeDebounceHandle = null;
+        if (this.map) {
+          this.map.invalidateSize();
+        }
+      }, 100);
+    });
+
+    this.resizeObserver.observe(this.mapContainer.nativeElement);
   }
 
   private tryInitOrUpdateMap(): void {
@@ -131,6 +158,10 @@ export class SchemaGeoComponent
       this.marker = this.leafletService.addMarker(this.map, [lat, lng]);
     }
 
-    this.map?.setView([lat, lng], this.map.getZoom());
+    requestAnimationFrame(() => {
+      if (this.map) {
+        this.map.setView([lat, lng], this.map.getZoom());
+      }
+    });
   }
 }
