@@ -2,7 +2,7 @@
 <a href="https://lodpilot.kasteelamerongen.nl/" target="_blank">![image](https://github.com/user-attachments/assets/93450639-4a0b-4a28-8db8-05eff3bd2257)</a>
 
 > [!WARNING]  
-> This project is actively being developed, but not yet ready for production. For the latest development version, please check the [RAZU fork](https://github.com/Regionaal-Archief-Zuid-Utrecht/Valeros-RAZU/tree/develop).
+> This project is actively being developed, but not yet ready for production. For the latest development version, please check the [development branch](https://github.com/view-a-LOD/Valeros/tree/develop).
 
 Valeros allows **easy setup of a faceted search Linked Open Data viewer**, working across ontologies and organizations out-of-the-box. It is designed to be flexible and configurable, allowing you to tweak how, where, and when to show data to your end users. As a front-end/client-side viewer, it is simple and cheap to host and deploy. As a back-end, it uses Elasticsearch for efficient search and filtering, and (optionally) SPARQL for asynchronous enrichment of search results. 
 
