@@ -2,6 +2,8 @@
   [href]="externalUrl"
   target="_blank"
   rel="noopener noreferrer"
-  class="clickable"
-  >{{ externalUrl || "External link" }}</a
->
+  class="btn btn-xs btn-primary h-full py-1"
+  >Externe link ({{ externalDomain }})
+
+  <ng-icon [svg]="featherArrowUpRight" />
+</a>
