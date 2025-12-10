@@ -31,10 +31,12 @@ export const gtmSettings: SettingsModel = {
     [ViewMode.List]: {
       ...defaultSettings.viewModes[ViewMode.List],
       [ViewModeSetting.ShowTypes]: false,
+      [ViewModeSetting.ShowParents]: false,
     },
     [ViewMode.Grid]: {
       ...defaultSettings.viewModes[ViewMode.Grid],
       [ViewModeSetting.ShowTypes]: false,
+      [ViewModeSetting.ShowParents]: false,
     },
   },
   filtering: {
