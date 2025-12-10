@@ -34,4 +34,8 @@
   />
 }
 
-<div #mapContainer class="h-64 w-full"></div>
+<div
+  #mapContainer
+  class="h-64 w-full"
+  (click)="$event.preventDefault(); $event.stopPropagation()"
+></div>
