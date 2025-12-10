@@ -19,9 +19,7 @@ export const gtmSettings: SettingsModel = {
       goudaTimeMachine: {
         label: 'Gouda Time Machine',
         endpointUrls: [
-          {
-            sparql: 'https://qlever.coret.org/gtm-geo-beeldbank',
-          },
+          { sparql: 'https://qlever.coret.org/gtm-geo-beeldbank' },
         ],
       },
     },
@@ -69,16 +67,8 @@ export const gtmSettings: SettingsModel = {
             ],
           },
         ],
-        [PredicateVisibility.Details]: [
-          {
-            predicates: ['*'],
-          },
-        ],
-        [PredicateVisibility.Hide]: [
-          {
-            predicates: [],
-          },
-        ],
+        [PredicateVisibility.Details]: [{ predicates: ['*'] }],
+        [PredicateVisibility.Hide]: [{ predicates: [] }],
       },
       [ViewMode.Grid]: {
         [PredicateVisibility.Show]: [],
@@ -93,10 +83,7 @@ export const gtmSettings: SettingsModel = {
     ...defaultSettings.namespacePrefixes,
     'https://schema.org/': 'sdo:',
   },
-  ui: {
-    ...defaultSettings.ui,
-    labelMaxChars: 400,
-  },
+  ui: { ...defaultSettings.ui, labelMaxChars: 400 },
   renderComponents: {
     [RenderMode.ByType]: [...renderComponentSettings[RenderMode.ByType]],
     [RenderMode.ByPredicate]: [
