@@ -20,6 +20,8 @@ export class SPARQLSearchProvider extends SearchProvider {
   }
 
   async searchNodes(request: SearchRequest): Promise<SearchResponse> {
+    // TODO: Cancel existing requests if new search is triggered
+
     const term = request.query?.trim();
 
     // if (!term) {
