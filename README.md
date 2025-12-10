@@ -1,4 +1,4 @@
-# Valeros (RAZU fork)
+# Valeros
 
 <img src="https://github.com/user-attachments/assets/bf3abefe-f84c-439b-b6eb-74be33135dca" />
 
