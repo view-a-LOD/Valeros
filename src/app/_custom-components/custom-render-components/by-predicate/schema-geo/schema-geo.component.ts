@@ -46,41 +46,23 @@ export class SchemaGeoComponent
   }
 
   onLatitude(values: string[]): void {
-    // TODO: Remove (temporary) flipping of lat/long
-    // this.latitude = values;
-    this.longitude = values;
+    this.latitude = values;
     this.tryInitOrUpdateMap();
   }
 
   onLongitude(values: string[]): void {
-    // TODO: Remove (temporary) flipping of lat/long
-    this.latitude = values;
-    // this.longitude = values;
+    this.longitude = values;
     this.tryInitOrUpdateMap();
   }
 
   onPolygon(values: string[]): void {
-    // this.polygon = values;
-
-    // TODO: Remove (temporary) flipping of lat/long in polygon
     const raw = values[0] ?? '';
-    const flipped = raw
+    const formatted = raw
       .split(' ')
-      .map((pair) => {
-        const [lngStr, latStr] = pair.split(',');
-        const lat = Number(latStr);
-        const lng = Number(lngStr);
-
-        if (isNaN(lat) || isNaN(lng)) {
-          return null;
-        }
-
-        return `${lng} ${lat}`;
-      })
-      .filter((p): p is string => p !== null)
+      .map((pair) => pair.replace(',', ' '))
       .join(', ');
 
-    this.polygon = [flipped];
+    this.polygon = [formatted];
     this.tryInitOrUpdateMap();
   }
 
