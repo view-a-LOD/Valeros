@@ -10,9 +10,7 @@ import {
   SearchResponse,
 } from '../search-provider.interface';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable({ providedIn: 'root' })
 export class SPARQLSearchProvider extends SearchProvider {
   constructor(
     private endpoints: EndpointService,
@@ -55,11 +53,7 @@ export class SPARQLSearchProvider extends SearchProvider {
       endpoint,
     );
 
-    return {
-      nodes,
-      total: totalSubjectsCount,
-      isCapped: false,
-    };
+    return { nodes, total: totalSubjectsCount, isCapped: false };
   }
 
   private _getFederatedLabelQuery(term: string): string {
@@ -141,12 +135,7 @@ WHERE {
   ${federatedTriplesQuery}
 }`;
 
-    type SPARQLRow = {
-      s: string;
-      p: string;
-      o: string;
-      endpointUrl?: string;
-    };
+    type SPARQLRow = { s: string; p: string; o: string; endpointUrl?: string };
 
     const rows: SPARQLRow[] = await this.sparql.executeRawQuery<SPARQLRow[]>(
       triplesQuery,
