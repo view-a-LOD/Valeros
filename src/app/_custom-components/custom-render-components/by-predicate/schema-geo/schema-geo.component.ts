@@ -120,10 +120,6 @@ export class SchemaGeoComponent
 
     this.ensureMapInitialized([lat, lng]);
 
-    if (this.map) {
-      this.map.setView([lat, lng], this.map.getZoom());
-    }
-
     if (this.polygonLayer) {
       this.map?.removeLayer(this.polygonLayer);
       this.polygonLayer = null;
@@ -134,5 +130,7 @@ export class SchemaGeoComponent
     } else if (this.map) {
       this.marker = this.leafletService.addMarker(this.map, [lat, lng]);
     }
+
+    this.map?.setView([lat, lng], this.map.getZoom());
   }
 }
