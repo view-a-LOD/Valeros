@@ -13,7 +13,7 @@ import {
 export const razuPredicateVisibilitySettings: PredicateVisibilitySettings = {
   byViewMode: {
     [ViewMode.List]: {
-      [PredicateVisibility.Show]: [
+      [PredicateVisibility.SearchHits]: [
         {
           predicates: [
             // 'aggregatieniveau',
@@ -55,7 +55,7 @@ export const razuPredicateVisibilitySettings: PredicateVisibilitySettings = {
       ],
     },
     [ViewMode.Grid]: {
-      [PredicateVisibility.Show]: [],
+      [PredicateVisibility.SearchHits]: [],
       [PredicateVisibility.Details]: [{ predicates: ['*'] }],
       [PredicateVisibility.Hide]: [],
     },

@@ -12,75 +12,39 @@ export const naddSettings: SettingsModel = {
     data: {
       haagsHistorischMuseum: {
         label: 'Haags Historisch Museum/Rijksmuseum De Gevangenpoort',
-        endpointUrls: [
-          {
-            sparql: 'https://sparql.ldmax.nl/q11722011',
-          },
-        ],
+        endpointUrls: [{ sparql: 'https://sparql.ldmax.nl/q11722011' }],
       },
       stichtingVanDerWyckDeKempenaer: {
         label: 'Stichting Van der Wyck-de Kempenaer',
-        endpointUrls: [
-          {
-            sparql: 'https://sparql.ldmax.nl/q20829167',
-          },
-        ],
+        endpointUrls: [{ sparql: 'https://sparql.ldmax.nl/q20829167' }],
       },
       museumMohlmann: {
         label: 'Museum Møhlmann',
-        endpointUrls: [
-          {
-            sparql: 'https://sparql.ldmax.nl/q2168069',
-          },
-        ],
+        endpointUrls: [{ sparql: 'https://sparql.ldmax.nl/q2168069' }],
       },
       mowMuseumWesterwolde: {
         label: 'MOW Museum Westerwolde',
-        endpointUrls: [
-          {
-            sparql: 'https://sparql.ldmax.nl/q13612139',
-          },
-        ],
+        endpointUrls: [{ sparql: 'https://sparql.ldmax.nl/q13612139' }],
       },
       museumAanDeA: {
         label: 'Museum aan de A',
-        endpointUrls: [
-          {
-            sparql: 'https://sparql.ldmax.nl/q2004350',
-          },
-        ],
+        endpointUrls: [{ sparql: 'https://sparql.ldmax.nl/q2004350' }],
       },
       keramiekMuseum: {
         label: 'Keramiekmuseum Tiendschuur',
-        endpointUrls: [
-          {
-            sparql: 'https://sparql.ldmax.nl/q2022136',
-          },
-        ],
+        endpointUrls: [{ sparql: 'https://sparql.ldmax.nl/q2022136' }],
       },
       discoveryMuseum: {
         label: 'Discovery Museum',
-        endpointUrls: [
-          {
-            sparql: 'https://sparql.ldmax.nl/q110996022',
-          },
-        ],
+        endpointUrls: [{ sparql: 'https://sparql.ldmax.nl/q110996022' }],
       },
       stichtingDesign: {
         label: 'Stichting Design en Kunst Openbare Ruimte (DKOR)',
-        endpointUrls: [
-          {
-            sparql: 'https://sparql.ldmax.nl/q124789020',
-          },
-        ],
+        endpointUrls: [{ sparql: 'https://sparql.ldmax.nl/q124789020' }],
       },
       nationaalBusMuseum: {
         label: 'Nationaal Bus Museum',
-        endpointUrls: [
-          {
-            sparql: 'https://sparql.ldmax.nl/q2575273',
-          },
-        ],
+        endpointUrls: [{ sparql: 'https://sparql.ldmax.nl/q2575273' }],
       },
     },
   },
@@ -99,7 +63,7 @@ export const naddSettings: SettingsModel = {
   predicateVisibility: {
     byViewMode: {
       [ViewMode.List]: {
-        [PredicateVisibility.Show]: [
+        [PredicateVisibility.SearchHits]: [
           {
             predicates: [
               'https://schema.org/description',
@@ -108,19 +72,11 @@ export const naddSettings: SettingsModel = {
             ],
           },
         ],
-        [PredicateVisibility.Details]: [
-          {
-            predicates: ['*'],
-          },
-        ],
-        [PredicateVisibility.Hide]: [
-          {
-            predicates: [],
-          },
-        ],
+        [PredicateVisibility.Details]: [{ predicates: ['*'] }],
+        [PredicateVisibility.Hide]: [{ predicates: [] }],
       },
       [ViewMode.Grid]: {
-        [PredicateVisibility.Show]: [],
+        [PredicateVisibility.SearchHits]: [],
         [PredicateVisibility.Details]: [{ predicates: ['*'] }],
         [PredicateVisibility.Hide]: [],
       },

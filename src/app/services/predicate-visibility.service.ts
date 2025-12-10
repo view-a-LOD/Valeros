@@ -9,9 +9,7 @@ import {
 } from '../models/settings/predicate-visibility-settings.model';
 import { ViewModeService } from './view-mode.service';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable({ providedIn: 'root' })
 export class PredicateVisibilityService {
   constructor(private viewModes: ViewModeService) {}
 
@@ -30,45 +28,49 @@ export class PredicateVisibilityService {
   }
 
   getVisibility(predicateId: string): PredicateVisibility {
-    if (
-      (Settings.predicateVisibility.alwaysHide as string[]).includes(
-        predicateId,
-      )
-    ) {
-      return PredicateVisibility.Hide;
-    }
-    const hidePredicates = this.getVisibleFlattened(PredicateVisibility.Hide);
-    if (hidePredicates.includes(predicateId)) {
-      return PredicateVisibility.Hide;
-    }
-
-    const showPredicates = this.getVisibleFlattened(PredicateVisibility.Show);
-    const detailPredicates = this.getVisibleFlattened(
-      PredicateVisibility.Details,
-    );
-
-    const shouldShowAllPredsNotShownInDetails = showPredicates.includes('*');
-    const predIsShownInDetails = detailPredicates.includes(predicateId);
-    const shouldShowPred = showPredicates.includes(predicateId);
-
-    if (
-      (shouldShowAllPredsNotShownInDetails && !predIsShownInDetails) ||
-      shouldShowPred
-    ) {
-      return PredicateVisibility.Show;
-    }
-
-    const shouldShowRemainingPredsInDetails = detailPredicates.includes('*');
-    const predIsAlreadyShown = showPredicates.includes(predicateId);
-    const shouldShowDetailPred = detailPredicates.includes(predicateId);
-    if (
-      (shouldShowRemainingPredsInDetails && !predIsAlreadyShown) ||
-      shouldShowDetailPred
-    ) {
+    if (this.isVisibleIn(predicateId, PredicateVisibility.Details)) {
       return PredicateVisibility.Details;
     }
 
+    if (this.isVisibleIn(predicateId, PredicateVisibility.SearchHits)) {
+      return PredicateVisibility.SearchHits;
+    }
+
     return PredicateVisibility.Hide;
+  }
+
+  isVisibleIn(predicateId: string, visibility: PredicateVisibility): boolean {
+    const shouldAlwaysHide = (
+      Settings.predicateVisibility.alwaysHide as string[]
+    ).includes(predicateId);
+    if (shouldAlwaysHide) {
+      return false;
+    }
+
+    const hidePredicates: string[] = this.getVisibleFlattened(
+      PredicateVisibility.Hide,
+    );
+    const shouldHide: boolean = hidePredicates.includes(predicateId);
+    if (shouldHide) {
+      return false;
+    }
+
+    const visible: PredicateVisibilityEntries = this.getVisible();
+    const sections: PredicateSection[] = visible[visibility];
+    const predicates: string[] = sections.flatMap((s) => s.predicates);
+
+    const hasWildcard: boolean = predicates.includes('*');
+    const isExplicit: boolean = predicates.includes(predicateId);
+
+    if (isExplicit) {
+      return true;
+    }
+
+    if (hasWildcard) {
+      return true;
+    }
+
+    return false;
   }
 
   getSections(

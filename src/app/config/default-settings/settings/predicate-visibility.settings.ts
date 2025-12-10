@@ -8,12 +8,12 @@ import { typePredicates } from './predicate.settings';
 export const predicateVisibilitySettings: PredicateVisibilitySettings = {
   byViewMode: {
     [ViewMode.List]: {
-      [PredicateVisibility.Show]: [{ predicates: ['*'] }],
+      [PredicateVisibility.SearchHits]: [{ predicates: ['*'] }],
       [PredicateVisibility.Details]: [],
       [PredicateVisibility.Hide]: [],
     },
     [ViewMode.Grid]: {
-      [PredicateVisibility.Show]: [],
+      [PredicateVisibility.SearchHits]: [],
       [PredicateVisibility.Details]: [{ predicates: ['*'] }],
       [PredicateVisibility.Hide]: [],
     },

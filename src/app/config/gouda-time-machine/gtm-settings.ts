@@ -59,7 +59,7 @@ export const gtmSettings: SettingsModel = {
   predicateVisibility: {
     byViewMode: {
       [ViewMode.List]: {
-        [PredicateVisibility.Show]: [
+        [PredicateVisibility.SearchHits]: [
           {
             predicates: [
               'https://schema.org/creator',
@@ -67,12 +67,20 @@ export const gtmSettings: SettingsModel = {
             ],
           },
         ],
-        [PredicateVisibility.Details]: [{ predicates: ['*'] }],
+        [PredicateVisibility.Details]: [
+          {
+            predicates: [
+              'https://schema.org/description',
+              'https://schema.org/locationCreated',
+              'https://schema.org/spatialCoverage',
+            ],
+          },
+        ],
         [PredicateVisibility.Hide]: [{ predicates: [] }],
       },
       [ViewMode.Grid]: {
-        [PredicateVisibility.Show]: [],
-        [PredicateVisibility.Details]: [{ predicates: ['*'] }],
+        [PredicateVisibility.SearchHits]: [],
+        [PredicateVisibility.Details]: [{ predicates: [] }],
         [PredicateVisibility.Hide]: [],
       },
     },

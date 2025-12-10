@@ -10,7 +10,7 @@ export const triplyPredicateVisibilitySettings: PredicateVisibilitySettings = {
   ...predicateVisibilitySettings,
   byViewMode: {
     [ViewMode.List]: {
-      [PredicateVisibility.Show]: [
+      [PredicateVisibility.SearchHits]: [
         {
           predicates: [
             'https://triplydb.com/academy/pokemon/vocab/type',
@@ -18,11 +18,7 @@ export const triplyPredicateVisibilitySettings: PredicateVisibilitySettings = {
           ],
         },
       ],
-      [PredicateVisibility.Details]: [
-        {
-          predicates: ['*'],
-        },
-      ],
+      [PredicateVisibility.Details]: [{ predicates: ['*'] }],
       [PredicateVisibility.Hide]: [],
     },
     [ViewMode.Grid]: {

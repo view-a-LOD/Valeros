@@ -27,13 +27,11 @@ export class NodeDirectionTableComponent {
 
   predicateSections: PredicateSection[] = [];
   predicateVisibilities: { [pred: string]: PredicateVisibility } = {};
-  numPredValues: {
-    [pred: string]: { [direction in Direction]: number };
-  } = {};
+  numPredValues: { [pred: string]: { [direction in Direction]: number } } = {};
 
   constructor(
     public nodes: NodeService,
-    private predVisibility: PredicateVisibilityService,
+    public predVisibility: PredicateVisibilityService,
   ) {}
 
   ngOnInit() {
@@ -86,7 +84,7 @@ export class NodeDirectionTableComponent {
     return Object.entries(this.numPredValues).some(
       ([pred, numValuesByDirection]) => {
         return (
-          this.predicateVisibilities[pred] === visibility &&
+          this.predVisibility.isVisibleIn(pred, visibility) &&
           numValuesByDirection[direction] > 0
         );
       },
@@ -104,7 +102,7 @@ export class NodeDirectionTableComponent {
   ): boolean {
     return section.predicates.some(
       (pred) =>
-        this.predicateVisibilities[pred] === this.visibility &&
+        this.predVisibility.isVisibleIn(pred, this.visibility) &&
         this.getNumPredValues(pred, direction) > 0,
     );
   }

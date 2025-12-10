@@ -20,7 +20,7 @@ export interface PredicateVisibilitySettings {
 }
 
 export enum PredicateVisibility {
-  Show,
+  SearchHits,
   Details,
   Hide,
 }

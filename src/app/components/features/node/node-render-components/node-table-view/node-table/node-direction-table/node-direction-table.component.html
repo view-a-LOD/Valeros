@@ -20,7 +20,7 @@
         <!-- Preds -->
         @for (pred of predicateSection.predicates; track pred) {
           @if (
-            predicateVisibilities[pred] === visibility &&
+            predVisibility.isVisibleIn(pred, visibility) &&
             getNumPredValues(pred, direction) > 0
           ) {
             <div
