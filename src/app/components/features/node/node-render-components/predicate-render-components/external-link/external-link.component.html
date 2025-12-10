@@ -3,7 +3,10 @@
   target="_blank"
   rel="noopener noreferrer"
   class="btn btn-xs btn-primary h-full py-1"
-  >Externe link ({{ externalDomain }})
+  >{{
+    "records-interface.external-link-with-domain"
+      | translate: { domain: externalDomain }
+  }}
 
   <ng-icon [svg]="featherArrowUpRight" />
 </a>

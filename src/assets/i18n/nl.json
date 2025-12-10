@@ -99,6 +99,7 @@
     "open-link": "Open link",
     "search": "Zoeken",
     "open": "Openen",
+    "external-link-with-domain": "Externe link ({{domain}})",
     "permalink-text": "Bekijk op de website van ",
     "objects-that-point-to": "Objecten die verwijzen naar ",
     "comment": "Opmerking",
@@ -117,8 +118,5 @@
     "filter-panel": "Filter opties",
     "loading": "Laden..."
   },
-  "view-mode": {
-    "list-view": "Lijstweergave",
-    "grid-view": "Rasterweergave"
-  }
+  "view-mode": { "list-view": "Lijstweergave", "grid-view": "Rasterweergave" }
 }

@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { NgIcon } from '@ng-icons/core';
 import { featherArrowUpRight } from '@ng-icons/feather-icons';
+import { TranslatePipe } from '@ngx-translate/core';
 import { PredicateRenderComponent } from '../../../../../../_custom-components/custom-render-components/by-predicate/predicate-render-component.directive';
 
 @Component({
   selector: 'app-external-link',
-  imports: [NgIcon],
+  imports: [NgIcon, TranslatePipe],
   templateUrl: './external-link.component.html',
 })
 export class ExternalLinkComponent extends PredicateRenderComponent {

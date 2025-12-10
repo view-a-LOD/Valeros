@@ -99,6 +99,7 @@
     "open-link": "Open link",
     "search": "Search",
     "open": "Open",
+    "external-link-with-domain": "External link ({{domain}})",
     "permalink-text": "View at the website of ",
     "objects-that-point-to": "Objects that point to ",
     "comment": "Comment",
@@ -117,8 +118,5 @@
     "filter-panel": "Filter options",
     "loading": "Loading..."
   },
-  "view-mode": {
-    "list-view": "List view",
-    "grid-view": "Grid view"
-  }
+  "view-mode": { "list-view": "List view", "grid-view": "Grid view" }
 }
