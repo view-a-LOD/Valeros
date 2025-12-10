@@ -22,6 +22,10 @@ export const gtmSettings: SettingsModel = {
         label: 'Gouda Time Machine',
         endpointUrls: [
           { sparql: 'https://qlever.coret.org/gtm-geo-beeldbank' },
+          { sparql: 'https://api.triplydb.com/datasets/none/sdo/sparql' },
+          { sparql: 'https://api.triplydb.com/datasets/w3c/rdf/sparql' },
+          { sparql: 'https://api.triplydb.com/datasets/w3c/rdfs/sparql' },
+          { sparql: 'https://api.triplydb.com/datasets/ica/rico/sparql' },
         ],
       },
     },
