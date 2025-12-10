@@ -4,9 +4,9 @@
       "skipChangeDetectionOnPush": true,
       "ngOnInit": true
     },
-    "angular-*": {
-      "externalTemplate": true
-    }
+    "angular-*": { "externalTemplate": true }
   },
-  "editor.formatOnSave": true
+  "editor.formatOnSave": true,
+  "prettier.configPath": ".prettierrc",
+  "prettier.prettierPath": "./node_modules/prettier"
 }
