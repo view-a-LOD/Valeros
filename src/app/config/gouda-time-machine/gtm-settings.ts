@@ -83,7 +83,7 @@ export const gtmSettings: SettingsModel = {
       },
       [ViewMode.Grid]: {
         [PredicateVisibility.SearchHits]: [],
-        [PredicateVisibility.Details]: [{ predicates: [] }],
+        [PredicateVisibility.Details]: [],
         [PredicateVisibility.Hide]: [],
       },
     },
