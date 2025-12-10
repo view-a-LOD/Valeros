@@ -31,6 +31,10 @@ export const gtmSettings: SettingsModel = {
     },
     searchProvider: SPARQLSearchProvider,
   },
+  // content: {
+  //   ...defaultSettings.content,
+  //   sparqlLanguageFilterForLiterals: ['nl', 'nl-nl'],
+  // },
   viewModes: {
     [ViewMode.List]: {
       ...defaultSettings.viewModes[ViewMode.List],
