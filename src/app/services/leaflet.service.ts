@@ -1,9 +1,7 @@
 import { ElementRef, Injectable } from '@angular/core';
 import * as L from 'leaflet';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable({ providedIn: 'root' })
 export class LeafletService {
   private defaultMarkerIcon: L.Icon;
 
@@ -24,12 +22,12 @@ export class LeafletService {
     const map = L.map(container.nativeElement).setView(center, zoom);
 
     L.tileLayer(
-      'https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}.png',
+      'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',
       {
         minZoom: 0,
         maxZoom: 20,
         attribution:
-          '&copy; <a href="https://www.stadiamaps.com/" target="_blank">Stadia Maps</a> &copy; <a href="https://openmaptiles.org/" target="_blank">OpenMapTiles</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+          '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions" target="_blank">CARTO</a>',
       },
     ).addTo(map);
 

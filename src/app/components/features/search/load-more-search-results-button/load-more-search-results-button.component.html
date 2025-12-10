@@ -1,7 +1,7 @@
 <div class="flex justify-center">
   @if (search.hasMoreResultsToLoad) {
     <button
-      class="btn btn-primary shadow hover:shadow-lg transition-shadow duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2"
+      class="btn btn-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2"
       (click)="loadMore()"
       [disabled]="search.isLoading.value"
       role="form"
