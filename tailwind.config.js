@@ -14,17 +14,8 @@ module.exports = {
         "5xl": "2304px",
         "6xl": "2560px",
       },
-      colors: {
-        background: "#E5E4E2",
-      },
     },
   },
   plugins: [require("daisyui")],
-  daisyui: {
-    themes: [
-      {
-        main: require("./tailwind-theme-export.js"),
-      },
-    ],
-  },
+  daisyui: { themes: [{ main: require("./tailwind-theme-export.js") }] },
 };

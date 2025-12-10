@@ -1,7 +1,7 @@
 import daisyuiBase from 'daisyui/src/theming/themes';
 import { ThemeSettings } from '../models/settings/theme-settings.model';
 
-export const developmentTheme: ThemeSettings = {
+export let developmentTheme: ThemeSettings = {
   ...daisyuiBase['light'],
   primary: '#4a4a4a',
   neutral: '#808080',
@@ -14,6 +14,22 @@ export const developmentTheme: ThemeSettings = {
   '--rounded-badge': '.1rem',
   'primary-content': 'white',
 };
+
+// TODO: Remove this, make themes configurable from settings
+const gtmTheme: ThemeSettings = {
+  ...daisyuiBase['light'],
+  primary: '#2f88a6',
+  neutral: '#808080',
+  accent: '#dbdbdb',
+  secondary: '#6d6d6d',
+  background: '#e8e8e8',
+  search_background: '#e8e8e8',
+  '--rounded-box': '.1rem',
+  '--rounded-btn': '.1rem',
+  '--rounded-badge': '.1rem',
+  'primary-content': 'white',
+};
+// developmentTheme = gtmTheme;
 
 export const acceptanceTheme: ThemeSettings = {
   ...daisyuiBase['light'],
