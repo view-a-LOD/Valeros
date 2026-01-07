@@ -126,6 +126,8 @@ naddSettings.predicates = {
   files: [
     'https://schema.org/associatedMedia',
     'https://schema.org/contentUrl',
+    'http://xmlns.com/foaf/0.1/depiction',
+    'http://xmlns.com/foaf/0.1/thumbnail',
   ],
   hopFiles: [
     ['https://schema.org/associatedMedia', 'https://schema.org/contentUrl'],
@@ -219,6 +221,16 @@ naddSettings.renderComponents[RenderMode.ByPredicate].push({
     showHops: true,
   },
 });
+
+// Add Triply endpoint example
+// naddSettings.endpoints.data['mondriaan'] = {
+//   label: 'Mondriaan (Triply)',
+//   endpointUrls: [
+//     {
+//       sparql: 'https://triplydb.com/_api/datasets/Axiell/mondriaan/sparql',
+//     },
+//   ],
+// };
 
 // naddSettings.nodeVisibility = {
 //   ...defaultSettings.nodeVisibility,
