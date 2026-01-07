@@ -46,6 +46,18 @@ naddSettings.endpoints = {
       label: 'Nationaal Bus Museum',
       endpointUrls: [{ sparql: 'https://sparql.ldmax.nl/q2575273' }],
     },
+    schema: {
+      label: 'Schema.org',
+      endpointUrls: [
+        { sparql: 'https://triplydb.com/_api/datasets/none/sdo/sparql' },
+      ],
+    },
+    dcTerms: {
+      label: 'DC Terms',
+      endpointUrls: [
+        { sparql: 'https://triplydb.com/_api/datasets/dcmi/dct/sparql' },
+      ],
+    },
   },
 };
 
