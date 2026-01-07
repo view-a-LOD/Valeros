@@ -16,12 +16,14 @@ naddSettings.filtering = {
   showOrganizationsFilter: true,
 };
 
-// Hide blank node fields (not properly returned from LDMax)
+// Hide some fields for readability
 naddSettings.predicateVisibility.alwaysHide = [
   ...defaultSettings.predicateVisibility.alwaysHide,
   'https://schema.org/size',
   'https://schema.org/identifier',
   'https://schema.org/creator',
+  'https://schema.org/embedUrl',
+  'http://xmlns.com/foaf/0.1/thumbnail',
 ];
 
 // Add endpoints
@@ -111,12 +113,14 @@ naddSettings.endpoints.data = {
     endpointUrls: [
       { sparql: 'https://triplydb.com/_api/datasets/none/sdo/sparql' },
     ],
+    hideInFilter: true,
   },
   dcTerms: {
     label: 'DC Terms',
     endpointUrls: [
       { sparql: 'https://triplydb.com/_api/datasets/dcmi/dct/sparql' },
     ],
+    hideInFilter: true,
   },
 };
 
@@ -127,7 +131,6 @@ naddSettings.predicates = {
     'https://schema.org/associatedMedia',
     'https://schema.org/contentUrl',
     'http://xmlns.com/foaf/0.1/depiction',
-    'http://xmlns.com/foaf/0.1/thumbnail',
   ],
   hopFiles: [
     ['https://schema.org/associatedMedia', 'https://schema.org/contentUrl'],
@@ -165,12 +168,14 @@ naddSettings.endpoints.data['rdf'] = {
     { sparql: 'https://triplydb.com/_api/datasets/w3c/rdf/sparql' },
     { sparql: 'https://triplydb.com/_api/datasets/w3c/rdfs/sparql' },
   ],
+  hideInFilter: true,
 };
 naddSettings.endpoints.data['foaf'] = {
   label: 'FOAF',
   endpointUrls: [
     { sparql: 'https://triplydb.com/_api/datasets/none/foaf/sparql' },
   ],
+  hideInFilter: true,
 };
 
 naddSettings.endpoints.data['owl'] = {
@@ -178,6 +183,7 @@ naddSettings.endpoints.data['owl'] = {
   endpointUrls: [
     { sparql: 'https://triplydb.com/_api/datasets/w3c/owl/sparql' },
   ],
+  hideInFilter: true,
 };
 
 // Show download button for associated media file
@@ -210,6 +216,7 @@ naddSettings.renderComponents[RenderMode.ByPredicate].push({
 naddSettings.predicateVisibility.alwaysHide.push(
   'http://purl.org/dc/terms/created',
   'http://purl.org/dc/terms/modified',
+  'http://iiif.io/api/presentation/3#manifest',
 );
 
 // Show name for contributor through hop link
@@ -223,14 +230,43 @@ naddSettings.renderComponents[RenderMode.ByPredicate].push({
 });
 
 // Add Triply endpoint example
-// naddSettings.endpoints.data['mondriaan'] = {
-//   label: 'Mondriaan (Triply)',
-//   endpointUrls: [
-//     {
-//       sparql: 'https://triplydb.com/_api/datasets/Axiell/mondriaan/sparql',
-//     },
-//   ],
-// };
+naddSettings.endpoints.data['mondriaan'] = {
+  label: 'Mondriaan (Triply)',
+  endpointUrls: [
+    {
+      sparql: 'https://triplydb.com/_api/datasets/Axiell/mondriaan/sparql',
+    },
+  ],
+};
+
+// Show additional properties values (through hop)
+naddSettings.renderComponents[RenderMode.ByPredicate].push({
+  component: HopLinkComponent,
+  predicates: ['https://schema.org/additionalProperty'],
+  hopLinkSettings: {
+    preds: ['https://schema.org/value'],
+    showHops: true,
+    showOriginalLink: true,
+  },
+});
+
+// Show image for sdo:image field
+naddSettings.predicates.files.push('https://schema.org/image');
+naddSettings.predicates.hopFiles.push([
+  'https://schema.org/image',
+  'https://schema.org/url',
+]);
+
+// Show download button for sdo:image field
+naddSettings.renderComponents[RenderMode.ByPredicate].push({
+  component: FileRendererComponent,
+  predicates: ['https://schema.org/image'],
+  hopLinkSettings: {
+    preds: ['https://schema.org/url'],
+    showHops: false,
+  },
+  requiresExplicitRendering: true,
+});
 
 // naddSettings.nodeVisibility = {
 //   ...defaultSettings.nodeVisibility,
