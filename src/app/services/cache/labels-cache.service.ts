@@ -27,7 +27,7 @@ export class LabelsCacheService {
     const idsWithoutLabel: string[] = Array.from(
       this._idsToCacheLabelFor,
     ).filter((id) => {
-      const labelAlreadyDefined = Object.keys(this.labels).includes(id);
+      const labelAlreadyDefined = Object.keys(this.labels.value).includes(id);
       const alreadyRetrievingLabel = this._labelsBeingCachedForIds.has(id);
       return !labelAlreadyDefined && !alreadyRetrievingLabel;
     });
