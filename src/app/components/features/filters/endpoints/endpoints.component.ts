@@ -22,6 +22,12 @@ export class EndpointsComponent {
     public ui: UiService,
   ) {}
 
+  get visibleEndpointIds(): string[] {
+    return Object.keys(Settings.endpoints.data).filter(
+      (endpointId) => !Settings.endpoints.data[endpointId]?.hideInFilter,
+    );
+  }
+
   protected readonly Settings = Settings;
   protected readonly Object = Object;
 }

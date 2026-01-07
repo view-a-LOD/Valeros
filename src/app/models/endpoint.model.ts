@@ -1,6 +1,7 @@
 export interface EndpointModel {
   label: string;
   endpointUrls: EndpointUrlsModel[];
+  hideInFilter?: boolean;
 }
 
 export interface EndpointUrlsModel {

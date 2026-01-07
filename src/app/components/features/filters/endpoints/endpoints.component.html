@@ -29,10 +29,7 @@
   <div
     class="collapse-content max-h-48 overflow-y-scroll overflow-x-hidden w-full"
   >
-    @for (
-      endpointId of Object.keys(Settings.endpoints.data);
-      track endpointId
-    ) {
+    @for (endpointId of visibleEndpointIds; track endpointId) {
       <div class="form-control flex-row">
         <label class="label text">
           <input
