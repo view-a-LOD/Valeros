@@ -267,15 +267,3 @@ naddSettings.renderComponents[RenderMode.ByPredicate].push({
   },
   requiresExplicitRendering: true,
 });
-
-// naddSettings.nodeVisibility = {
-//   ...defaultSettings.nodeVisibility,
-//   // TODO: Implement SPARQL search provider support for this
-//   alwaysHide: {
-//     hideTerms: {
-//       fieldIds: ['https://schema.org/inDefinedTermSet'],
-//       valueIds: [],
-//       type: FilterType.FieldAndValue,
-//     },
-//   },
-// };
