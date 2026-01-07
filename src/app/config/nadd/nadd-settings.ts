@@ -24,6 +24,7 @@ naddSettings.predicateVisibility.alwaysHide = [
   'https://schema.org/creator',
   'https://schema.org/embedUrl',
   'http://xmlns.com/foaf/0.1/thumbnail',
+  'http://iiif.io/api/presentation/3#manifest', // Note that IIIF vieing is supported through Mirador, but not shown in this demo (see RAZU implementation at https://viewer.razu.nl/ for a IIIF demo, including OCR overlay)
 ];
 
 // Add endpoints
@@ -216,7 +217,6 @@ naddSettings.renderComponents[RenderMode.ByPredicate].push({
 naddSettings.predicateVisibility.alwaysHide.push(
   'http://purl.org/dc/terms/created',
   'http://purl.org/dc/terms/modified',
-  'http://iiif.io/api/presentation/3#manifest',
 );
 
 // Show name for contributor through hop link
