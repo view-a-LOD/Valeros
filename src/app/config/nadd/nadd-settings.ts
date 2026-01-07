@@ -206,7 +206,7 @@ naddSettings.renderComponents[RenderMode.ByPredicate].push({
   ],
 });
 
-// Hide these fields altoghether
+// Hide these fields altogether
 naddSettings.predicateVisibility.alwaysHide.push(
   'http://purl.org/dc/terms/created',
   'http://purl.org/dc/terms/modified',
