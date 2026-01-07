@@ -24,7 +24,7 @@ naddSettings.predicateVisibility.alwaysHide = [
   'https://schema.org/creator',
   'https://schema.org/embedUrl',
   'http://xmlns.com/foaf/0.1/thumbnail',
-  'http://iiif.io/api/presentation/3#manifest', // Note that IIIF vieing is supported through Mirador, but not shown in this demo (see RAZU implementation at https://viewer.razu.nl/ for a IIIF demo, including OCR overlay)
+  'http://iiif.io/api/presentation/3#manifest', // Note that IIIF viewing is supported through Mirador, but not shown in this demo (see RAZU implementation at https://viewer.razu.nl/ for a IIIF demo, including OCR overlay)
 ];
 
 // Replace default header with NADD header (logo without text)
