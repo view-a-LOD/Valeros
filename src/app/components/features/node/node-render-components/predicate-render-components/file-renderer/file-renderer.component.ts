@@ -60,7 +60,11 @@ export class FileRendererComponent implements OnInit, OnChanges {
 
   get displayUrls(): string[] {
     if (this.isThumb) {
-      return this.fileUrls.slice(0, 1);
+      const preferredUrl = this.fileUrls.find(
+        (url) => this.fileRenderService.getFileType(url) !== FileType.UNKNOWN,
+      );
+      const firstFileUrl = this.fileUrls[0];
+      return preferredUrl ? [preferredUrl] : [firstFileUrl];
     }
 
     return this.fileUrls;
