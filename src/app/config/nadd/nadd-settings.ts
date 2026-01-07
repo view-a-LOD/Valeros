@@ -1,4 +1,8 @@
+import { Iso8601DateComponent } from '../../_custom-components/custom-render-components/by-predicate/iso-8601-date/iso-8601-date.component';
+import { FileRendererComponent } from '../../components/features/node/node-render-components/predicate-render-components/file-renderer/file-renderer.component';
+import { HopLinkComponent } from '../../components/features/node/node-render-components/predicate-render-components/hop-components/hop-link/hop-link.component';
 import { PredicateVisibility } from '../../models/settings/predicate-visibility-settings.model';
+import { RenderMode } from '../../models/settings/render-component-settings.type';
 import { SettingsModel } from '../../models/settings/settings.model';
 import { ViewModeSetting } from '../../models/settings/view-mode-setting.enum';
 import { ViewMode } from '../../models/view-mode.enum';
@@ -11,6 +15,14 @@ naddSettings.filtering = {
   ...defaultSettings.filtering,
   showOrganizationsFilter: true,
 };
+
+// Hide blank node fields (not properly returned from LDMax)
+naddSettings.predicateVisibility.alwaysHide = [
+  ...defaultSettings.predicateVisibility.alwaysHide,
+  'https://schema.org/size',
+  'https://schema.org/identifier',
+  'https://schema.org/creator',
+];
 
 // Add endpoints
 naddSettings.endpoints = {
@@ -87,7 +99,7 @@ naddSettings.predicateVisibility = {
       [PredicateVisibility.Hide]: [],
     },
   },
-  alwaysHide: [...defaultSettings.predicateVisibility.alwaysHide],
+  alwaysHide: naddSettings.predicateVisibility.alwaysHide,
   hideTypeBadges: [],
 };
 
@@ -165,6 +177,48 @@ naddSettings.endpoints.data['owl'] = {
     { sparql: 'https://triplydb.com/_api/datasets/w3c/owl/sparql' },
   ],
 };
+
+// Show download button for associated media file
+const associatedMediaFileRenderer = {
+  component: FileRendererComponent,
+  predicates: ['https://schema.org/associatedMedia'],
+  hopLinkSettings: {
+    preds: ['https://schema.org/contentUrl'],
+    showHops: true,
+  },
+  requiresExplicitRendering: true,
+};
+naddSettings.renderComponents[RenderMode.ByPredicate].push(
+  associatedMediaFileRenderer,
+);
+
+// Stop showing hops for associated media file
+associatedMediaFileRenderer.hopLinkSettings!.showHops = false;
+
+// Use human readable format for ISO 8601 dates
+naddSettings.renderComponents[RenderMode.ByPredicate].push({
+  component: Iso8601DateComponent,
+  predicates: [
+    'http://purl.org/dc/terms/created',
+    'http://purl.org/dc/terms/modified',
+  ],
+});
+
+// Hide these fields altoghether
+naddSettings.predicateVisibility.alwaysHide.push(
+  'http://purl.org/dc/terms/created',
+  'http://purl.org/dc/terms/modified',
+);
+
+// Show name for contributor through hop link
+naddSettings.renderComponents[RenderMode.ByPredicate].push({
+  component: HopLinkComponent,
+  predicates: ['https://schema.org/contributor'],
+  hopLinkSettings: {
+    preds: ['http://xmlns.com/foaf/0.1/name'],
+    showHops: true,
+  },
+});
 
 // naddSettings.nodeVisibility = {
 //   ...defaultSettings.nodeVisibility,
