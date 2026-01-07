@@ -162,7 +162,9 @@ export class NodeComponent implements OnInit, OnChanges {
 
     let files = this.nodeFile.getFiles(this.node);
 
-    if (this.details.isShowing()) {
+    const shouldFetchHopFiles =
+      this.details.isShowing() || Settings.predicates.fetchHopFilesOnSearchPage;
+    if (shouldFetchHopFiles) {
       const nodeId = this.nodes.getId(this.node);
       const hopFileUrls = await this.getHopFileUrls(nodeId);
       files = [...files, ...hopFileUrls];

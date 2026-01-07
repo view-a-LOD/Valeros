@@ -27,4 +27,5 @@ export const predicateSettings: PredicateSettings = {
   type: typePredicates,
   files: filePredicates,
   hopFiles: hopFilePredicates,
+  fetchHopFilesOnSearchPage: true,
 };

@@ -13,4 +13,9 @@ export interface PredicateSettings {
    * This is used to show a file (e.g. image, PDF, ...) preview next to the node table (if it's a renderable file type).
    */
   hopFiles: string[][];
+  /**
+   * If enabled, additional SPARQL queries are executed on the search page to follow `hopFiles`
+   * and enrich search hits with files that are a number of hops away.
+   */
+  fetchHopFilesOnSearchPage: boolean;
 }
