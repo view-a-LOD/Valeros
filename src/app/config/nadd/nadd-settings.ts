@@ -117,3 +117,12 @@ export const naddSettings: SettingsModel = {
     },
   },
 };
+
+naddSettings.ui = {
+  ...defaultSettings.ui,
+  header: {
+    ...defaultSettings.ui.header,
+    showTitle: false,
+    logoPath: '/assets/img/nadd/logo.svg',
+  },
+};
