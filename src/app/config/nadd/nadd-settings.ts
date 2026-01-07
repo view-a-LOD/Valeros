@@ -27,6 +27,22 @@ naddSettings.predicateVisibility.alwaysHide = [
   'http://iiif.io/api/presentation/3#manifest', // Note that IIIF vieing is supported through Mirador, but not shown in this demo (see RAZU implementation at https://viewer.razu.nl/ for a IIIF demo, including OCR overlay)
 ];
 
+// Replace default header with NADD header (logo without text)
+naddSettings.ui = {
+  ...defaultSettings.ui,
+  header: {
+    ...defaultSettings.ui.header,
+    showTitle: false,
+    logoPath: '/assets/img/nadd/logo.svg',
+  },
+};
+
+// Set NADD texts
+naddSettings.content = {
+  ...defaultSettings.content,
+  translations: { basePath: './assets/i18n/nadd/', fileExtension: '.json' },
+};
+
 // Add endpoints
 naddSettings.endpoints = {
   ...defaultSettings.endpoints,
@@ -70,43 +86,29 @@ naddSettings.endpoints = {
   },
 };
 
-// Replace default header with NADD header (logo without text)
-naddSettings.ui = {
-  ...defaultSettings.ui,
-  header: {
-    ...defaultSettings.ui.header,
-    showTitle: false,
-    logoPath: '/assets/img/nadd/logo.svg',
-  },
-};
-
 // Hide many details on search hits page
-naddSettings.predicateVisibility = {
-  byViewMode: {
-    [ViewMode.List]: {
-      [PredicateVisibility.SearchHits]: [
-        {
-          predicates: [
-            'https://schema.org/description',
-            'https://schema.org/material',
-            // '*',
-          ],
-        },
-      ],
-      [PredicateVisibility.Details]: [{ predicates: ['*'] }],
-      [PredicateVisibility.Hide]: [{ predicates: [] }],
-    },
-    [ViewMode.Grid]: {
-      [PredicateVisibility.SearchHits]: [],
-      [PredicateVisibility.Details]: [{ predicates: ['*'] }],
-      [PredicateVisibility.Hide]: [],
-    },
+naddSettings.predicateVisibility.byViewMode = {
+  [ViewMode.List]: {
+    [PredicateVisibility.SearchHits]: [
+      {
+        predicates: [
+          'https://schema.org/description',
+          'https://schema.org/material',
+          // '*',
+        ],
+      },
+    ],
+    [PredicateVisibility.Details]: [{ predicates: ['*'] }],
+    [PredicateVisibility.Hide]: [{ predicates: [] }],
   },
-  alwaysHide: naddSettings.predicateVisibility.alwaysHide,
-  hideTypeBadges: [],
+  [ViewMode.Grid]: {
+    [PredicateVisibility.SearchHits]: [],
+    [PredicateVisibility.Details]: [{ predicates: ['*'] }],
+    [PredicateVisibility.Hide]: [],
+  },
 };
 
-// Add Schema and DC Terms endpoints (to automatically retrieve labels for predicates)
+// Add some endpoints (to automatically retrieve labels for predicates)
 naddSettings.endpoints.data = {
   ...naddSettings.endpoints.data,
   schema: {
@@ -123,32 +125,38 @@ naddSettings.endpoints.data = {
     ],
     hideInFilter: true,
   },
-};
-
-// Show images for nodes
-naddSettings.predicates = {
-  ...defaultSettings.predicates,
-  files: [
-    'https://schema.org/associatedMedia',
-    'https://schema.org/contentUrl',
-    'http://xmlns.com/foaf/0.1/depiction',
-  ],
-  hopFiles: [
-    ['https://schema.org/associatedMedia', 'https://schema.org/contentUrl'],
-  ],
+  rdf: {
+    label: 'RDF',
+    endpointUrls: [
+      { sparql: 'https://triplydb.com/_api/datasets/w3c/rdf/sparql' },
+      { sparql: 'https://triplydb.com/_api/datasets/w3c/rdfs/sparql' },
+    ],
+    hideInFilter: true,
+  },
+  foaf: {
+    label: 'FOAF',
+    endpointUrls: [
+      { sparql: 'https://triplydb.com/_api/datasets/none/foaf/sparql' },
+    ],
+    hideInFilter: true,
+  },
+  owl: {
+    label: 'OWL',
+    endpointUrls: [
+      { sparql: 'https://triplydb.com/_api/datasets/w3c/owl/sparql' },
+    ],
+    hideInFilter: true,
+  },
 };
 
 // Show organization for nodes
 naddSettings.viewModes[ViewMode.List][ViewModeSetting.ShowOrganization] = true;
-naddSettings.viewModes[ViewMode.Grid][ViewModeSetting.ShowOrganization] = true;
 
 // Hide type for nodes
 naddSettings.viewModes[ViewMode.List][ViewModeSetting.ShowTypes] = false;
-naddSettings.viewModes[ViewMode.Grid][ViewModeSetting.ShowTypes] = false;
 
 // Hide parents for nodes
 naddSettings.viewModes[ViewMode.List][ViewModeSetting.ShowParents] = false;
-naddSettings.viewModes[ViewMode.Grid][ViewModeSetting.ShowParents] = false;
 
 // Show (placeholder) type filter, note that this does not work yet without Elasticsearch
 naddSettings.filtering = {
@@ -160,31 +168,6 @@ naddSettings.filtering = {
       values: [],
     },
   },
-};
-
-// Add RDF and FOAF endpoints
-naddSettings.endpoints.data['rdf'] = {
-  label: 'RDF',
-  endpointUrls: [
-    { sparql: 'https://triplydb.com/_api/datasets/w3c/rdf/sparql' },
-    { sparql: 'https://triplydb.com/_api/datasets/w3c/rdfs/sparql' },
-  ],
-  hideInFilter: true,
-};
-naddSettings.endpoints.data['foaf'] = {
-  label: 'FOAF',
-  endpointUrls: [
-    { sparql: 'https://triplydb.com/_api/datasets/none/foaf/sparql' },
-  ],
-  hideInFilter: true,
-};
-
-naddSettings.endpoints.data['owl'] = {
-  label: 'OWL',
-  endpointUrls: [
-    { sparql: 'https://triplydb.com/_api/datasets/w3c/owl/sparql' },
-  ],
-  hideInFilter: true,
 };
 
 // Show download button for associated media file
@@ -203,6 +186,19 @@ naddSettings.renderComponents[RenderMode.ByPredicate].push(
 
 // Stop showing hops for associated media file
 associatedMediaFileRenderer.hopLinkSettings!.showHops = false;
+
+// Show images for nodes
+naddSettings.predicates = {
+  ...defaultSettings.predicates,
+  files: [
+    'https://schema.org/associatedMedia',
+    'https://schema.org/contentUrl',
+    'http://xmlns.com/foaf/0.1/depiction',
+  ],
+  hopFiles: [
+    ['https://schema.org/associatedMedia', 'https://schema.org/contentUrl'],
+  ],
+};
 
 // Use human readable format for ISO 8601 dates
 naddSettings.renderComponents[RenderMode.ByPredicate].push({
