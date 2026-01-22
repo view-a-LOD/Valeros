@@ -177,9 +177,9 @@ export const Settings = {
       endpointUrls: [
         {
           elastic:
-            'https://api.data.netwerkdigitaalerfgoed.nl/datasets/hetutrechtsarchief/Test-Amerongen/services/Zoeken/_search',
+            'https://datasets.hetutrechtsarchief.nl/_api/datasets/Het-Utrechts-Archief/Test-Amerongen/services/Zoeken/_search',
           sparql:
-            'https://api.data.netwerkdigitaalerfgoed.nl/datasets/hetutrechtsarchief/Test-Amerongen/sparql',
+            'https://datasets.hetutrechtsarchief.nl/_api/datasets/Het-Utrechts-Archief/Test-Amerongen/sparql',
         },
       ],
     },
@@ -216,7 +216,7 @@ export const Settings = {
       ],
     },
   },
-  maxNumParallelRequests: 4, // 4 SPARQL workers max for Triply
+  maxNumParallelRequests: 1, // 4 SPARQL workers max for Triply
   sorting: {
     default: 'relevance',
     options: {
@@ -580,7 +580,7 @@ export const Settings = {
     'http://www.w3.org/ns/shacl#': 'sh:',
   },
   matomo: {
-    siteId: '2',
-    trackerUrl: '//analytics.boasmedia.nl/',
+    siteId: '',
+    trackerUrl: '',
   },
 };
