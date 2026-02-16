@@ -17,15 +17,15 @@
   },
   "private": true,
   "dependencies": {
-    "@angular/animations": "^20.0.6",
-    "@angular/cdk": "^20.0.5",
-    "@angular/common": "^20.0.6",
-    "@angular/compiler": "^20.0.6",
-    "@angular/core": "^20.0.6",
-    "@angular/forms": "^20.0.6",
-    "@angular/platform-browser": "^20.0.6",
-    "@angular/platform-browser-dynamic": "^20.0.6",
-    "@angular/router": "^20.0.6",
+    "@angular/animations": "^21.1.4",
+    "@angular/cdk": "^21.1.4",
+    "@angular/common": "^21.1.4",
+    "@angular/compiler": "^21.1.4",
+    "@angular/core": "^21.1.4",
+    "@angular/forms": "^21.1.4",
+    "@angular/platform-browser": "^21.1.4",
+    "@angular/platform-browser-dynamic": "^21.1.4",
+    "@angular/router": "^21.1.4",
     "@elastic/elasticsearch": "^9.0.3",
     "@ng-icons/core": "^27.2.0",
     "@ng-icons/feather-icons": "^27.2.0",
@@ -39,8 +39,8 @@
     "mime": "^4.0.7",
     "mirador": "^3.4.3",
     "mirador-textoverlay": "^0.3.8",
-    "ng2-pdfjs-viewer": "^20.0.1",
-    "ngx-matomo-client": "^8.0.0",
+    "ng2-pdfjs-viewer": "^25.0.18",
+    "ngx-matomo-client": "^9.0.1",
     "openseadragon": "^5.0.0",
     "react": "16.14.0",
     "react-dom": "16.14.0",
@@ -50,9 +50,9 @@
     "zone.js": "~0.15.1"
   },
   "devDependencies": {
-    "@angular/build": "^20.0.5",
-    "@angular/cli": "^20.0.5",
-    "@angular/compiler-cli": "^20.0.6",
+    "@angular/build": "^21.1.4",
+    "@angular/cli": "^21.1.4",
+    "@angular/compiler-cli": "^21.1.4",
     "@colsen1991/ngx-translate-extract-marker": "^2.0.8",
     "@iiif/presentation-3": "^2.2.3",
     "@types/jasmine": "~5.1.0",
@@ -71,6 +71,6 @@
     "prettier": "^3.2.5",
     "prettier-plugin-organize-imports": "^4.1.0",
     "tailwindcss": "^3.4.3",
-    "typescript": "~5.8.3"
+    "typescript": "~5.9.3"
   }
 }
