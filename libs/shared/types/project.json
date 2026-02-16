@@ -1,6 +1,6 @@
 {
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
-  "name": "shared-types",
+  "name": "@valeros/shared/types",
   "projectType": "library",
   "sourceRoot": "libs/shared/types/src",
   "targets": {

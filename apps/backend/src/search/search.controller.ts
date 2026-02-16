@@ -44,6 +44,7 @@ export class SearchController {
       query: query || '',
       page: parseInt(page, 10),
       pageSize: parseInt(pageSize, 10),
+      filters: [], // TODO: Accept filters from query params
     });
   }
 }

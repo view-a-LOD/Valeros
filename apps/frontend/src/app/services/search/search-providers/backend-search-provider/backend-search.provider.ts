@@ -1,12 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { SearchRequest, SearchResponse } from '@valeros/shared/types';
 import { firstValueFrom } from 'rxjs';
-import { NodeModel } from '../../../../models/node.model';
-import {
-  SearchProvider,
-  SearchRequest,
-  SearchResponse,
-} from '../search-provider.interface';
+import { SearchProvider } from '../search-provider.interface';
 
 @Injectable({ providedIn: 'root' })
 export class BackendSearchProvider extends SearchProvider {
@@ -17,15 +13,11 @@ export class BackendSearchProvider extends SearchProvider {
   }
 
   async searchNodes(request: SearchRequest): Promise<SearchResponse> {
-    const params = {
-      query: request.query || '',
-      page: request.page.toString(),
-      pageSize: request.pageSize.toString(),
-    };
-
     try {
       const response = await firstValueFrom(
-        this.http.get<SearchResponse>(this.apiUrl, { params }),
+        this.http.get<SearchResponse>(this.apiUrl, {
+          params: { ...request } as any,
+        }),
       );
 
       return response;
