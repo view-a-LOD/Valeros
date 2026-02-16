@@ -50,17 +50,7 @@
               "maximumError": "8kb"
             }
           ],
-          "outputHashing": "all",
-          "fileReplacements": [
-            {
-              "replace": "apps/frontend/src/app/config/razu-settings/settings/endpoints/razu-endpoint.settings.ts",
-              "with": "apps/frontend/src/app/config/razu-settings/settings/endpoints/razu-endpoint.production.settings.ts"
-            },
-            {
-              "replace": "apps/frontend/src/app/config/razu-settings/settings/matomo/razu-matomo.settings.ts",
-              "with": "apps/frontend/src/app/config/razu-settings/settings/matomo/razu-matomo.production.settings.ts"
-            }
-          ]
+          "outputHashing": "all"
         },
         "acceptance": {
           "externalDependencies": ["http", "https", "url", "util", "net"],
@@ -76,13 +66,7 @@
               "maximumError": "8kb"
             }
           ],
-          "outputHashing": "all",
-          "fileReplacements": [
-            {
-              "replace": "apps/frontend/src/app/config/razu-settings/settings/endpoints/razu-endpoint.settings.ts",
-              "with": "apps/frontend/src/app/config/razu-settings/settings/endpoints/razu-endpoint.acceptance.settings.ts"
-            }
-          ]
+          "outputHashing": "all"
         },
         "test": {
           "externalDependencies": ["http", "https", "url", "util", "net"],
@@ -98,13 +82,7 @@
               "maximumError": "8kb"
             }
           ],
-          "outputHashing": "all",
-          "fileReplacements": [
-            {
-              "replace": "apps/frontend/src/app/config/razu-settings/settings/endpoints/razu-endpoint.settings.ts",
-              "with": "apps/frontend/src/app/config/razu-settings/settings/endpoints/razu-endpoint.test.settings.ts"
-            }
-          ]
+          "outputHashing": "all"
         },
         "development": {
           "optimization": false,
