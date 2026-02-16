@@ -1,49 +1,74 @@
 import { Injectable, Logger } from '@nestjs/common';
 import {
-  Direction,
   NodeModel,
   SearchRequest,
   SearchResponse,
 } from '@valeros/shared/types';
+import { SparqlClient } from './sparql-client';
+import { SparqlNodeConverter } from './sparql-node-converter';
+import { SparqlQueryBuilder } from './sparql-query-builder';
 
 @Injectable()
 export class SparqlSearchService {
   private readonly logger = new Logger(SparqlSearchService.name);
 
   async searchNodes(request: SearchRequest): Promise<SearchResponse> {
-    const { query, endpoints } = request;
+    const { query, page, pageSize, endpoints } = request;
 
-    this.logger.log(
-      `SPARQL search demo: query="${query}", endpoints=${endpoints?.join(', ')}`,
-    );
+    if (!endpoints || endpoints.length === 0) {
+      return { nodes: [], total: 0, isCapped: false };
+    }
 
-    const demoNodes: NodeModel[] = [
-      {
-        '@id': [
-          {
-            value: 'http://example.org/resource/1',
-            direction: Direction.Outgoing,
-          },
-        ],
-        'http://www.w3.org/2000/01/rdf-schema#label': [
-          {
-            value: `SPARQL Demo Result for "${query}"`,
-            direction: Direction.Outgoing,
-          },
-        ],
-        endpointId: [
-          {
-            value: endpoints?.[0] || 'http://example.org/sparql',
-            direction: Direction.Outgoing,
-          },
-        ],
-      },
-    ];
+    this.logger.log(`Searching SPARQL endpoints: ${endpoints.join(', ')}`);
+
+    const nodes = await this.queryEndpoints(endpoints, query, page, pageSize);
 
     return {
-      nodes: demoNodes,
-      total: 1,
+      nodes,
+      total: nodes.length,
       isCapped: false,
     };
+  }
+
+  private async queryEndpoints(
+    endpoints: string[],
+    searchTerm: string,
+    page: number,
+    pageSize: number,
+  ): Promise<NodeModel[]> {
+    const allNodes: NodeModel[] = [];
+
+    for (const endpoint of endpoints) {
+      try {
+        const nodes = await this.querySingleEndpoint(
+          endpoint,
+          searchTerm,
+          page,
+          pageSize,
+        );
+        allNodes.push(...nodes);
+      } catch (error) {
+        this.logger.warn(
+          `Failed to query ${endpoint}: ${(error as Error).message}`,
+        );
+      }
+    }
+
+    return allNodes;
+  }
+
+  private async querySingleEndpoint(
+    endpoint: string,
+    searchTerm: string,
+    page: number,
+    pageSize: number,
+  ): Promise<NodeModel[]> {
+    const sparqlQuery = SparqlQueryBuilder.buildSearchQuery(
+      searchTerm,
+      page,
+      pageSize,
+    );
+    const results = await SparqlClient.executeQuery(endpoint, sparqlQuery);
+    return SparqlNodeConverter.convertResultsToNodes(results, endpoint);
   }
 }

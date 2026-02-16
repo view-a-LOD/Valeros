@@ -14,9 +14,17 @@ export class BackendSearchProvider extends SearchProvider {
 
   async searchNodes(request: SearchRequest): Promise<SearchResponse> {
     try {
+      const requestWithEndpoints: SearchRequest = {
+        ...request,
+        endpoints: [
+          'https://sparql.ldmax.nl/q11722011',
+          'https://sparql.ldmax.nl/q110996022',
+        ],
+      };
+
       const response = await firstValueFrom(
         this.http.get<SearchResponse>(this.apiUrl, {
-          params: { ...request } as any,
+          params: { ...requestWithEndpoints } as any,
         }),
       );
 
