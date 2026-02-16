@@ -1,4 +1,4 @@
 import { SettingsModel } from '../models/settings/settings.model';
-import { gtmSettingsWithFiltering } from './gouda-time-machine/gtm-settings-with-filtering';
+import { backendSettings } from './backend/backend-settings';
 
-export const Settings: SettingsModel = gtmSettingsWithFiltering;
+export const Settings: SettingsModel = backendSettings;
