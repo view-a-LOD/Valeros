@@ -6,6 +6,7 @@ export interface SearchRequest {
   page: number;
   pageSize: number;
   filters: FilterModel[];
+  endpoints?: string[];
 }
 
 export interface SearchResponse {

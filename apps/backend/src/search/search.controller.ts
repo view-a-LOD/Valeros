@@ -1,11 +1,16 @@
 import { Controller, Get, Query } from '@nestjs/common';
 import { ApiOperation, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { SearchRequest } from '@valeros/shared/types';
 import { SearchService } from './search.service';
+import { SparqlSearchService } from './sparql-search.service';
 
 @ApiTags('search')
 @Controller('api/search')
 export class SearchController {
-  constructor(private readonly searchService: SearchService) {}
+  constructor(
+    private readonly searchService: SearchService,
+    private readonly sparqlSearchService: SparqlSearchService,
+  ) {}
 
   @Get()
   @ApiOperation({
@@ -30,21 +35,45 @@ export class SearchController {
     description: 'Number of results per page',
     example: 10,
   })
+  @ApiQuery({
+    name: 'endpoints',
+    required: false,
+    description: 'SPARQL endpoint URLs',
+    example: 'http://example.org/sparql',
+    isArray: true,
+    type: String,
+  })
   @ApiResponse({
     status: 200,
     description:
       'Returns search results with nodes, total count, and capped flag',
   })
-  search(
+  async search(
     @Query('query') query: string,
     @Query('page') page: string = '0',
     @Query('pageSize') pageSize: string = '10',
+    @Query('endpoints') endpoints?: string | string[],
   ) {
-    return this.searchService.searchNodes({
+    const endpointUrls = endpoints
+      ? Array.isArray(endpoints)
+        ? endpoints
+        : [endpoints]
+      : [];
+
+    const params: SearchRequest = {
       query: query || '',
-      page: parseInt(page, 10),
+      page: parseInt(page, 0),
       pageSize: parseInt(pageSize, 10),
       filters: [], // TODO: Accept filters from query params
-    });
+    };
+
+    if (endpointUrls.length > 0) {
+      return this.sparqlSearchService.searchNodes({
+        ...params,
+        endpoints: endpointUrls,
+      });
+    }
+
+    return this.searchService.searchNodes(params);
   }
 }
