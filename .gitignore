@@ -43,3 +43,8 @@ src/app/config/settings_local.ts
 src/app/config/theme
 /cypress/snapshots
 /cypress/screenshots
+
+
+
+.nx/cache
+.nx/workspace-data

@@ -3,15 +3,15 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build --configuration production",
-    "build:dev": "ng build --configuration development",
-    "build:dev-build": "ng build --configuration dev-build",
-    "build:test": "ng build --configuration test",
-    "build:acceptance": "ng build --configuration acceptance",
-    "build:prod": "ng build --configuration production",
-    "watch": "ng build --watch --configuration development",
-    "test": "ng test",
+    "start": "nx serve",
+    "build": "nx build --configuration production",
+    "build:dev": "nx build --configuration development",
+    "build:dev-build": "nx build --configuration dev-build",
+    "build:test": "nx build --configuration test",
+    "build:acceptance": "nx build --configuration acceptance",
+    "build:prod": "nx build --configuration production",
+    "watch": "nx build --watch --configuration development",
+    "test": "nx test",
     "format": "prettier --write \"src/**/*.{ts,html,scss,json}\"",
     "check-format": "prettier --check \"src/**/*.{ts,html,scss,json}\""
   },
@@ -50,11 +50,16 @@
     "zone.js": "~0.15.1"
   },
   "devDependencies": {
+    "@angular-devkit/core": "^21.1.4",
+    "@angular-devkit/schematics": "^21.1.4",
     "@angular/build": "^21.1.4",
     "@angular/cli": "^21.1.4",
     "@angular/compiler-cli": "^21.1.4",
     "@colsen1991/ngx-translate-extract-marker": "^2.0.8",
     "@iiif/presentation-3": "^2.2.3",
+    "@nx/angular": "22.5.1",
+    "@nx/workspace": "22.5.1",
+    "@schematics/angular": "^21.1.4",
     "@types/jasmine": "~5.1.0",
     "@types/n3": "^1.16.4",
     "@types/openseadragon": "^3.0.10",
@@ -67,10 +72,12 @@
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
+    "nx": "22.5.1",
     "postcss": "^8.4.38",
     "prettier": "^3.2.5",
     "prettier-plugin-organize-imports": "^4.1.0",
     "tailwindcss": "^3.4.3",
     "typescript": "~5.9.3"
-  }
+  },
+  "nx": {}
 }
