@@ -3,7 +3,7 @@ const {
   acceptanceTheme,
   productionTheme,
   testTheme,
-} = require("./src/app/config/themes");
+} = require("./apps/frontend/src/app/config/themes");
 
 const hasConfiguration = (args, configName) => {
   return (

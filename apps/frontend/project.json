@@ -1,29 +1,27 @@
 {
-  "$schema": "node_modules/nx/schemas/project-schema.json",
-  "name": "view-a-LOD",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "name": "frontend",
   "projectType": "application",
   "generators": {
     "@schematics/angular:component": {
       "style": "scss"
     }
   },
-  "sourceRoot": "src",
+  "sourceRoot": "apps/frontend/src",
   "prefix": "app",
   "targets": {
     "build": {
       "executor": "@angular/build:application",
       "options": {
-        "outputPath": "dist/view-a-lod",
-        "index": "src/index.html",
-        "browser": "src/main.ts",
-        "polyfills": [
-          "zone.js"
-        ],
-        "tsConfig": "tsconfig.app.json",
+        "outputPath": "dist/apps/frontend",
+        "index": "apps/frontend/src/index.html",
+        "browser": "apps/frontend/src/main.ts",
+        "polyfills": ["zone.js"],
+        "tsConfig": "apps/frontend/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
         "assets": [
-          "src/favicon.ico",
-          "src/assets",
+          "apps/frontend/src/favicon.ico",
+          "apps/frontend/src/assets",
           {
             "glob": "**/*",
             "input": "node_modules/ng2-pdfjs-viewer/pdfjs",
@@ -31,21 +29,15 @@
           }
         ],
         "styles": [
-          "src/styles.scss",
-          "src/theme.scss",
+          "apps/frontend/src/styles.scss",
+          "apps/frontend/src/theme.scss",
           "node_modules/leaflet/dist/leaflet.css"
         ],
         "scripts": []
       },
       "configurations": {
         "production": {
-          "externalDependencies": [
-            "http",
-            "https",
-            "url",
-            "util",
-            "net"
-          ],
+          "externalDependencies": ["http", "https", "url", "util", "net"],
           "budgets": [
             {
               "type": "initial",
@@ -61,23 +53,17 @@
           "outputHashing": "all",
           "fileReplacements": [
             {
-              "replace": "src/app/config/razu-settings/settings/endpoints/razu-endpoint.settings.ts",
-              "with": "src/app/config/razu-settings/settings/endpoints/razu-endpoint.production.settings.ts"
+              "replace": "apps/frontend/src/app/config/razu-settings/settings/endpoints/razu-endpoint.settings.ts",
+              "with": "apps/frontend/src/app/config/razu-settings/settings/endpoints/razu-endpoint.production.settings.ts"
             },
             {
-              "replace": "src/app/config/razu-settings/settings/matomo/razu-matomo.settings.ts",
-              "with": "src/app/config/razu-settings/settings/matomo/razu-matomo.production.settings.ts"
+              "replace": "apps/frontend/src/app/config/razu-settings/settings/matomo/razu-matomo.settings.ts",
+              "with": "apps/frontend/src/app/config/razu-settings/settings/matomo/razu-matomo.production.settings.ts"
             }
           ]
         },
         "acceptance": {
-          "externalDependencies": [
-            "http",
-            "https",
-            "url",
-            "util",
-            "net"
-          ],
+          "externalDependencies": ["http", "https", "url", "util", "net"],
           "budgets": [
             {
               "type": "initial",
@@ -93,19 +79,13 @@
           "outputHashing": "all",
           "fileReplacements": [
             {
-              "replace": "src/app/config/razu-settings/settings/endpoints/razu-endpoint.settings.ts",
-              "with": "src/app/config/razu-settings/settings/endpoints/razu-endpoint.acceptance.settings.ts"
+              "replace": "apps/frontend/src/app/config/razu-settings/settings/endpoints/razu-endpoint.settings.ts",
+              "with": "apps/frontend/src/app/config/razu-settings/settings/endpoints/razu-endpoint.acceptance.settings.ts"
             }
           ]
         },
         "test": {
-          "externalDependencies": [
-            "http",
-            "https",
-            "url",
-            "util",
-            "net"
-          ],
+          "externalDependencies": ["http", "https", "url", "util", "net"],
           "budgets": [
             {
               "type": "initial",
@@ -121,8 +101,8 @@
           "outputHashing": "all",
           "fileReplacements": [
             {
-              "replace": "src/app/config/razu-settings/settings/endpoints/razu-endpoint.settings.ts",
-              "with": "src/app/config/razu-settings/settings/endpoints/razu-endpoint.test.settings.ts"
+              "replace": "apps/frontend/src/app/config/razu-settings/settings/endpoints/razu-endpoint.settings.ts",
+              "with": "apps/frontend/src/app/config/razu-settings/settings/endpoints/razu-endpoint.test.settings.ts"
             }
           ]
         },
@@ -132,13 +112,7 @@
           "sourceMap": true
         },
         "dev-build": {
-          "externalDependencies": [
-            "http",
-            "https",
-            "url",
-            "util",
-            "net"
-          ],
+          "externalDependencies": ["http", "https", "url", "util", "net"],
           "budgets": [
             {
               "type": "initial",
@@ -155,18 +129,16 @@
         }
       },
       "defaultConfiguration": "production",
-      "outputs": [
-        "{options.outputPath}"
-      ]
+      "outputs": ["{options.outputPath}"]
     },
     "serve": {
       "executor": "@angular/build:dev-server",
       "configurations": {
         "production": {
-          "buildTarget": "view-a-LOD:build:production"
+          "buildTarget": "frontend:build:production"
         },
         "development": {
-          "buildTarget": "view-a-LOD:build:development"
+          "buildTarget": "frontend:build:development"
         }
       },
       "defaultConfiguration": "development"
@@ -174,21 +146,18 @@
     "extract-i18n": {
       "executor": "@angular/build:extract-i18n",
       "options": {
-        "buildTarget": "view-a-LOD:build"
+        "buildTarget": "frontend:build"
       }
     },
     "test": {
       "executor": "@angular/build:karma",
       "options": {
-        "polyfills": [
-          "zone.js",
-          "zone.js/testing"
-        ],
-        "tsConfig": "tsconfig.spec.json",
+        "polyfills": ["zone.js", "zone.js/testing"],
+        "tsConfig": "apps/frontend/tsconfig.spec.json",
         "inlineStyleLanguage": "scss",
         "assets": [
-          "src/favicon.ico",
-          "src/assets",
+          "apps/frontend/src/favicon.ico",
+          "apps/frontend/src/assets",
           {
             "glob": "**/*",
             "input": "node_modules/ng2-pdfjs-viewer/pdfjs",
@@ -196,8 +165,8 @@
           }
         ],
         "styles": [
-          "src/styles.scss",
-          "src/theme.scss",
+          "apps/frontend/src/styles.scss",
+          "apps/frontend/src/theme.scss",
           "node_modules/leaflet/dist/leaflet.css"
         ],
         "scripts": []
