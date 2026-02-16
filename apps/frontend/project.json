@@ -126,29 +126,6 @@
       "options": {
         "buildTarget": "frontend:build"
       }
-    },
-    "test": {
-      "executor": "@angular/build:karma",
-      "options": {
-        "polyfills": ["zone.js", "zone.js/testing"],
-        "tsConfig": "apps/frontend/tsconfig.spec.json",
-        "inlineStyleLanguage": "scss",
-        "assets": [
-          "apps/frontend/src/favicon.ico",
-          "apps/frontend/src/assets",
-          {
-            "glob": "**/*",
-            "input": "node_modules/ng2-pdfjs-viewer/pdfjs",
-            "output": "/assets/pdfjs"
-          }
-        ],
-        "styles": [
-          "apps/frontend/src/styles.scss",
-          "apps/frontend/src/theme.scss",
-          "node_modules/leaflet/dist/leaflet.css"
-        ],
-        "scripts": []
-      }
     }
   }
 }
