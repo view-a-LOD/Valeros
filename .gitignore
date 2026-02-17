@@ -48,3 +48,4 @@ src/app/config/theme
 
 .nx/cache
 .nx/workspace-data
+.angular
