@@ -5,12 +5,25 @@ import {
   SearchResponse,
 } from '@valeros/shared/types';
 import { mockNodes } from './mock-data';
+import { SparqlService } from './sparql/sparql.service';
 
 @Injectable()
 export class SearchService {
   private mockNodes: NodeModel[] = mockNodes;
 
-  searchNodes(request: SearchRequest): SearchResponse {
+  constructor(private readonly sparqlService: SparqlService) {}
+
+  async searchNodes(request: SearchRequest): Promise<SearchResponse> {
+    const { endpoints } = request;
+
+    if (endpoints && endpoints.length > 0) {
+      return this.sparqlService.searchNodes(request);
+    }
+
+    return this.searchMockData(request);
+  }
+
+  private searchMockData(request: SearchRequest): SearchResponse {
     const { query, page, pageSize, filters } = request;
     // TODO: Implement filter functionality
 

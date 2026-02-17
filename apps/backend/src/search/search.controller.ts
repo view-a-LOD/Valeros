@@ -2,15 +2,11 @@ import { Controller, Get, Query } from '@nestjs/common';
 import { ApiOperation, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { SearchRequest } from '@valeros/shared/types';
 import { SearchService } from './search.service';
-import { SparqlSearchService } from './sparql-search.service';
 
 @ApiTags('search')
 @Controller('api/search')
 export class SearchController {
-  constructor(
-    private readonly searchService: SearchService,
-    private readonly sparqlSearchService: SparqlSearchService,
-  ) {}
+  constructor(private readonly searchService: SearchService) {}
 
   @Get()
   @ApiOperation({
@@ -65,14 +61,8 @@ export class SearchController {
       page: parseInt(page, 0),
       pageSize: parseInt(pageSize, 10),
       filters: [], // TODO: Accept filters from query params
+      endpoints: endpointUrls,
     };
-
-    if (endpointUrls.length > 0) {
-      return this.sparqlSearchService.searchNodes({
-        ...params,
-        endpoints: endpointUrls,
-      });
-    }
 
     return this.searchService.searchNodes(params);
   }

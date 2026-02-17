@@ -9,8 +9,8 @@ import { SparqlNodeConverter } from './sparql-node-converter';
 import { SparqlQueryBuilder } from './sparql-query-builder';
 
 @Injectable()
-export class SparqlSearchService {
-  private readonly logger = new Logger(SparqlSearchService.name);
+export class SparqlService {
+  private readonly logger = new Logger(SparqlService.name);
 
   async searchNodes(request: SearchRequest): Promise<SearchResponse> {
     const { query, page, pageSize, endpoints } = request;
