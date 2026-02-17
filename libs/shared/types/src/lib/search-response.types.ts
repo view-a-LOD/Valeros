@@ -12,7 +12,6 @@ export type ResponseMetadata = {
   totalHits: number;
   returnedHits: number;
   executionTime?: number;
-  queryPlan?: string;
   endpoints: EndpointInfo[];
 };
 
