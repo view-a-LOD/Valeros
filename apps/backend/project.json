@@ -10,7 +10,9 @@
       "options": {
         "outputPath": "dist/apps/backend",
         "main": "apps/backend/src/main.ts",
+        "outputFileName": "apps/backend/src/main.js",
         "tsConfig": "apps/backend/tsconfig.app.json",
+        "rootDir": ".",
         "assets": []
       }
     },
@@ -18,7 +20,8 @@
       "executor": "@nx/js:node",
       "options": {
         "buildTarget": "backend:build",
-        "watch": true
+        "watch": true,
+        "waitUntilTargets": ["shared-types:build"]
       }
     }
   }

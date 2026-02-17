@@ -1,12 +1,11 @@
 {
-  "extends": "../../../tsconfig.json",
+  "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "../../../dist/out-tsc",
-    "declaration": true,
-    "types": [],
     "module": "commonjs",
-    "moduleResolution": "node"
+    "moduleResolution": "node",
+    "declaration": true,
+    "types": ["node"]
   },
-  "include": ["src/**/*"],
-  "exclude": ["node_modules"]
+  "include": ["src/**/*.ts"]
 }
