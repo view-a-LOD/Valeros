@@ -20,13 +20,17 @@ export class SearchController {
       basic: {
         summary: 'Basic search',
         value: {
-          query: 'growl',
+          query: 'iris',
           page: 0,
           pageSize: 20,
           endpoints: [
             {
               type: 'sparql',
               url: 'https://api.triplydb.com/datasets/academy/pokemon/sparql',
+            },
+            {
+              type: 'sparql',
+              url: 'https://api.triplydb.com/datasets/Triply/iris/sparql',
             },
           ],
           filters: [],
