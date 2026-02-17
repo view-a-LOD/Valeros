@@ -5,18 +5,36 @@ export class SparqlQueryBuilder {
     pageSize: number,
   ): string {
     const offset = page * pageSize;
+
+    if (!searchTerm) {
+      return `
+        SELECT ?s ?p ?o
+        WHERE {
+          ?s ?p ?o .
+        }
+        LIMIT ${pageSize}
+        OFFSET ${offset}
+      `;
+    }
+
     const filter = searchTerm
       ? `FILTER(CONTAINS(LCASE(STR(?o)), LCASE("${searchTerm}")))`
       : '';
 
     return `
-      SELECT ?s ?p ?o
-      WHERE {
-        ?s ?p ?o .
-        ${filter}
-      }
-      LIMIT ${pageSize}
-      OFFSET ${offset}
-    `;
+        SELECT ?s ?p ?o
+        WHERE {
+          {
+            SELECT DISTINCT ?s
+            WHERE {
+              ?s ?p ?o .
+              ${filter}
+            }
+          }
+          ?s ?p ?o .
+        }
+        LIMIT ${pageSize}
+        OFFSET ${offset}
+      `;
   }
 }
