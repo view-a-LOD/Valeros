@@ -62,8 +62,8 @@ export class SearchController {
 
     const params: SearchRequest = {
       query: query || '',
-      page: parseInt(page, 0),
-      pageSize: parseInt(pageSize, 10),
+      page: parseInt(page),
+      pageSize: parseInt(pageSize),
       filters: [], // TODO: Accept filters from query params
       endpoints: endpointUrls,
     };
