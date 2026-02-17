@@ -23,6 +23,7 @@ export class SearchController {
           query: 'iris',
           page: 0,
           pageSize: 20,
+          languages: ['en', 'es'],
           endpoints: [
             {
               type: 'sparql',

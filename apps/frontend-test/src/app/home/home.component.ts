@@ -104,7 +104,6 @@ export class HomeComponent {
             paths: [
               {
                 path: 'rdfs:label|dc:title',
-                languages: ['nl', 'en'],
               },
             ],
           },
@@ -115,7 +114,6 @@ export class HomeComponent {
             paths: [
               {
                 path: 'skosxl:prefLabel/skosxl:literalForm',
-                languages: ['nl', 'en'],
               },
             ],
           },
@@ -139,7 +137,6 @@ export class HomeComponent {
               },
               {
                 path: 'crm:P108i_was_produced_by/crm:P7_took_place_at/schema:address',
-                languages: ['nl', 'en'],
               },
             ],
           },

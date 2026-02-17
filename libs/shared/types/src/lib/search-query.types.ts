@@ -14,6 +14,7 @@ export type SearchQueryModel = {
   endpoints: EndpointConfig[];
   filters: SearchQueryFilterModel[];
   sorting: SortingModel;
+  languages?: string[];
   prefixes?: PrefixModel[];
   retrieve?: RetrieveConfig;
 };
@@ -44,7 +45,6 @@ export type Prefix = {
 
 export type PathSelector = {
   path: PropertyPath;
-  languages?: string[];
   includeHighlights?: boolean;
 };
 

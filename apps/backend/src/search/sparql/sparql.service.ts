@@ -16,7 +16,7 @@ export class SparqlService {
 
   async searchNodes(request: SearchQueryModel): Promise<SearchResponseModel> {
     const startTime = Date.now();
-    const { query, page, pageSize, endpoints } = request;
+    const { query, page, pageSize, endpoints, languages } = request;
 
     const endpointConfigs = endpoints?.map((endpoint) => endpoint.url) || [];
 
@@ -43,6 +43,7 @@ export class SparqlService {
       query,
       page,
       pageSize,
+      languages,
     );
 
     const executionTime = Date.now() - startTime;
@@ -66,6 +67,7 @@ export class SparqlService {
     searchTerm: string,
     page: number,
     pageSize: number,
+    languages?: string[],
   ): Promise<{
     results: SearchResult[];
     endpointInfos: EndpointInfo[];
@@ -82,6 +84,7 @@ export class SparqlService {
           searchTerm,
           page,
           pageSize,
+          languages,
         );
 
         const queryTime = Date.now() - startTime;
@@ -121,11 +124,13 @@ export class SparqlService {
     searchTerm: string,
     page: number,
     pageSize: number,
+    languages?: string[],
   ): Promise<SearchResult[]> {
     const sparqlQuery = SparqlQueryBuilder.buildSearchQuery(
       searchTerm,
       page,
       pageSize,
+      languages,
     );
 
     const bindingsStream = await this.queryEngine.queryBindings(sparqlQuery, {
