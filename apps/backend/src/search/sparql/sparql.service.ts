@@ -1,7 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common';
 import {
   NodeModel,
-  SearchRequest,
+  SearchQueryModel,
   SearchResponse,
 } from '@valeros/shared/types';
 import { SparqlClient } from './sparql-client';
@@ -12,16 +12,24 @@ import { SparqlQueryBuilder } from './sparql-query-builder';
 export class SparqlService {
   private readonly logger = new Logger(SparqlService.name);
 
-  async searchNodes(request: SearchRequest): Promise<SearchResponse> {
+  async searchNodes(request: SearchQueryModel): Promise<SearchResponse> {
     const { query, page, pageSize, endpoints } = request;
 
-    if (!endpoints || endpoints.length === 0) {
+    const endpointUrls: string[] =
+      endpoints?.map((endpoint) => endpoint.url) || [];
+
+    if (!endpointUrls || endpointUrls.length === 0) {
       return { nodes: [], total: 0, isCapped: false };
     }
 
-    this.logger.log(`Searching SPARQL endpoints: ${endpoints.join(', ')}`);
+    this.logger.log(`Searching SPARQL endpoints: ${endpointUrls.join(', ')}`);
 
-    const nodes = await this.queryEndpoints(endpoints, query, page, pageSize);
+    const nodes = await this.queryEndpoints(
+      endpointUrls,
+      query,
+      page,
+      pageSize,
+    );
 
     return {
       nodes,

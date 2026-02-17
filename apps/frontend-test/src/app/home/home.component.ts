@@ -12,6 +12,8 @@ export class HomeComponent {
   createSearchQuery(): SearchQueryModel {
     return {
       query: 'night*',
+      page: 0,
+      pageSize: 20,
       endpoints: [
         // Defined in Valeros config, optionally toggled/disabled by user through UI checkboxes
         {

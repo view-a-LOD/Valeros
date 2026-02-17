@@ -1,6 +1,6 @@
-import { Controller, Get, Query } from '@nestjs/common';
-import { ApiOperation, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { SearchRequest } from '@valeros/shared/types';
+import { Body, Controller, Post } from '@nestjs/common';
+import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { SearchQueryModel } from '@valeros/shared/types';
 import { SearchService } from './search.service';
 
 @ApiTags('search')
@@ -8,66 +8,45 @@ import { SearchService } from './search.service';
 export class SearchController {
   constructor(private readonly searchService: SearchService) {}
 
-  @Get()
+  @Post()
   @ApiOperation({
     summary: 'Search for nodes',
-    description: 'Search nodes by query string with pagination support',
+    description: 'Search nodes using SPARQL endpoints',
   })
-  @ApiQuery({
-    name: 'query',
-    required: false,
-    description: 'Search query string',
-    example: 'test',
-  })
-  @ApiQuery({
-    name: 'page',
-    required: false,
-    description: 'Page number (0-indexed)',
-    example: 0,
-  })
-  @ApiQuery({
-    name: 'pageSize',
-    required: false,
-    description: 'Number of results per page',
-    example: 10,
-  })
-  @ApiQuery({
-    name: 'endpoints',
-    required: false,
-    description: 'SPARQL endpoint URLs',
-    example: 'http://example.org/sparql',
-    isArray: true,
-    type: String,
+  @ApiBody({
+    description: 'Search query parameters',
+    // TODO: Add schema from model
+    examples: {
+      basic: {
+        summary: 'Basic search',
+        value: {
+          query: 'growl',
+          page: 0,
+          pageSize: 20,
+          endpoints: [
+            {
+              type: 'sparql',
+              url: 'https://api.triplydb.com/datasets/academy/pokemon/sparql',
+            },
+          ],
+          filters: [],
+          sorting: {
+            predicates: ['dc:title', 'rdfs:label'],
+            direction: 'asc',
+          },
+        },
+      },
+    },
   })
   @ApiResponse({
     status: 200,
-    description:
-      'Returns search results with nodes, total count, and capped flag',
+    description: 'Returns search results',
   })
   @ApiResponse({
     status: 400,
-    description: 'Bad request - missing required parameters or endpoints',
+    description: 'Bad request - invalid search query',
   })
-  async search(
-    @Query('query') query: string,
-    @Query('page') page: string = '0',
-    @Query('pageSize') pageSize: string = '10',
-    @Query('endpoints') endpoints?: string | string[],
-  ) {
-    const endpointUrls = endpoints
-      ? Array.isArray(endpoints)
-        ? endpoints
-        : [endpoints]
-      : [];
-
-    const params: SearchRequest = {
-      query: query || '',
-      page: parseInt(page),
-      pageSize: parseInt(pageSize),
-      filters: [], // TODO: Accept filters from query params
-      endpoints: endpointUrls,
-    };
-
-    return this.searchService.searchNodes(params);
+  async search(@Body() searchQuery: SearchQueryModel) {
+    return this.searchService.searchNodes(searchQuery);
   }
 }

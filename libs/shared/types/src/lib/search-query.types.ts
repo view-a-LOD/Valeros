@@ -9,6 +9,8 @@ export type EndpointConfig = {
 
 export type SearchQueryModel = {
   query: string;
+  page: number;
+  pageSize: number;
   endpoints: EndpointConfig[];
   filters: SearchQueryFilterModel[];
   sorting: SortingModel;
