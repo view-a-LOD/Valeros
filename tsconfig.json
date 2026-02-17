@@ -18,6 +18,7 @@
     "target": "ES2022",
     "module": "ES2022",
     "useDefineForClassFields": false,
+    "skipLibCheck": true,
     "baseUrl": ".",
     "paths": {
       "@valeros/shared/types": ["libs/shared/types/src/index.ts"]

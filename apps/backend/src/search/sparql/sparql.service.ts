@@ -1,40 +1,63 @@
+import { QueryEngine } from '@comunica/query-sparql';
 import { Injectable, Logger } from '@nestjs/common';
 import {
-  NodeModel,
+  EndpointInfo,
   SearchQueryModel,
-  SearchResponse,
+  SearchResponseModel,
+  SearchResult,
 } from '@valeros/shared/types';
-import { SparqlClient } from './sparql-client';
 import { SparqlNodeConverter } from './sparql-node-converter';
 import { SparqlQueryBuilder } from './sparql-query-builder';
 
 @Injectable()
 export class SparqlService {
   private readonly logger = new Logger(SparqlService.name);
+  private readonly queryEngine = new QueryEngine();
 
-  async searchNodes(request: SearchQueryModel): Promise<SearchResponse> {
+  async searchNodes(request: SearchQueryModel): Promise<SearchResponseModel> {
+    const startTime = Date.now();
     const { query, page, pageSize, endpoints } = request;
 
-    const endpointUrls: string[] =
-      endpoints?.map((endpoint) => endpoint.url) || [];
+    const endpointConfigs = endpoints?.map((endpoint) => endpoint.url) || [];
 
-    if (!endpointUrls || endpointUrls.length === 0) {
-      return { nodes: [], total: 0, isCapped: false };
+    if (!endpointConfigs || endpointConfigs.length === 0) {
+      return {
+        metadata: {
+          totalHits: 0,
+          returnedHits: 0,
+          endpoints: [],
+        },
+        results: [],
+        links: {
+          self: '',
+        },
+      };
     }
 
-    this.logger.log(`Searching SPARQL endpoints: ${endpointUrls.join(', ')}`);
+    this.logger.log(
+      `Searching SPARQL endpoints: ${endpointConfigs.join(', ')}`,
+    );
 
-    const nodes = await this.queryEndpoints(
-      endpointUrls,
+    const { results, endpointInfos } = await this.queryEndpoints(
+      endpointConfigs,
       query,
       page,
       pageSize,
     );
 
+    const executionTime = Date.now() - startTime;
+
     return {
-      nodes,
-      total: nodes.length,
-      isCapped: false,
+      metadata: {
+        totalHits: results.length,
+        returnedHits: results.length,
+        executionTime,
+        endpoints: endpointInfos,
+      },
+      results,
+      links: {
+        self: '',
+      },
     };
   }
 
@@ -43,26 +66,54 @@ export class SparqlService {
     searchTerm: string,
     page: number,
     pageSize: number,
-  ): Promise<NodeModel[]> {
-    const allNodes: NodeModel[] = [];
+  ): Promise<{
+    results: SearchResult[];
+    endpointInfos: EndpointInfo[];
+  }> {
+    const allResults: SearchResult[] = [];
+    const endpointInfos: EndpointInfo[] = [];
 
+    // TODO: Use Comunica's federated queries instead of querying each endpoint separately (and se)
     for (const endpoint of endpoints) {
+      const startTime = Date.now();
       try {
-        const nodes = await this.querySingleEndpoint(
+        const results = await this.querySingleEndpoint(
           endpoint,
           searchTerm,
           page,
           pageSize,
         );
-        allNodes.push(...nodes);
+
+        const queryTime = Date.now() - startTime;
+
+        allResults.push(...results);
+
+        endpointInfos.push({
+          id: endpoint,
+          hitCount: results.length,
+          queryTime,
+          status: 'success',
+        });
       } catch (error) {
+        const queryTime = Date.now() - startTime;
         this.logger.warn(
           `Failed to query ${endpoint}: ${(error as Error).message}`,
         );
+
+        endpointInfos.push({
+          id: endpoint,
+          hitCount: 0,
+          queryTime,
+          status: 'error',
+          error: (error as Error).message,
+        });
       }
     }
 
-    return allNodes;
+    return {
+      results: allResults,
+      endpointInfos,
+    };
   }
 
   private async querySingleEndpoint(
@@ -70,13 +121,18 @@ export class SparqlService {
     searchTerm: string,
     page: number,
     pageSize: number,
-  ): Promise<NodeModel[]> {
+  ): Promise<SearchResult[]> {
     const sparqlQuery = SparqlQueryBuilder.buildSearchQuery(
       searchTerm,
       page,
       pageSize,
     );
-    const results = await SparqlClient.executeQuery(endpoint, sparqlQuery);
-    return SparqlNodeConverter.convertResultsToNodes(results, endpoint);
+
+    const bindingsStream = await this.queryEngine.queryBindings(sparqlQuery, {
+      sources: [endpoint],
+    });
+
+    const bindings = await bindingsStream.toArray();
+    return SparqlNodeConverter.convertResultsToNodes(bindings, endpoint);
   }
 }

@@ -2,7 +2,7 @@ import { BadRequestException, Injectable, Logger } from '@nestjs/common';
 import {
   EndpointConfig,
   SearchQueryModel,
-  SearchResponse,
+  SearchResponseModel,
 } from '@valeros/shared/types';
 import { SparqlService } from './sparql/sparql.service';
 
@@ -12,7 +12,7 @@ export class SearchService {
 
   constructor(private readonly sparqlService: SparqlService) {}
 
-  async searchNodes(request: SearchQueryModel): Promise<SearchResponse> {
+  async searchNodes(request: SearchQueryModel): Promise<SearchResponseModel> {
     const { query, page, pageSize, endpoints } = request;
 
     const sparqlEndpoints: EndpointConfig[] =
