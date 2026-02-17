@@ -4,7 +4,8 @@ export class SparqlQueryBuilder {
     page: number,
     pageSize: number,
   ): string {
-    const offset = page * pageSize;
+    // TODO: Implement pagination
+    // const offset = page * pageSize;
 
     if (!searchTerm) {
       return `
@@ -12,8 +13,6 @@ export class SparqlQueryBuilder {
         WHERE {
           ?s ?p ?o .
         }
-        LIMIT ${pageSize}
-        OFFSET ${offset}
       `;
     }
 
@@ -33,8 +32,6 @@ export class SparqlQueryBuilder {
           }
           ?s ?p ?o .
         }
-        LIMIT ${pageSize}
-        OFFSET ${offset}
       `;
   }
 }
