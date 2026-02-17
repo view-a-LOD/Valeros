@@ -44,6 +44,10 @@ export class SearchController {
     description:
       'Returns search results with nodes, total count, and capped flag',
   })
+  @ApiResponse({
+    status: 400,
+    description: 'Bad request - missing required parameters or endpoints',
+  })
   async search(
     @Query('query') query: string,
     @Query('page') page: string = '0',
