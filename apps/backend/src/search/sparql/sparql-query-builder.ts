@@ -1,26 +1,22 @@
-export class SparqlQueryBuilder {
-  static buildSearchQuery(
-    searchTerm: string,
-    page: number,
-    pageSize: number,
-    languages?: string[],
-  ): string {
-    // TODO: Implement pagination
-    // const offset = page * pageSize;
+import { SingleEndpointQueryModel } from '@valeros/shared/types';
 
-    if (!searchTerm) {
+export class SparqlQueryBuilder {
+  static buildSearchQuery(query: SingleEndpointQueryModel): string {
+    // TODO: Implement pagination
+
+    if (!query.query) {
       const emptyQuery = `
         SELECT ?s ?p ?o
         WHERE {
           ?s ?p ?o .
-          ${this.buildLanguageFilter(languages)}
+          ${this.buildLanguageFilter(query.languages)}
         }
       `;
       return emptyQuery;
     }
 
-    const searchFilter = this.buildSearchFilter(searchTerm);
-    const languageFilter = this.buildLanguageFilter(languages);
+    const searchFilter = this.buildSearchFilter(query.query);
+    const languageFilter = this.buildLanguageFilter(query.languages);
 
     return `
         SELECT ?s ?p ?o

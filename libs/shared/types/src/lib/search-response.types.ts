@@ -33,7 +33,7 @@ export type EndpointInfo = {
 
 export type SearchResult = {
   id: string;
-  endpointIds: string[];
+  endpointUrls: string[];
   properties: Record<string, PropertyValue[]>;
   outgoing?: SearchResult[];
   incoming?: SearchResult[];

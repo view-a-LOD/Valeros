@@ -1,148 +1,131 @@
 import { QueryEngine } from '@comunica/query-sparql';
-import type { Bindings } from '@comunica/types';
-import { Injectable, Logger } from '@nestjs/common';
+import { Bindings } from '@comunica/types';
+import { Injectable, Logger, NotImplementedException } from '@nestjs/common';
 import {
-  EndpointInfo,
+  ExecutionMode,
   SearchQueryModel,
   SearchResponseModel,
   SearchResult,
+  SingleEndpointQueryModel,
 } from '@valeros/shared/types';
 import { SparqlNodeConverter } from './sparql-node-converter';
 import { SparqlQueryBuilder } from './sparql-query-builder';
-
-interface QueryEndpointsResult {
-  results: SearchResult[];
-  endpointInfos: EndpointInfo[];
-}
+import { SparqlResponseBuilder } from './sparql-response-builder';
 
 @Injectable()
 export class SparqlService {
   private readonly logger = new Logger(SparqlService.name);
   private readonly queryEngine = new QueryEngine();
 
-  async searchNodes(request: SearchQueryModel): Promise<SearchResponseModel> {
+  async searchNodes(query: SearchQueryModel): Promise<SearchResponseModel> {
     const startTime: number = Date.now();
-    const { query, page, pageSize, endpoints, languages } = request;
 
-    const endpointUrls: string[] =
-      endpoints?.map((endpoint) => endpoint.url) || [];
-
-    if (!endpointUrls || endpointUrls.length === 0) {
-      return this.createEmptyResponse();
+    if (!query.endpoints?.length) {
+      this.logger.warn('No endpoints provided for SPARQL search');
+      return SparqlResponseBuilder.createEmptyResponse();
     }
 
-    this.logger.log(`Searching SPARQL endpoints: ${endpointUrls.join(', ')}`);
+    this.logger.log(
+      `Searching SPARQL endpoints: ${query.endpoints.map((e) => e.url).join(', ')}`,
+    );
 
-    const { results, endpointInfos }: QueryEndpointsResult =
-      await this.queryEndpoints(endpointUrls, query, page, pageSize, languages);
+    const searchResponse: SearchResponseModel =
+      await this.queryEndpoints(query);
 
     const executionTime: number = Date.now() - startTime;
+    searchResponse.metadata.executionTime = executionTime;
 
-    return {
-      metadata: {
-        totalHits: results.length,
-        returnedHits: results.length,
-        executionTime,
-        endpoints: endpointInfos,
-      },
-      results,
-      links: {
-        self: '',
-      },
-    };
-  }
-
-  private createEmptyResponse(): SearchResponseModel {
-    return {
-      metadata: {
-        totalHits: 0,
-        returnedHits: 0,
-        endpoints: [],
-      },
-      results: [],
-      links: {
-        self: '',
-      },
-    };
+    return searchResponse;
   }
 
   private async queryEndpoints(
-    endpoints: string[],
-    searchTerm: string,
-    page: number,
-    pageSize: number,
-    languages?: string[],
-  ): Promise<QueryEndpointsResult> {
-    const allResults: SearchResult[] = [];
-    const endpointInfos: EndpointInfo[] = [];
+    request: SearchQueryModel,
+  ): Promise<SearchResponseModel> {
+    const { executionMode } = request;
+    const mode: ExecutionMode = executionMode ?? 'async';
 
-    // TODO: Use Comunica's federated queries instead of querying each endpoint separately
-    for (const endpoint of endpoints) {
-      const startTime = Date.now();
-      try {
-        const results = await this.querySingleEndpoint(
-          endpoint,
-          searchTerm,
-          page,
-          pageSize,
-          languages,
+    switch (mode) {
+      case 'async':
+        return this.queryEndpointsAsync(request);
+
+      case 'federated':
+        // TODO: Implement federated queries using Comunica
+        throw new NotImplementedException(
+          'Federated query execution is not yet implemented',
         );
 
-        const queryTime = Date.now() - startTime;
-
-        allResults.push(...results);
-
-        endpointInfos.push({
-          id: endpoint,
-          hitCount: results.length,
-          queryTime,
-          status: 'success',
-        });
-      } catch (error) {
-        const queryTime = Date.now() - startTime;
-        this.logger.warn(
-          `Failed to query ${endpoint}: ${(error as Error).message}`,
-        );
-
-        endpointInfos.push({
-          id: endpoint,
-          hitCount: 0,
-          queryTime,
-          status: 'error',
-          error: (error as Error).message,
-        });
-      }
+      default:
+        throw new Error(`Unknown execution mode: ${mode}`);
     }
+  }
 
-    return {
-      results: allResults,
-      endpointInfos,
-    };
+  private async queryEndpointsAsync(
+    request: SearchQueryModel,
+  ): Promise<SearchResponseModel> {
+    const { endpoints } = request;
+    const endpointUrls = endpoints?.map((endpoint) => endpoint.url) || [];
+
+    const queryPromises = endpointUrls.map((endpointUrl) => {
+      const singleEndpointQuery: SingleEndpointQueryModel = {
+        ...request,
+        endpointUrl,
+      };
+      return this.querySingleEndpointWithTiming(singleEndpointQuery);
+    });
+
+    const responses: SearchResponseModel[] = await Promise.all(queryPromises);
+
+    return SparqlResponseBuilder.aggregateSearchResponses(responses);
+  }
+
+  private async querySingleEndpointWithTiming(
+    query: SingleEndpointQueryModel,
+  ): Promise<SearchResponseModel> {
+    const startTime = Date.now();
+
+    const endpointUrl = query.endpointUrl;
+
+    try {
+      const results = await this.querySingleEndpoint(query);
+
+      const queryTime = Date.now() - startTime;
+
+      return SparqlResponseBuilder.createSingleEndpointResponse(
+        endpointUrl,
+        results,
+        queryTime,
+        'success',
+      );
+    } catch (error) {
+      const queryTime = Date.now() - startTime;
+      this.logger.warn(
+        `Failed to query ${query.endpointUrl}: ${(error as Error).message}`,
+      );
+
+      return SparqlResponseBuilder.createSingleEndpointResponse(
+        query.endpointUrl,
+        [],
+        queryTime,
+        'error',
+        (error as Error).message,
+      );
+    }
   }
 
   private async querySingleEndpoint(
-    endpoint: string,
-    searchTerm: string,
-    page: number,
-    pageSize: number,
-    languages?: string[],
+    query: SingleEndpointQueryModel,
   ): Promise<SearchResult[]> {
-    const sparqlQuery = SparqlQueryBuilder.buildSearchQuery(
-      searchTerm,
-      page,
-      pageSize,
-      languages,
-    );
+    const sparqlQuery: string = SparqlQueryBuilder.buildSearchQuery(query);
 
     const bindings: Bindings[] = await this.queryEngine
       .queryBindings(sparqlQuery, {
-        sources: [endpoint],
+        sources: [query.endpointUrl],
       })
       .then((stream) => stream.toArray());
 
     return SparqlNodeConverter.convertBindingsToSearchResults(
       bindings,
-      endpoint,
+      query.endpointUrl,
     );
   }
 }

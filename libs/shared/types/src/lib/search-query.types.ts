@@ -2,21 +2,31 @@
 
 export type EndpointType = 'sparql' | 'qlever' | 'elastic';
 
+export type ExecutionMode = 'federated' | 'async';
+
 export type EndpointConfig = {
   type: EndpointType;
   url: string;
 };
 
-export type SearchQueryModel = {
+type BaseQueryModel = {
   query: string;
   page: number;
   pageSize: number;
-  endpoints: EndpointConfig[];
-  filters: SearchQueryFilterModel[];
-  sorting: SortingModel;
   languages?: string[];
   prefixes?: PrefixModel[];
+  filters: SearchQueryFilterModel[];
+  sorting: SortingModel;
   retrieve?: RetrieveConfig;
+  executionMode?: ExecutionMode;
+};
+
+export type SearchQueryModel = BaseQueryModel & {
+  endpoints: EndpointConfig[];
+};
+
+export type SingleEndpointQueryModel = BaseQueryModel & {
+  endpointUrl: string;
 };
 
 export type SearchQueryFilterModel = {

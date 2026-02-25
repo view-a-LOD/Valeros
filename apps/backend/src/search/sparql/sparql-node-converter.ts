@@ -5,7 +5,7 @@ import { PropertyValue, SearchResult } from '@valeros/shared/types';
 export class SparqlNodeConverter {
   static convertBindingsToSearchResults(
     bindings: Bindings[],
-    endpointId: string,
+    endpointUrl: string,
   ): SearchResult[] {
     const resultMap = new Map<string, SearchResult>();
 
@@ -23,7 +23,7 @@ export class SparqlNodeConverter {
       if (!searchResult) {
         searchResult = {
           id: subjectUri,
-          endpointIds: [endpointId],
+          endpointUrls: [endpointUrl],
           properties: {},
         };
         resultMap.set(subjectUri, searchResult);
