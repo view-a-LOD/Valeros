@@ -39,6 +39,7 @@ export class SearchController {
               url: 'https://api.triplydb.com/datasets/Triply/iris/sparql',
             },
           ],
+          executionMode: 'async',
           filters: [],
           sorting: {
             predicates: ['dc:title', 'rdfs:label'],
