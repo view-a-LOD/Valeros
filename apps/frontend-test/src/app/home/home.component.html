@@ -118,13 +118,14 @@
           <ul>
             @for (value of propEntry.value; track $index) {
               <li>
-                {{ value.value }} ({{ value.type }})
-                @if (value.language) {
+                {{ value.value }}
+                <!-- ({{ value.type }}) -->
+                <!-- @if (value.language) {
                   [{{ value.language }}]
                 }
                 @if (value.datatype) {
                   [{{ value.datatype }}]
-                }
+                } -->
               </li>
             }
           </ul>
