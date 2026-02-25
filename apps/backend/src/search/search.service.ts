@@ -15,10 +15,35 @@ export class SearchService {
   async searchNodes(request: SearchQueryModel): Promise<SearchResponseModel> {
     const { query, page, pageSize, endpoints } = request;
 
-    const sparqlEndpoints: EndpointConfig[] =
-      endpoints?.filter((endpoint) => endpoint.type === 'sparql') || [];
-    const otherEndpoints: EndpointConfig[] =
-      endpoints?.filter((endpoint) => endpoint.type !== 'sparql') || [];
+    const sparqlEndpoints = this.validateAndFilterSparqlEndpoints(endpoints);
+
+    const sparqlRequest: SearchQueryModel = {
+      ...request,
+      endpoints: sparqlEndpoints,
+    };
+
+    this.logger.log(
+      `Search request - query: "${query}", page: ${page}, pageSize: ${pageSize}, SPARQL endpoints: ${sparqlEndpoints.length}`,
+    );
+
+    return this.sparqlService.searchNodes(sparqlRequest);
+  }
+
+  private validateAndFilterSparqlEndpoints(
+    endpoints?: EndpointConfig[],
+  ): EndpointConfig[] {
+    if (!endpoints) {
+      throw new BadRequestException(
+        'At least one SPARQL endpoint must be provided',
+      );
+    }
+
+    const sparqlEndpoints: EndpointConfig[] = endpoints.filter(
+      (endpoint) => endpoint.type === 'sparql',
+    );
+    const otherEndpoints: EndpointConfig[] = endpoints.filter(
+      (endpoint) => endpoint.type !== 'sparql',
+    );
 
     otherEndpoints.forEach((endpoint) => {
       this.logger.warn(
@@ -26,25 +51,12 @@ export class SearchService {
       );
     });
 
-    const endpointUrls: string[] = sparqlEndpoints.map(
-      (endpoint) => endpoint.url,
-    );
-
-    this.logger.log(
-      `Search request - query: "${query}", page: ${page}, pageSize: ${pageSize}, SPARQL endpoints: ${endpointUrls.length}`,
-    );
-
-    if (!endpointUrls || endpointUrls.length === 0) {
+    if (sparqlEndpoints.length === 0) {
       throw new BadRequestException(
         'At least one SPARQL endpoint must be provided',
       );
     }
 
-    const sparqlRequest: SearchQueryModel = {
-      ...request,
-      endpoints: sparqlEndpoints,
-    };
-
-    return this.sparqlService.searchNodes(sparqlRequest);
+    return sparqlEndpoints;
   }
 }
