@@ -1,4 +1,5 @@
 import { QueryEngine } from '@comunica/query-sparql';
+import type { Bindings } from '@comunica/types';
 import { Injectable, Logger } from '@nestjs/common';
 import {
   EndpointInfo,
@@ -27,18 +28,7 @@ export class SparqlService {
       endpoints?.map((endpoint) => endpoint.url) || [];
 
     if (!endpointUrls || endpointUrls.length === 0) {
-      const emptyResponse: SearchResponseModel = {
-        metadata: {
-          totalHits: 0,
-          returnedHits: 0,
-          endpoints: [],
-        },
-        results: [],
-        links: {
-          self: '',
-        },
-      };
-      return emptyResponse;
+      return this.createEmptyResponse();
     }
 
     this.logger.log(`Searching SPARQL endpoints: ${endpointUrls.join(', ')}`);
@@ -56,6 +46,20 @@ export class SparqlService {
         endpoints: endpointInfos,
       },
       results,
+      links: {
+        self: '',
+      },
+    };
+  }
+
+  private createEmptyResponse(): SearchResponseModel {
+    return {
+      metadata: {
+        totalHits: 0,
+        returnedHits: 0,
+        endpoints: [],
+      },
+      results: [],
       links: {
         self: '',
       },
@@ -130,11 +134,15 @@ export class SparqlService {
       languages,
     );
 
-    const bindingsStream = await this.queryEngine.queryBindings(sparqlQuery, {
-      sources: [endpoint],
-    });
+    const bindings: Bindings[] = await this.queryEngine
+      .queryBindings(sparqlQuery, {
+        sources: [endpoint],
+      })
+      .then((stream) => stream.toArray());
 
-    const bindings = await bindingsStream.toArray();
-    return SparqlNodeConverter.convertResultsToNodes(bindings, endpoint);
+    return SparqlNodeConverter.convertBindingsToSearchResults(
+      bindings,
+      endpoint,
+    );
   }
 }

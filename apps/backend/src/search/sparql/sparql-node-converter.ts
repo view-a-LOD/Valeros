@@ -3,11 +3,11 @@ import { Literal, Term } from '@rdfjs/types';
 import { PropertyValue, SearchResult } from '@valeros/shared/types';
 
 export class SparqlNodeConverter {
-  static convertResultsToNodes(
+  static convertBindingsToSearchResults(
     bindings: Bindings[],
-    endpoint: string,
+    endpointId: string,
   ): SearchResult[] {
-    const nodeMap = new Map<string, SearchResult>();
+    const resultMap = new Map<string, SearchResult>();
 
     for (const binding of bindings) {
       const s = binding.get('s');
@@ -16,27 +16,29 @@ export class SparqlNodeConverter {
 
       if (!s || !p || !o) continue;
 
-      const subjectUri = s.value;
-      const predicate = p.value;
+      const subjectUri: string = s.value;
+      const predicate: string = p.value;
 
-      let node = nodeMap.get(subjectUri);
-      if (!node) {
-        node = {
+      let searchResult: SearchResult | undefined = resultMap.get(subjectUri);
+      if (!searchResult) {
+        searchResult = {
           id: subjectUri,
-          endpointIds: [endpoint],
+          endpointIds: [endpointId],
           properties: {},
         };
-        nodeMap.set(subjectUri, node);
+        resultMap.set(subjectUri, searchResult);
       }
 
-      if (!node.properties[predicate]) {
-        node.properties[predicate] = [];
+      if (!searchResult.properties[predicate]) {
+        searchResult.properties[predicate] = [];
       }
 
-      node.properties[predicate].push(this.termToPropertyValue(o));
+      const propertyValue: PropertyValue = this.termToPropertyValue(o);
+      searchResult.properties[predicate].push(propertyValue);
     }
 
-    return Array.from(nodeMap.values());
+    const nodeResults: SearchResult[] = Array.from(resultMap.values());
+    return nodeResults;
   }
 
   static termToPropertyValue(term: Term): PropertyValue {

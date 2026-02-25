@@ -9,19 +9,17 @@ export class SparqlQueryBuilder {
     // const offset = page * pageSize;
 
     if (!searchTerm) {
-      return `
+      const emptyQuery = `
         SELECT ?s ?p ?o
         WHERE {
           ?s ?p ?o .
           ${this.buildLanguageFilter(languages)}
         }
       `;
+      return emptyQuery;
     }
 
-    const searchFilter = searchTerm
-      ? `FILTER(CONTAINS(LCASE(STR(?o)), LCASE("${searchTerm}")))`
-      : '';
-
+    const searchFilter = this.buildSearchFilter(searchTerm);
     const languageFilter = this.buildLanguageFilter(languages);
 
     return `
@@ -39,6 +37,12 @@ export class SparqlQueryBuilder {
           ${languageFilter}
         }
       `;
+  }
+
+  private static buildSearchFilter(searchTerm: string): string {
+    return searchTerm
+      ? `FILTER(CONTAINS(LCASE(STR(?o)), LCASE("${searchTerm}")))`
+      : '';
   }
 
   private static buildLanguageFilter(languages?: string[]): string {
