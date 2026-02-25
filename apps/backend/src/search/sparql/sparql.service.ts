@@ -9,19 +9,25 @@ import {
 import { SparqlNodeConverter } from './sparql-node-converter';
 import { SparqlQueryBuilder } from './sparql-query-builder';
 
+interface QueryEndpointsResult {
+  results: SearchResult[];
+  endpointInfos: EndpointInfo[];
+}
+
 @Injectable()
 export class SparqlService {
   private readonly logger = new Logger(SparqlService.name);
   private readonly queryEngine = new QueryEngine();
 
   async searchNodes(request: SearchQueryModel): Promise<SearchResponseModel> {
-    const startTime = Date.now();
+    const startTime: number = Date.now();
     const { query, page, pageSize, endpoints, languages } = request;
 
-    const endpointConfigs = endpoints?.map((endpoint) => endpoint.url) || [];
+    const endpointUrls: string[] =
+      endpoints?.map((endpoint) => endpoint.url) || [];
 
-    if (!endpointConfigs || endpointConfigs.length === 0) {
-      return {
+    if (!endpointUrls || endpointUrls.length === 0) {
+      const emptyResponse: SearchResponseModel = {
         metadata: {
           totalHits: 0,
           returnedHits: 0,
@@ -32,21 +38,15 @@ export class SparqlService {
           self: '',
         },
       };
+      return emptyResponse;
     }
 
-    this.logger.log(
-      `Searching SPARQL endpoints: ${endpointConfigs.join(', ')}`,
-    );
+    this.logger.log(`Searching SPARQL endpoints: ${endpointUrls.join(', ')}`);
 
-    const { results, endpointInfos } = await this.queryEndpoints(
-      endpointConfigs,
-      query,
-      page,
-      pageSize,
-      languages,
-    );
+    const { results, endpointInfos }: QueryEndpointsResult =
+      await this.queryEndpoints(endpointUrls, query, page, pageSize, languages);
 
-    const executionTime = Date.now() - startTime;
+    const executionTime: number = Date.now() - startTime;
 
     return {
       metadata: {
@@ -68,10 +68,7 @@ export class SparqlService {
     page: number,
     pageSize: number,
     languages?: string[],
-  ): Promise<{
-    results: SearchResult[];
-    endpointInfos: EndpointInfo[];
-  }> {
+  ): Promise<QueryEndpointsResult> {
     const allResults: SearchResult[] = [];
     const endpointInfos: EndpointInfo[] = [];
 
