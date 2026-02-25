@@ -22,7 +22,7 @@ export type PaginationLinks = {
 };
 
 export type EndpointInfo = {
-  id: string;
+  url: string;
   title?: string;
   description?: string;
   hitCount: number;

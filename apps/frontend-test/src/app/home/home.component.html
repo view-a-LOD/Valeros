@@ -1,8 +1,161 @@
-<div class="card bg-base-100 shadow-xl">
-  <div class="card-body">
-    <h2 class="card-title">Test front-end</h2>
-    <button class="btn btn-primary mt-4" (click)="onSearchButtonClick()">
-      Log Search Query
-    </button>
+<div>
+  <h2>Test front-end</h2>
+
+  <div class="form-control w-full max-w-md mb-4">
+    <label class="label">
+      <span class="label-text">Query:</span>
+    </label>
+    <input
+      id="query"
+      type="text"
+      [(ngModel)]="query"
+      (keyup.enter)="onSearchButtonClick()"
+      placeholder="Enter search query"
+      class="input input-bordered w-full"
+    />
   </div>
+
+  <div class="form-control w-full max-w-md mb-4">
+    <label class="label">
+      <span class="label-text">Endpoints:</span>
+    </label>
+    <div class="space-y-2">
+      @for (endpoint of endpoints(); track endpoint.id) {
+        <input
+          type="text"
+          [(ngModel)]="endpoint.url"
+          placeholder="Enter endpoint URL"
+          class="input input-bordered w-full"
+        />
+      }
+    </div>
+  </div>
+
+  <button
+    (click)="onSearchButtonClick()"
+    class="btn btn-primary"
+    [disabled]="isLoading()"
+  >
+    <span>Execute Search</span>
+    @if (isLoading()) {
+      <span class="loading loading-spinner loading-sm"></span>
+    }
+  </button>
+
+  <div class="divider"></div>
+
+  @if (error()) {
+    <div class="alert alert-error mt-4">
+      <span>Error: {{ error() }}</span>
+    </div>
+  }
+
+  @if (searchResponse()) {
+    <div class="stats stats-vertical lg:stats-horizontal shadow mb-4">
+      <div class="stat">
+        <div class="stat-title">Total Hits</div>
+        <div class="stat-value">{{ searchResponse()!.metadata.totalHits }}</div>
+      </div>
+      <div class="stat">
+        <div class="stat-title">Returned Hits</div>
+        <div class="stat-value">
+          {{ searchResponse()!.metadata.returnedHits }}
+        </div>
+      </div>
+      <div class="stat">
+        <div class="stat-title">Execution Time</div>
+        <div class="stat-value">
+          {{ searchResponse()!.metadata.executionTime }}ms
+        </div>
+      </div>
+    </div>
+
+    <div class="card bg-base-100 shadow-xl mb-4">
+      <div class="card-body">
+        <h2 class="card-title">Endpoints</h2>
+        <div class="space-y-4">
+          @for (
+            endpoint of searchResponse()!.metadata.endpoints;
+            track endpoint.url
+          ) {
+            <div class="flex flex-col gap-2 p-3 bg-base-200 rounded-lg">
+              <div class="font-mono text-sm">{{ endpoint.url }}</div>
+              <div class="flex gap-2">
+                <span class="badge badge-primary badge-sm"
+                  >{{ endpoint.hitCount }} hits</span
+                >
+                <span
+                  class="badge badge-sm {{
+                    endpoint.status === 'success'
+                      ? 'badge-success'
+                      : 'badge-error'
+                  }}"
+                  >{{ endpoint.status }}</span
+                >
+                @if (endpoint.error) {
+                  <span class="badge badge-warning badge-sm"
+                    >Error: {{ endpoint.error }}</span
+                  >
+                }
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+
+    @for (
+      result of searchResponse()!.results;
+      track result.id;
+      let i = $index
+    ) {
+      <div class="card bg-base-100 shadow-xl my-2 p-4">
+        <h5>Result {{ i + 1 }}: {{ result.id }}</h5>
+        <p class="mb-2">Endpoints: {{ result.endpointUrls.join(", ") }}</p>
+
+        @for (propEntry of result.properties | keyvalue; track propEntry.key) {
+          <strong>{{ propEntry.key }}:</strong>
+          <ul>
+            @for (value of propEntry.value; track $index) {
+              <li>
+                {{ value.value }} ({{ value.type }})
+                @if (value.language) {
+                  [{{ value.language }}]
+                }
+                @if (value.datatype) {
+                  [{{ value.datatype }}]
+                }
+              </li>
+            }
+          </ul>
+        }
+
+        @if (result.outgoing && result.outgoing.length > 0) {
+          <div class="mt-4">
+            <div class="card-title">
+              <h6>Outgoing ({{ result.outgoing.length }}):</h6>
+            </div>
+            <ul>
+              @for (outgoing of result.outgoing; track outgoing.id) {
+                <li>{{ outgoing.id }}</li>
+              }
+            </ul>
+          </div>
+        }
+
+        @if (result.incoming && result.incoming.length > 0) {
+          <div class="mt-4">
+            <div class="card-title">
+              <h6>Incoming ({{ result.incoming.length }}):</h6>
+            </div>
+            <ul>
+              @for (incoming of result.incoming; track incoming.id) {
+                <li>{{ incoming.id }}</li>
+              }
+            </ul>
+          </div>
+        }
+      </div>
+    }
+  }
 </div>

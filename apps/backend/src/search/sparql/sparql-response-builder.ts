@@ -32,7 +32,7 @@ export class SparqlResponseBuilder {
         returnedHits: results.length,
         endpoints: [
           {
-            id: endpointUrl,
+            url: endpointUrl,
             hitCount: results.length,
             queryTime,
             status,
