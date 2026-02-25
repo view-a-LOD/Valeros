@@ -23,7 +23,7 @@ export class SearchService {
     };
 
     this.logger.log(
-      `Search request - query: "${query}", page: ${page}, pageSize: ${pageSize}, SPARQL endpoints: ${sparqlEndpoints.length}`,
+      `Search request - query: "${query}", page: ${page}, pageSize: ${pageSize}, SPARQL endpoints: ${sparqlEndpoints.length}, mode: ${request.executionMode}`,
     );
 
     return this.sparqlService.searchNodes(sparqlRequest);

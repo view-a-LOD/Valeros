@@ -1,4 +1,9 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  InternalServerErrorException,
+  Post,
+} from '@nestjs/common';
 import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { SearchQueryModel } from '@valeros/shared/types';
 import { SearchService } from './search.service';
@@ -51,7 +56,16 @@ export class SearchController {
     status: 400,
     description: 'Bad request - invalid search query',
   })
+  @ApiResponse({
+    status: 500,
+    description: 'Internal server error',
+  })
   async search(@Body() searchQuery: SearchQueryModel) {
-    return this.searchService.searchNodes(searchQuery);
+    try {
+      return await this.searchService.searchNodes(searchQuery);
+    } catch (error) {
+      const errorMessage = (error as Error).message;
+      throw new InternalServerErrorException(`Search failed: ${errorMessage}`);
+    }
   }
 }
