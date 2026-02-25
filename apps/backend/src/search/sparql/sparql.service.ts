@@ -72,7 +72,7 @@ export class SparqlService {
     const allResults: SearchResult[] = [];
     const endpointInfos: EndpointInfo[] = [];
 
-    // TODO: Use Comunica's federated queries instead of querying each endpoint separately (and se)
+    // TODO: Use Comunica's federated queries instead of querying each endpoint separately
     for (const endpoint of endpoints) {
       const startTime = Date.now();
       try {
