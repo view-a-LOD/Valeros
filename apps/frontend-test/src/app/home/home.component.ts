@@ -45,6 +45,30 @@ export class HomeComponent {
         predicates: ['dc:title', 'rdfs:label'],
         direction: 'asc',
       },
+      retrieve: {
+        selectors: [
+          {
+            // Fetch some predicate values for the root hits
+            // Flow: Node --identifier/type/...--> string
+            scope: 'roots',
+            paths: [
+              {
+                path: 'dc:identifier|rdf:type|*',
+              },
+            ],
+          },
+          // {
+          //   // For every node returned (roots + expanded nodes), fetch labels
+          //   // Flow: Node --label/title--> string
+          //   scope: 'all',
+          //   paths: [
+          //     {
+          //       path: 'rdfs:label|dc:title',
+          //     },
+          //   ],
+          // },
+        ],
+      },
     };
   }
 
