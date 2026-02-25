@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Component, signal } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import type {
   SearchQueryModel,
@@ -13,7 +13,7 @@ import type {
   imports: [CommonModule, FormsModule],
   templateUrl: './home.component.html',
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
   title = 'Frontend Test - Home';
   searchResponse = signal<SearchResponseModel | null>(null);
   isLoading = signal(false);
@@ -28,6 +28,10 @@ export class HomeComponent {
   ]);
 
   constructor(private http: HttpClient) {}
+
+  ngOnInit(): void {
+    this.onSearchButtonClick();
+  }
 
   createSearchQuery(): SearchQueryModel {
     return {
